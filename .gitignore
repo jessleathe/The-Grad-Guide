@@ -2,3 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
+# bookdown output
+_book/
+_bookdown_files/
+
+# build artifacts
+*.log
+*.rds
+*.tex
+*.epub
+*.pdf

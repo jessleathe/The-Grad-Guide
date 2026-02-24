@@ -1,4 +1,4 @@
-# Sharing your book
+# Career Readiness Assessment
 
 ## Publishing
 
@@ -24,6 +24,3 @@ Or use:
 ```{r eval=FALSE}
 ?bookdown::bs4_book
 ```
-
-
-
