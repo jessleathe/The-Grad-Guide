@@ -5,3 +5,14 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
+rmd_files:
+  - index.Rmd
+  - 01-techCareerPaths.Rmd
+  - 02-strategicJobSearch.Rmd
+  - 03-findYourBestCareerFit.Rmd
+  - 04-resume.Rmd
+  - 05-howToNetwork.Rmd
+  - 06-acingInterviews.Rmd
+  - 07-interviewFollowUp.Rmd
+  - 08-careerReadinessAssess.Rmd
+  - 09-references.Rmd
