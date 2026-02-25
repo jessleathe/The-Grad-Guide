@@ -1,18 +1,453 @@
-# Resume Prep
+# Resume for Tech
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+```{r resume-helper, echo=FALSE}
+htmltools::HTML('
+<style>
+  @import url(\'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap\');
 
-## Footnotes
+  .resume-page {
+    font-family: \'Poppins\', sans-serif;
+    max-width: 750px;
+    margin: auto;
+  }
 
-Footnotes are put inside the square brackets after a caret `^[]`. Like this one ^[This is a footnote.]. 
+  .welcome-banner {
+    background: linear-gradient(135deg, #6c63ff, #3b82f6);
+    color: white;
+    padding: 36px 30px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+    text-align: center;
+  }
 
-## Citations
+  .welcome-banner h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+  }
 
-Reference items in your bibliography file(s) using `@key`.
+  .welcome-banner p {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.9;
+  }
 
-For example, we are using the **bookdown** package [@R-bookdown] (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and **knitr** [@xie2015] (this citation was added manually in an external file book.bib). 
-Note that the `.bib` files need to be listed in the index.Rmd with the YAML `bibliography` key.
+  .role-section {
+    background: linear-gradient(135deg, #f5f7fa, #e8f4fd);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
 
+  .role-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2d2d2d;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #6c63ff;
+  }
 
-The `bs4_book` theme makes footnotes appear inline when you click on them. In this example book, we added `csl: chicago-fullnote-bibliography.csl` to the `index.Rmd` YAML, and include the `.csl` file. To download a new style, we recommend: https://www.zotero.org/styles/
+  .advice-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 5px solid #6c63ff;
+  }
 
+  .advice-card h4 {
+    color: #6c63ff;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    font-size: 15px;
+  }
 
-The RStudio Visual Markdown Editor can also make it easier to insert citations: <https://rstudio.github.io/visual-markdown-editing/#/citations>
+  .advice-card ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .advice-card li {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .advice-card p {
+    font-size: 14px;
+    color: #444;
+    margin: 6px 0;
+  }
+
+  .keyword-tag {
+    display: inline-block;
+    background: #f0eeff;
+    color: #6c63ff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 4px;
+  }
+
+  .checklist {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 5px solid #3b82f6;
+  }
+
+  .checklist h4 {
+    color: #3b82f6;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    font-size: 15px;
+  }
+
+  .checklist label {
+    display: block;
+    margin: 8px 0;
+    font-size: 14px;
+    color: #444;
+    cursor: pointer;
+  }
+
+  .checklist input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #6c63ff;
+  }
+
+  .sources-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 5px solid #6c63ff;
+  }
+
+  .sources-section h4 {
+    color: #2d2d2d;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    font-size: 15px;
+  }
+
+  .sources-section ol {
+    padding-left: 20px;
+    margin: 0;
+  }
+
+  .sources-section li {
+    font-size: 13px;
+    color: #555;
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+
+  .sources-section a {
+    color: #6c63ff;
+    text-decoration: none;
+  }
+
+  .sources-section a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="resume-page">
+
+  <div class="welcome-banner">
+    <h2>Ready to start a career in tech?</h2>
+    <p>Let us tailor your resume to land you the job you have always dreamed of. Scroll through each role below to get personalized resume structure, keywords, bullet point formulas, and GitHub tips.</p>
+  </div>
+
+  <!-- SOFTWARE ENGINEER / DEVELOPER -->
+  <div class="role-section">
+    <div class="role-title">Software Engineer / Developer</div>
+
+    <div class="advice-card">
+      <h4>Resume Structure</h4>
+      <ul>
+        <li><strong>Header:</strong> Name, email, phone, LinkedIn, GitHub — GitHub is your most important link for this role</li>
+        <li><strong>Summary:</strong> Highlight languages you are strongest in, types of systems you have built, and any internship experience you have</li>
+        <li><strong>Skills:</strong> Programming languages, frameworks, databases, tools — be specific about proficiency levels</li>
+        <li><strong>Experience:</strong> Focus on systems built, scale achieved, and engineering problems solved</li>
+        <li><strong>Projects:</strong> Personal projects carry a lot of weight</li>
+        <li><strong>Education:</strong> Mention Degree and relevant coursework - data structures and algorithms, systems design, operating systems, programming language concepts, etc.</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Keywords to Include</h4>
+      <p>Include these in your resume to pass ATS screening and catch recruiter attention:</p>
+      <span class="keyword-tag">Python</span><span class="keyword-tag">Java</span><span class="keyword-tag">JavaScript</span><span class="keyword-tag">React</span><span class="keyword-tag">Node.js</span><span class="keyword-tag">REST APIs</span><span class="keyword-tag">Git</span><span class="keyword-tag">Docker</span><span class="keyword-tag">CI/CD</span><span class="keyword-tag">Agile</span><span class="keyword-tag">SQL</span><span class="keyword-tag">System Design</span><span class="keyword-tag">Microservices</span><span class="keyword-tag">AWS</span><span class="keyword-tag">Unit Testing</span>
+    </div>
+
+    <div class="advice-card">
+      <h4>Technical Bullet Point Examples</h4>
+      <p>Adapt these for your own experience — always start with an action verb and include a quantified result:</p>
+      <ul>
+        <li>Refactored legacy codebase reducing technical debt by 40% and improving test coverage from 20% to 85%</li>
+        <li>Built React frontend for internal dashboard used by 200+ employees, reducing report generation time by 70%</li>
+        <li>Implemented CI/CD pipeline using GitHub Actions cutting deployment time from 2 hours to 15 minutes</li>
+        <li>Designed architecture handling 1M+ daily transactions with 99.95% uptime</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>GitHub Best Practices</h4>
+      <ul>
+        <li>Aim for a green contribution graph — consistency matters more than volume</li>
+        <li>Pin projects that show full stack capability — frontend, backend, and database</li>
+        <li>Contribute to open source projects even in small ways — bug fixes and documentation count</li>
+        <li>Every repo should have a README with setup instructions, tech stack, and screenshots</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Portfolio Tips</h4>
+      <ul>
+        <li>Include at least one deployed project</li>
+        <li>Show variety — a web app, a CLI tool, and an API project covers a lot of ground</li>
+        <li>Include test files in your projects — engineers who write tests stand out</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h4>Resume Checklist</h4>
+      <label><input type="checkbox"> Contact info is current and professional</label>
+      <label><input type="checkbox"> Every bullet point starts with a strong action verb</label>
+      <label><input type="checkbox"> At least half of your bullets include a quantified result</label>
+      <label><input type="checkbox"> Skills section mirrors keywords from the target job description</label>
+      <label><input type="checkbox"> No spelling or grammar errors</label>
+      <label><input type="checkbox"> File is named FirstName_LastName_Resume.pdf</label>
+      <label><input type="checkbox"> GitHub link is included and profile is up to date</label>
+      <label><input type="checkbox"> Summary is tailored to the specific role you are applying for</label>
+    </div>
+  </div>
+
+  <!-- DATA ANALYST -->
+  <div class="role-section">
+    <div class="role-title">Data Analyst</div>
+
+    <div class="advice-card">
+      <h4>Resume Structure</h4>
+      <ul>
+        <li><strong>Header:</strong> Name, email, phone, LinkedIn, GitHub, location — keep it clean and professional</li>
+        <li><strong>Summary:</strong> 2-3 sentences highlighting your analytical skills, tools you use, and the type of impact you drive</li>
+        <li><strong>Skills:</strong> Lead with technical skills — SQL, Python, Excel, Tableau/Power BI, then soft skills</li>
+        <li><strong>Experience:</strong> Focus on reporting, dashboards, and insights you delivered with business impact</li>
+        <li><strong>Projects:</strong> Include any data analysis projects, even academic ones — link to GitHub</li>
+        <li><strong>Education:</strong> Degree, GPA if above 3.5, relevant coursework like Database Management or Programming in R/SQL</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Keywords to Include</h4>
+      <p>Include these in your resume to pass ATS screening and catch recruiter attention:</p>
+      <span class="keyword-tag">SQL</span><span class="keyword-tag">Python</span><span class="keyword-tag">Tableau</span><span class="keyword-tag">Power BI</span><span class="keyword-tag">Excel</span><span class="keyword-tag">Data Visualization</span><span class="keyword-tag">Reporting</span><span class="keyword-tag">ETL</span><span class="keyword-tag">KPIs</span><span class="keyword-tag">Dashboards</span><span class="keyword-tag">A/B Testing</span><span class="keyword-tag">Statistical Analysis</span><span class="keyword-tag">Data Cleaning</span><span class="keyword-tag">Business Intelligence</span><span class="keyword-tag">Stakeholder Communication</span>
+    </div>
+
+    <div class="advice-card">
+      <h4>Technical Bullet Point Examples</h4>
+      <p>Adapt these for your own experience — always start with an action verb and include a quantified result:</p>
+      <ul>
+        <li>Analyzed 50,000+ customer records using SQL to identify churn patterns, reducing customer loss by 12%</li>
+        <li>Built interactive Tableau dashboard tracking 8 KPIs, used weekly by 3 department heads</li>
+        <li>Automated monthly reporting process in Python, saving 6 hours of manual work per month</li>
+        <li>Cleaned and transformed raw sales data from 5 sources into a unified dataset, improving reporting accuracy by 30%</li>
+        <li>Presented data-driven recommendations to stakeholders resulting in a 15% increase in campaign ROI</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>GitHub Best Practices</h4>
+      <ul>
+        <li>Pin 4-6 repositories showcasing SQL queries, Python analysis scripts, and Tableau/visualization projects</li>
+        <li>Include a README for every pinned project explaining the business problem, your approach, and results</li>
+        <li>Add a profile README introducing yourself and listing your tech stack</li>
+        <li>Upload Jupyter notebooks with clean, commented code and visualizations</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Portfolio Tips</h4>
+      <ul>
+        <li>Include 2-3 end-to-end analysis projects — raw data to insight to recommendation</li>
+        <li>If possible, include a public Tableau Public profile with live dashboards</li>
+        <li>Projects involving real estate, tourism, or finance data will stand out to local employers</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h4>Resume Checklist</h4>
+      <label><input type="checkbox"> Contact info is current and professional</label>
+      <label><input type="checkbox"> Every bullet point starts with a strong action verb</label>
+      <label><input type="checkbox"> At least half of your bullets include a quantified result</label>
+      <label><input type="checkbox"> Skills section mirrors keywords from the target job description</label>
+      <label><input type="checkbox"> No spelling or grammar errors</label>
+      <label><input type="checkbox"> File is named FirstName_LastName_Resume.pdf</label>
+      <label><input type="checkbox"> GitHub link is included and profile is up to date</label>
+      <label><input type="checkbox"> Summary is tailored to the specific role you are applying for</label>
+    </div>
+  </div>
+
+  <!-- DATA ENGINEER -->
+  <div class="role-section">
+    <div class="role-title">Data Engineer</div>
+
+    <div class="advice-card">
+      <h4>Resume Structure</h4>
+      <ul>
+        <li><strong>Header:</strong> Name, email, phone, LinkedIn, GitHub — GitHub is especially important for this role</li>
+        <li><strong>Summary:</strong> Highlight your pipeline building experience, cloud tools, and scale of data you have worked with</li>
+        <li><strong>Skills:</strong> Prioritize languages and tools — Python, SQL, Spark, cloud platforms (AWS/GCP/Azure)</li>
+        <li><strong>Experience:</strong> Focus on pipelines built, data volume handled, and performance improvements</li>
+        <li><strong>Projects:</strong> End-to-end pipeline projects are gold — link everything to GitHub</li>
+        <li><strong>Education:</strong> Degree and relevant coursework like Databases, Distributed Systems, or Cloud Computing</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Keywords to Include</h4>
+      <p>Include these in your resume to pass ATS screening and catch recruiter attention:</p>
+      <span class="keyword-tag">Python</span><span class="keyword-tag">SQL</span><span class="keyword-tag">Apache Spark</span><span class="keyword-tag">Airflow</span><span class="keyword-tag">ETL</span><span class="keyword-tag">AWS</span><span class="keyword-tag">GCP</span><span class="keyword-tag">Azure</span><span class="keyword-tag">Kafka</span><span class="keyword-tag">dbt</span><span class="keyword-tag">Snowflake</span><span class="keyword-tag">Data Pipeline</span><span class="keyword-tag">Data Warehouse</span><span class="keyword-tag">REST APIs</span><span class="keyword-tag">Docker</span>
+    </div>
+
+    <div class="advice-card">
+      <h4>Technical Bullet Point Examples</h4>
+      <p>Adapt these for your own experience — always start with an action verb and include a quantified result:</p>
+      <ul>
+        <li>Designed and deployed ETL pipeline processing 2M+ records daily using Apache Spark and Airflow</li>
+        <li>Migrated on-premise data warehouse to AWS Redshift, reducing query time by 40%</li>
+        <li>Built REST API data ingestion system handling 500K daily events with 99.9% uptime</li>
+        <li>Optimized SQL queries on 10TB dataset, improving performance by 60% and reducing compute costs by $2,000/month</li>
+        <li>Developed automated data quality checks using Python catching 95% of data anomalies before production</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>GitHub Best Practices</h4>
+      <ul>
+        <li>Showcase pipeline projects with clear architecture diagrams in your READMEs</li>
+        <li>Include projects using at least one cloud platform (AWS, GCP, or Azure)</li>
+        <li>Demonstrate infrastructure as code — Terraform or CloudFormation projects stand out</li>
+        <li>Keep your commit history active and consistent — engineers look at this</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Portfolio Tips</h4>
+      <ul>
+        <li>Build at least one project using a real public dataset processed through a full pipeline</li>
+        <li>Document your architecture decisions in your READMEs — explain why you chose each tool</li>
+        <li>A project using dbt for data transformation will stand out as it is increasingly in demand</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h4>Resume Checklist</h4>
+      <label><input type="checkbox"> Contact info is current and professional</label>
+      <label><input type="checkbox"> Every bullet point starts with a strong action verb</label>
+      <label><input type="checkbox"> At least half of your bullets include a quantified result</label>
+      <label><input type="checkbox"> Skills section mirrors keywords from the target job description</label>
+      <label><input type="checkbox"> No spelling or grammar errors</label>
+      <label><input type="checkbox"> File is named FirstName_LastName_Resume.pdf</label>
+      <label><input type="checkbox"> GitHub link is included and profile is up to date</label>
+      <label><input type="checkbox"> Summary is tailored to the specific role you are applying for</label>
+    </div>
+  </div>
+
+  <!-- DATA SCIENTIST -->
+  <div class="role-section">
+    <div class="role-title">Data Scientist</div>
+
+    <div class="advice-card">
+      <h4>Resume Structure</h4>
+      <ul>
+        <li><strong>Header:</strong> Name, email, phone, LinkedIn, GitHub, Google Scholar if you have publications</li>
+        <li><strong>Summary:</strong> Highlight your modeling experience, statistical background, and business impact</li>
+        <li><strong>Skills:</strong> Languages first (Python, R), then ML frameworks (TensorFlow, PyTorch, scikit-learn), then tools</li>
+        <li><strong>Experience:</strong> Lead with model performance metrics and business outcomes — not just what you built but what it achieved</li>
+        <li><strong>Projects:</strong> Machine learning projects with clear problem statements, methodology, and results</li>
+        <li><strong>Education:</strong> Very important for this role — include GPA, thesis if applicable, and relevant coursework</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Keywords to Include</h4>
+      <p>Include these in your resume to pass ATS screening and catch recruiter attention:</p>
+      <span class="keyword-tag">Python</span><span class="keyword-tag">R</span><span class="keyword-tag">Machine Learning</span><span class="keyword-tag">Deep Learning</span><span class="keyword-tag">TensorFlow</span><span class="keyword-tag">PyTorch</span><span class="keyword-tag">scikit-learn</span><span class="keyword-tag">Statistical Modeling</span><span class="keyword-tag">NLP</span><span class="keyword-tag">Feature Engineering</span><span class="keyword-tag">A/B Testing</span><span class="keyword-tag">SQL</span><span class="keyword-tag">Data Mining</span><span class="keyword-tag">Predictive Modeling</span><span class="keyword-tag">Jupyter</span>
+    </div>
+
+    <div class="advice-card">
+      <h4>Technical Bullet Point Examples</h4>
+      <p>Adapt these for your own experience — always start with an action verb and include a quantified result:</p>
+      <ul>
+        <li>Developed churn prediction model using XGBoost achieving 89% accuracy, saving $400K in annual revenue</li>
+        <li>Built NLP sentiment analysis pipeline processing 100K+ customer reviews with 92% classification accuracy</li>
+        <li>Designed and analyzed A/B test for product feature rollout, driving 18% increase in user engagement</li>
+        <li>Reduced model training time by 35% through feature selection and hyperparameter tuning</li>
+        <li>Deployed machine learning model to production using Flask API serving 10K+ daily predictions</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>GitHub Best Practices</h4>
+      <ul>
+        <li>Pin projects that show the full ML lifecycle — problem definition, EDA, modeling, evaluation, deployment</li>
+        <li>Include well documented Jupyter notebooks with visualizations and clear explanations</li>
+        <li>Kaggle competition projects are great to include — link your Kaggle profile if you have one</li>
+        <li>Show diversity in your projects — NLP, computer vision, tabular data, time series</li>
+      </ul>
+    </div>
+
+    <div class="advice-card">
+      <h4>Portfolio Tips</h4>
+      <ul>
+        <li>Lead each project description with the business problem, not the technical approach</li>
+        <li>Always include model performance metrics and what they mean in plain English</li>
+        <li>A deployed model (even a simple Streamlit or Flask app) shows end-to-end capability</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h4>Resume Checklist</h4>
+      <label><input type="checkbox"> Contact info is current and professional</label>
+      <label><input type="checkbox"> Every bullet point starts with a strong action verb</label>
+      <label><input type="checkbox"> At least half of your bullets include a quantified result</label>
+      <label><input type="checkbox"> Skills section mirrors keywords from the target job description</label>
+      <label><input type="checkbox"> No spelling or grammar errors</label>
+      <label><input type="checkbox"> File is named FirstName_LastName_Resume.pdf</label>
+      <label><input type="checkbox"> GitHub link is included and profile is up to date</label>
+      <label><input type="checkbox"> Summary is tailored to the specific role you are applying for</label>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources-section">
+    <h4>Sources</h4>
+    <ol>
+      <li>Jobscan. (2025). <em>The Top 500 ATS Resume Keywords of 2025.</em> <a href="https://www.jobscan.co/blog/top-resume-keywords-boost-resume/" target="_blank">jobscan.co</a></li>
+      <li>Toptal. (2025). <em>Tech Resume in 2025: ATS Trends, Formats and Keywords.</em> <a href="https://www.toptal.com/techresume/career-advice/the-perfect-tech-resume-in-2025-key-trends-ats-keywords-and-formatting-tips" target="_blank">toptal.com</a></li>
+      <li>ResumeAdapter. (2025). <em>Software Engineer Resume Keywords: 60+ ATS Skills to Land Interviews.</em> <a href="https://www.resumeadapter.com/blog/software-engineer-resume-keywords" target="_blank">resumeadapter.com</a></li>
+      <li>The Interview Guys. (2025). <em>Resume Keywords by Industry: What ATS Systems Are Actually Scanning For.</em> <a href="https://blog.theinterviewguys.com/resume-keywords-by-industry/" target="_blank">theinterviewguys.com</a></li>
+      <li>Flatiron School. (2024). <em>GitHub and Git: Best Practices and Tips for Job Seekers.</em> <a href="https://flatironschool.com/blog/github-profile-and-git-practices-for-job-seekers/" target="_blank">flatironschool.com</a></li>
+      <li>Hakia. (2025). <em>Building a Portfolio That Gets Hired: 2025 Developer Guide.</em> <a href="https://www.hakia.com/skills/building-portfolio/" target="_blank">hakia.com</a></li>
+      <li>TieTalent. (2025). <em>How to Build a Tech Portfolio That Gets You Hired in 2025.</em> <a href="https://tietalent.com/en/blog/220/beyond-the-ats-how-to-build-a-tech-portfolio" target="_blank">tietalent.com</a></li>
+    </ol>
+  </div>
+
+</div>
+')
+```
