@@ -1,6 +1,7 @@
 fig:nice-fig
 tab:nice-tab
 eq:binom
+thm:tri
 welcome-to-the-grad-guide
 usage
 render-book
@@ -23,11 +24,14 @@ publishing
 pages
 metadata-for-sharing
 interview-follow-up
+thank-you-emails-after-an-interview
+why-sending-a-thank-you-message-matters
+examples-of-thank-you-messages
+formal-email-example
+linkedin-message-example
+thank-you-message-checklist
+career-readiness-assessment
 publishing-1
 pages-1
 metadata-for-sharing-1
-career-readiness-assessment
-publishing-2
-pages-2
-metadata-for-sharing-2
 references
