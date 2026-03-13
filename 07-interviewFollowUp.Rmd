@@ -1,9 +1,3 @@
----
-title: "Interview Follow-Up"
-author: "Grad Guide"
-date: "`r Sys.Date()`"
----
-
 # Interview Follow-Up
 
 ## Thank You Emails After an Interview
