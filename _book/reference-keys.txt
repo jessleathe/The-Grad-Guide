@@ -1,6 +1,7 @@
 fig:nice-fig
 tab:nice-tab
 eq:binom
+thm:tri
 welcome-to-the-grad-guide
 usage
 render-book
@@ -11,9 +12,7 @@ strategic-job-search
 chapters-and-sub-chapters
 captioned-figures-and-tables
 find-your-best-career-fit
-resume-prep
-footnotes
-citations
+resume-for-tech
 how-to-network
 equations
 theorems-and-proofs
@@ -31,3 +30,4 @@ publishing-2
 pages-2
 metadata-for-sharing-2
 references
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
