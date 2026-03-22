@@ -31,7 +31,9 @@ formal-email-example
 linkedin-message-example
 thank-you-message-checklist
 career-readiness-assessment
-publishing-1
-pages-1
-metadata-for-sharing-1
+core-checklist
+readiness-summary
+recommended-next-steps
+weekly-action-plan
+final-thought
 references
