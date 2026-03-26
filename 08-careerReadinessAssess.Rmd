@@ -1,26 +1,86 @@
+---
+title: "Career Readiness Assessment"
+author: "Grad Guide"
+date: "`r Sys.Date()`"
+---
+
 # Career Readiness Assessment
 
-## Publishing
+## Core Checklist
 
-HTML books can be published online, see: https://bookdown.org/yihui/bookdown/publishing.html
+- [ ] Polished resume
+- [ ] Cover letter template
+- [ ] Updated LinkedIn
+- [ ] Portfolio/projects
+- [ ] Interview practice
+- [ ] Target roles identified
+- [ ] List of companies
+- [ ] Networking actively
+- [ ] Applied to jobs
 
-## 404 pages
+---
 
-By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a `_404.Rmd` or `_404.md` file to your project root and use code and/or Markdown syntax.
+## Readiness Summary
 
-## Metadata for sharing
+**If 1–3 items completed (Foundation stage)**  
+Focus on building your basic career materials, identifying goals, and starting to network.
 
-Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the `index.Rmd` YAML. To setup, set the `url` for your book and the path to your `cover-image` file. Your book's `title` and `description` are also used.
+**If 4–6 items completed (Preparation stage)**  
+Refine materials, practice interview skills, and start actively networking.
 
+**If 7–9 items completed (Active application stage)**  
+You are ready to consistently apply, network, and prepare for interviews.
 
-This `bs4_book` provides enhanced metadata for social sharing, so that each chapter shared will have a unique description, auto-generated based on the content.
+---
 
-Specify your book's source repository on GitHub as the `repo` in the `_output.yml` file, which allows users to view each chapter's source file or suggest an edit. Read more about the features of this output format here:
+## Recommended Next Steps
 
-https://pkgs.rstudio.com/bookdown/reference/bs4_book.html
+**Foundation stage (1–3 items completed)**
 
-Or use:
+- Build and refine your resume  
+- Create a basic cover letter template  
+- Set up or update LinkedIn profile  
+- Start identifying target roles  
 
-```{r eval=FALSE}
-?bookdown::bs4_book
-```
+**Preparation stage (4–6 items completed)**
+
+- Polish portfolio or project examples  
+- Practice common interview questions  
+- Update and tailor cover letter for roles  
+- Expand networking outreach  
+
+**Active application stage (7–9 items completed)**
+
+- Apply to at least 5 jobs per week  
+- Follow-up with contacts and recruiters  
+- Prepare for interviews with mock sessions  
+- Maintain and update portfolio/projects as needed  
+
+---
+
+## Weekly Action Plan
+
+**Foundation stage (1–3 items completed)**
+
+- Work on 1–2 key career materials per week  
+- Reach out to 1–2 professionals for networking  
+- Start listing companies and roles of interest  
+
+**Preparation stage (4–6 items completed)**
+
+- Apply to 3–5 roles per week  
+- Reach out to 2–3 new contacts  
+- Practice interviews twice per week  
+
+**Active application stage (7–9 items completed)**
+
+- Apply to 5–10 jobs per week  
+- Network with 3–5 new professionals  
+- Continue refining interview skills  
+- Track applications and follow-ups  
+
+---
+
+## Final Thought
+
+Career readiness comes from consistent action. Focus on completing your items for your current stage, then advance to the next.
