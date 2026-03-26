@@ -1,12 +1,290 @@
 # Find Your Best Career Fit
+```{r setup, include=FALSE}
+library(httr)
 
-You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file. 
+# load 'jobs' dataset
+url <- "https://raw.githubusercontent.com/foorilla/ai-jobs-net-salaries/main/salaries.csv"
+jobs <- read.csv(url)
 
-Add a numbered part: `# (PART) Act one {-}` (followed by `# A chapter`)
+# add column for skills (did not exist prior)
+jobs$skills <- ifelse(grepl("Data Engineer", jobs$job_title), "SQL, Python, Spark, ETL",
+               ifelse(grepl("Data Scientist", jobs$job_title), "Python, R, Machine Learning, Statistics",
+               ifelse(grepl("Machine Learning", jobs$job_title), "Python, TensorFlow, PyTorch, ML",
+               ifelse(grepl("Software Engineer", jobs$job_title), "Python, Java, JavaScript, Git",
+               ifelse(grepl("Data Analyst", jobs$job_title), "SQL, Excel, Tableau, Python",
+               ifelse(grepl("Analytics Engineer", jobs$job_title), "SQL, dbt, Python, Looker",
+               ifelse(grepl("Cloud", jobs$job_title), "AWS, Azure, GCP, Terraform",
+               ifelse(grepl("Research", jobs$job_title), "Python, R, Statistics, Deep Learning",
+               "Python, SQL"))))))))
 
-Add an unnumbered part: `# (PART\*) Act one {-}` (followed by `# A chapter`)
+jobs_summary <- aggregate(
+  salary_in_usd ~ job_title + company_location + skills,
+  data = jobs,
+  FUN = mean
+)
+jobs_summary$salary_in_usd <- round(jobs_summary$salary_in_usd, 0)
+colnames(jobs_summary) <- c("job_title", "location", "skills", "avg_salary")
 
-Add an appendix as a special kind of un-numbered part: `# (APPENDIX) Other stuff {-}` (followed by `# A chapter`). Chapters in an appendix are prepended with letters instead of numbers.
+# Convert to JSON in order to use JavaScript
+jobs_json <- jsonlite::toJSON(jobs_summary)
+```
+```{r embed-survey, echo=FALSE}
+htmltools::HTML(paste0('
+<style>
+  @import url(\'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap\');
 
+  .survey-container {
+    font-family: \'Poppins\', sans-serif;
+    max-width: 700px;
+    margin: auto;
+    background: linear-gradient(135deg, #f5f7fa, #e8f4fd);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
 
+  .survey-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 24px;
+  }
 
+  .question {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 5px solid #6c63ff;
+  }
+
+  .question h4 {
+    margin-bottom: 12px;
+    color: #2d2d2d;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .checkbox-group label, .radio-group label {
+    display: block;
+    margin: 6px 0;
+    cursor: pointer;
+    color: #444;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+
+  .checkbox-group label:hover, .radio-group label:hover {
+    color: #6c63ff;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: #6c63ff;
+  }
+
+  #salary-label {
+    font-weight: 700;
+    color: #6c63ff;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #6c63ff, #3b82f6);
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: \'Poppins\', sans-serif;
+    font-weight: 600;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+  }
+
+  .results {
+    margin-top: 30px;
+  }
+
+  .results h3 {
+    color: #2d2d2d;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  th {
+    background: linear-gradient(135deg, #6c63ff, #3b82f6);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #444;
+  }
+
+  tr:nth-child(even) { background-color: #f8f6ff; }
+  tr:hover { background-color: #f0eeff; transition: background 0.2s; }
+</style>
+
+<div class="survey-container">
+  <p>Answer the questions below and we will recommend the best tech careers for you!</p>
+
+  <div class="question">
+    <h4>1. What skills do you have? (Select all that apply)</h4>
+    <div class="checkbox-group">
+      <label><input type="checkbox" class="skill" value="Python"> Python</label>
+      <label><input type="checkbox" class="skill" value="R"> R</label>
+      <label><input type="checkbox" class="skill" value="SQL"> SQL</label>
+      <label><input type="checkbox" class="skill" value="Java"> Java</label>
+      <label><input type="checkbox" class="skill" value="JavaScript"> JavaScript</label>
+      <label><input type="checkbox" class="skill" value="Machine Learning"> Machine Learning</label>
+      <label><input type="checkbox" class="skill" value="TensorFlow"> TensorFlow</label>
+      <label><input type="checkbox" class="skill" value="PyTorch"> PyTorch</label>
+      <label><input type="checkbox" class="skill" value="Spark"> Spark</label>
+      <label><input type="checkbox" class="skill" value="ETL"> ETL</label>
+      <label><input type="checkbox" class="skill" value="dbt"> dbt</label>
+      <label><input type="checkbox" class="skill" value="Tableau"> Tableau</label>
+      <label><input type="checkbox" class="skill" value="Excel"> Excel</label>
+      <label><input type="checkbox" class="skill" value="AWS"> AWS</label>
+      <label><input type="checkbox" class="skill" value="Azure"> Azure</label>
+      <label><input type="checkbox" class="skill" value="GCP"> GCP</label>
+      <label><input type="checkbox" class="skill" value="Terraform"> Terraform</label>
+      <label><input type="checkbox" class="skill" value="Git"> Git</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <h4>2. What are you most interested in?</h4>
+    <div class="checkbox-group">
+      <label><input type="checkbox" class="interest" value="Working with data"> Working with data</label>
+      <label><input type="checkbox" class="interest" value="Building software"> Building software</label>
+      <label><input type="checkbox" class="interest" value="AI/Machine Learning"> AI/Machine Learning</label>
+      <label><input type="checkbox" class="interest" value="Cloud infrastructure"> Cloud infrastructure</label>
+      <label><input type="checkbox" class="interest" value="Business insights"> Business insights</label>
+      <label><input type="checkbox" class="interest" value="Research"> Research</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <h4>3. What are your strengths?</h4>
+    <div class="checkbox-group">
+      <label><input type="checkbox" class="strength" value="Problem solving"> Problem solving</label>
+      <label><input type="checkbox" class="strength" value="Data analysis"> Data analysis</label>
+      <label><input type="checkbox" class="strength" value="Building systems"> Building systems</label>
+      <label><input type="checkbox" class="strength" value="Visualization"> Visualization</label>
+      <label><input type="checkbox" class="strength" value="Research"> Research</label>
+      <label><input type="checkbox" class="strength" value="Automation"> Automation</label>
+      <label><input type="checkbox" class="strength" value="Communication"> Communication</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <h4>4. Minimum acceptable salary (USD): <span id="salary-label">$60,000</span></h4>
+    <input type="range" id="min-salary" min="30000" max="200000" value="60000" step="5000"
+      oninput="document.getElementById(\'salary-label\').innerText = \'$\' + parseInt(this.value).toLocaleString()">
+  </div>
+
+  <div class="question">
+    <h4>5. Work style preference:</h4>
+    <div class="radio-group">
+      <label><input type="radio" name="flexibility" value="remote"> Fully remote</label>
+      <label><input type="radio" name="flexibility" value="hybrid"> Hybrid</label>
+      <label><input type="radio" name="flexibility" value="onsite"> On-site</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <h4>6. Career preference:</h4>
+    <div class="radio-group">
+      <label><input type="radio" name="stability" value="stable"> Stable / established field</label>
+      <label><input type="radio" name="stability" value="emerging"> Emerging / fast-growing field</label>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="getRecommendations()">Find My Best Career Match</button>
+
+  <div class="results" id="results"></div>
+</div>
+
+<script>
+var jobsData = ', jobs_json, ';
+
+function getRecommendations() {
+  var skills = Array.from(document.querySelectorAll(".skill:checked")).map(e => e.value);
+  var interests = Array.from(document.querySelectorAll(".interest:checked")).map(e => e.value);
+  var strengths = Array.from(document.querySelectorAll(".strength:checked")).map(e => e.value);
+  var minSalary = parseInt(document.getElementById("min-salary").value);
+  var stability = document.querySelector("input[name=stability]:checked");
+  stability = stability ? stability.value : "stable";
+
+  var interestMap = {
+    "Working with data": ["Data Analyst", "Data Scientist", "Data Engineer"],
+    "Building software": ["Software Engineer"],
+    "AI/Machine Learning": ["Machine Learning Engineer", "Data Scientist", "Research Scientist"],
+    "Cloud infrastructure": ["Cloud Engineer", "Data Engineer"],
+    "Business insights": ["Data Analyst", "Analytics Engineer"],
+    "Research": ["Research Scientist", "Data Scientist"]
+  };
+
+  var stabilityMap = {
+    "stable": ["Software Engineer", "Data Analyst", "Data Engineer"],
+    "emerging": ["Machine Learning Engineer", "Research Scientist", "Analytics Engineer", "Cloud Engineer"]
+  };
+
+  var matchedInterest = [].concat(...interests.map(i => interestMap[i] || []));
+  var matchedStability = stabilityMap[stability] || [];
+
+  var scored = jobsData
+    .filter(j => j.avg_salary >= minSalary)
+    .map(j => {
+      var roleSkills = j.skills.split(", ");
+      var skillScore = skills.filter(s => roleSkills.includes(s)).length;
+      var interestScore = matchedInterest.includes(j.job_title) ? 2 : 0;
+      var stabilityScore = matchedStability.includes(j.job_title) ? 1 : 0;
+      return Object.assign({}, j, { score: skillScore + interestScore + stabilityScore });
+    })
+    .sort((a, b) => b.score - a.score || b.avg_salary - a.avg_salary);
+
+  var seen = {};
+  var top = scored.filter(j => {
+    if (seen[j.job_title]) return false;
+    seen[j.job_title] = true;
+    return true;
+  }).slice(0, 5);
+
+  if (top.length === 0) {
+    document.getElementById("results").innerHTML = "<p>No matches found. Try adjusting your salary or preferences.</p>";
+    return;
+  }
+
+  var html = "<h3>Your Top Career Matches</h3><table><tr><th>Role</th><th>Avg Salary</th><th>Key Skills</th><th>Match Score</th></tr>";
+  top.forEach(j => {
+    html += "<tr><td>" + j.job_title + "</td><td>$" + j.avg_salary.toLocaleString() + "</td><td>" + j.skills + "</td><td>" + j.score + "</td></tr>";
+  });
+  html += "</table>";
+  document.getElementById("results").innerHTML = html;
+}
+</script>
+'))
+```
