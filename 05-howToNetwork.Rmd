@@ -1,19 +1,133 @@
 # How to Network
 
-After title
+Networking is one of the most valuable parts of searching for a job, especially for new graduates and students entering competitive fields like technology and computer science. Although resumes and applications are important to establishing a strong position, many opportunities come through relationships and connections rather than online applications alone. 
+
+Building a strong network allows students to gain advice and insight from experienced professionals, learn more about roles and openings, and access opportunities that may not be publicly advertised. Through effort and time, networking helps create a support system that can guide students in their career progression and open doors to new possibilities.
 
 ## Why Networking Works
 
-Brief explanation of why relationships matter in tech hiring
+Networking works because the job search process is not only about qualifications, but also about trust, visibility, and relationships. In many cases, employers are more likely to consider and hire applicants who are recommended, referred, or already connected to someone within their organization.
+
+Through the years, research and career studies have shown that many opportunities are filled through networking as opposed to traditional job applications, especially online ones. This is often referred to as the "hidden job market", where roles are shared internally through current employees or through connections before being posted publicly for new incoming applicants. 
+
+For students and recent graduates, networking is especially important as the job search process is extremely competitive. Applying with a degree may not make candidates stand out as much, as many applicants have similar backgrounds, so the key is finding ways to differentiate yourself and create opportunities to stand out. Building relationships helps you get that foot in the door and gives you access to insights that cannot be found on company websites or job descriptions alone. 
+
+Networking is also beneficial for long-term career growth, not just the immediate job search. The connections you build can continue to guide and support you throughout your entire career. 
 
 ## Online Networking
 
-Cover LinkedIn strategy and GitHub and open source
+One of the best and most accessible ways to build connections is through online networking. Platforms like GitHub and LinkedIn allow students to engage with professionals, showcase their work and effort, and stay in-tune with trends in the industry.
+
+### LinkedIn
+LinkedIn is an extremely important modern day tool for professional networking. This app helps users to build executive presence and connect with people across industries. Additionally, it gives people with little industry work a space to showcase their talent and previous work.
+
+A strong LinkedIn profile should include:
+
+- A professional photo
+- A clear headline that reflects your current status and career goals
+- Updated education and experience
+- Projects, skills, and certifications
+- A short summary describing your interests
+
+To use LinkedIn to its full potential:
+
+- Find and connect with alumni, recruiters, and professionals in your desired field
+- Be active and engage with posts by liking or commenting
+- Follow companies and events you are interested in
+- Share updates about your progress, projects, or achievements
+
+When sending connection requests, it can differentiate you to personalize your introduction message.
+
+Example:
+
+Hi [Name], I came across your profile and saw your experience in [field]. I am currently a student interested in this area and would love to connect and learn more from your experience.
+
+Being consistent with engagement on LinkedIn helps increase your visibility with professionals and showcase your drive in the job-hunt. 
+
+### GitHub and Open Source
+
+For roles in technical fields, GitHub serves as both a portfolio and a networking tool. This platform allows students and people on the job search to demonstrate their skills while also interacting with other developers. 
+
+A strong presence on GitHub can show:
+
+- Technical ability through projects
+- Work ethic and consistency through commits
+- Communication through documentation areas
+- Collaboration and team-spirit through open-source contributions
+
+Students can use GitHub to:
+
+- Upload personal or academic projects
+- Improve issues or documentation in existing repositories
+- Participate in discussions or issues
+- Contribute to open-source projects
 
 ## In-Person Networking
 
-Cover meetups, conferences, career fairs, and informational interviews
+While online networking is more easily accessible and convenient, in-person exchanges can create stronger and much more memorable connections. Interacting with people face-to-face allows for more human conversations and helps build trust more quickly. 
+
+### Conferences and Meetups
+
+Attending meetups and conferences can provide opportunities to learn from experienced professionals and connect with others in your field. 
+
+The many ways it is beneficial include:
+
+- Exposure to trends and tools in the industry
+- Opportunities to meet and talk with professionals in your field of interest
+- Practice communicating in a professional and executive setting
+
+Tips for attending events:
+
+- Prepare a short introduction about yourself
+- Get insight and ask questions about others' experiences
+- Use LinkedIn to connect after meeting someone
+- Follow up within a few days
+
+Any event, large, small, or even virtual, can be valuable for building connections and getting your foot in the door.
+
+### Career Fairs
+
+Career fairs are a great way for students to get themselves out there. These events allow students to directly interact with recruiters and company representatives. 
+
+To prepare for these fairs:
+
+- Research companies attending
+- Identify target companies and employers
+- Bring copies of your resume
+- Practice a short introduction/pitch
+
+A simple introduction can include:
+- Your name
+- Your major or background
+- Your career interests
+- The type of role you are looking for
+
+### Informational Interviews
+
+An informational interview is a less-formal conversation with a professional where the goal is to learn and ask questions, not ask for a job.
+
+These conversations can be very beneficial for:
+
+- Understanding what a role actually involves
+- Learning how others entered the field
+- Identifying important skills to sharpen
+- Gaining advice for your career path
+
+Example message:
+
+Hi [Name], I am a student exploring careers in [field]. I came across your profile/background and would love to learn more about your experience. If you are available, I would love to have a brief conversation to learn and gain more insight.
+
+Informational interviews serve as a low-pressure way of learning valuable insights, gaining future opportunities, and receiving helpful mentorship.
 
 ## Network Checklist
 
-End the chapter with checklist covering all the things needed to prepare for networking.
+Use this checklist to stay consistent with your networking efforts:
+
+- [] Send 5 personalized LinkedIn connection requests
+- [] Schedule 1 informational interview
+- [] Attend 1 event (conference, meetup, career fair)
+- [] Contribute to at least 1 open-source discussion or issue
+- [] Follow up with everyone you interacted with
+
+## Final Thought
+Networking is not just about asking for the job, it is about building relationships to help you succeed over time. Strong professional connections are a great way to get support, guidance, and access to opportunities throughout your career. Starting early, staying consistent, and putting in hard-work can make networking a powerful tool for long-term success. 
