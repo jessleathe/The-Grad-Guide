@@ -1,15 +1,915 @@
 # Tech Career Paths 
 
-After title
+```{r tcp-load-data, include=FALSE}
+url  <- "https://raw.githubusercontent.com/foorilla/ai-jobs-net-salaries/main/salaries.csv"
+jobs <- read.csv(url)
+library(jsonlite)
 
-## Role Breakdowns
+# Role definitions in this order: key, display name, category, icon, skills, day-in-life
+roles_meta <- list(
+  list(key="software_engineer",   label="Software Engineer",          cat="Engineering",        icon="💻", demand="High",
+       skills=c("Python","Java","C++","Git","Algorithms","System Design","Testing","Agile"),
+       daylife=c("Design and build software features end to end","Write clean, testable code and conduct code reviews","Collaborate with product managers on requirements","Debug and resolve production issues","Participate in architecture discussions","Mentor junior engineers")),
+  list(key="software_developer",  label="Software Developer",         cat="Engineering",        icon="🖥️", demand="High",
+       skills=c("JavaScript","Python","SQL","Git","REST APIs","Agile","Testing","CI/CD"),
+       daylife=c("Build and maintain software applications","Write and review code across the stack","Fix bugs and address technical debt","Collaborate with cross-functional teams","Deploy and monitor your own code","Document features and APIs")),
+  list(key="backend_engineer",    label="Backend Engineer",           cat="Engineering",        icon="⚙️", demand="High",
+       skills=c("Python or Node.js","SQL","REST APIs","Docker","Git","AWS","System Design","Authentication"),
+       daylife=c("Design and build RESTful APIs","Write and optimize database queries","Implement authentication and authorization","Monitor and debug production services","Collaborate with frontend devs on contracts","Write technical documentation")),
+  list(key="fullstack_engineer",  label="Full Stack Engineer",        cat="Engineering",        icon="🔧", demand="Very High",
+       skills=c("React","Node.js","SQL","Git","REST APIs","TypeScript","Docker","CI/CD"),
+       daylife=c("Build complete features from database to UI","Maintain both frontend and backend services","Own features end to end across the stack","Participate in architecture decisions","Deploy and monitor your own features","Jump between tasks based on sprint priorities")),
+  list(key="data_scientist",      label="Data Scientist",             cat="Data",               icon="📊", demand="Very High",
+       skills=c("Python","SQL","Statistics","Machine Learning","Pandas","Tableau","Git","A/B Testing"),
+       daylife=c("Clean and explore datasets to find patterns","Build and evaluate predictive models","Design and analyze A/B experiments","Create dashboards and visualizations","Present findings to non-technical stakeholders","Collaborate with engineering to deploy models")),
+  list(key="data_analyst",        label="Data Analyst",               cat="Data",               icon="📈", demand="High",
+       skills=c("SQL","Excel","Tableau or Power BI","Python","Data Visualization","Statistics","Git"),
+       daylife=c("Write SQL queries to pull and analyze data","Build and maintain dashboards","Answer ad hoc data questions from stakeholders","Identify trends and anomalies in data","Present findings in business reviews","Document data sources and definitions")),
+  list(key="data_engineer",       label="Data Engineer",              cat="Data",               icon="🗄️", demand="Very High",
+       skills=c("Python","SQL","Spark","Airflow","AWS or GCP","Docker","Git","dbt"),
+       daylife=c("Build and maintain data pipelines","Design data warehouse schemas","Optimize query performance","Collaborate with data scientists on data needs","Monitor pipeline health and fix failures","Write documentation for data infrastructure")),
+  list(key="ml_engineer",         label="Machine Learning Engineer",  cat="AI / ML",            icon="🤖", demand="Very High",
+       skills=c("Python","TensorFlow or PyTorch","SQL","Docker","AWS","MLflow","Git","Statistics"),
+       daylife=c("Build pipelines to feed training systems","Train and evaluate machine learning models","Deploy models to production infrastructure","Monitor model performance and data drift","Collaborate with researchers to productionize work","Write model cards and technical documentation")),
+  list(key="ai_engineer",         label="AI Engineer",                cat="AI / ML",            icon="🧠", demand="Very High",
+       skills=c("Python","LLM APIs","Prompt Engineering","Vector Databases","Docker","Git","REST APIs","Cloud"),
+       daylife=c("Build AI-powered features using LLMs and APIs","Design and optimize prompts for production use","Integrate AI models into existing applications","Evaluate model outputs for quality and safety","Monitor AI system performance in production","Stay current on rapidly evolving AI tools")),
+  list(key="ai_researcher",       label="AI Research Scientist",      cat="AI / ML",            icon="🔬", demand="High",
+       skills=c("Python","PyTorch","Statistics","Linear Algebra","Research Methods","Git","LaTeX","HPC"),
+       daylife=c("Design and run machine learning experiments","Read and implement research papers","Write and publish research findings","Collaborate with engineering on model deployment","Present findings to internal and external audiences","Contribute to open source research projects")),
+  list(key="devops_engineer",     label="DevOps Engineer",            cat="DevOps / Platform",  icon="🚀", demand="Very High",
+       skills=c("Docker","Kubernetes","AWS","CI/CD","Terraform","Linux","Python","Git"),
+       daylife=c("Build and maintain CI/CD pipelines","Manage cloud infrastructure with Terraform","Monitor system health and respond to incidents","Automate repetitive operational tasks","Collaborate with dev teams on deployments","Implement security best practices")),
+  list(key="platform_engineer",   label="Platform Engineer",          cat="DevOps / Platform",  icon="🏗️", demand="High",
+       skills=c("Kubernetes","Docker","Terraform","AWS or GCP","Python","Go","Git","CI/CD"),
+       daylife=c("Build internal developer platforms and tooling","Maintain Kubernetes clusters and workloads","Improve developer experience and deployment speed","Define infrastructure standards and best practices","Respond to platform incidents","Collaborate with product teams on infrastructure needs")),
+  list(key="cloud_engineer",      label="Cloud Engineer",             cat="Cloud",              icon="☁️", demand="Very High",
+       skills=c("AWS or Azure","Terraform","Docker","Kubernetes","Linux","Python","Networking","Security"),
+       daylife=c("Provision and configure cloud resources","Write infrastructure-as-code","Set up monitoring and alerting","Optimize cloud costs and utilization","Implement cloud security best practices","Collaborate with dev teams on cloud architecture")),
+  list(key="cloud_architect",     label="Cloud Architect",            cat="Cloud",              icon="🏛️", demand="High",
+       skills=c("AWS or Azure or GCP","Terraform","Networking","Security","Docker","Kubernetes","Cost Optimization","Solution Design"),
+       daylife=c("Design cloud architecture for new systems","Review and approve infrastructure proposals","Define cloud standards and governance","Advise engineering teams on best practices","Evaluate new cloud services and tools","Lead cloud migration projects")),
+  list(key="bi_analyst",          label="Business Intelligence Analyst", cat="Business Intelligence", icon="📉", demand="High",
+       skills=c("SQL","Power BI or Tableau","Excel","Data Modeling","Python","ETL","DAX","Storytelling"),
+       daylife=c("Build and maintain BI dashboards and reports","Write complex SQL queries for reporting","Work with stakeholders to understand data needs","Ensure data quality and consistency in reports","Automate recurring reports","Present insights to business leadership")),
+  list(key="bi_engineer",         label="BI Engineer",                cat="Business Intelligence", icon="⚡", demand="High",
+       skills=c("SQL","dbt","Power BI or Tableau","Python","Data Warehousing","ETL","Git","Spark"),
+       daylife=c("Build and maintain data models in dbt","Develop and optimize ETL pipelines","Create semantic layers for BI tools","Collaborate with analysts on reporting needs","Monitor data pipeline performance","Document data models and business logic")),
+  list(key="research_scientist",  label="Research Scientist",         cat="Research",           icon="🧪", demand="Moderate",
+       skills=c("Python","PyTorch","Statistics","Experimental Design","Research Methods","Git","Writing","Domain Expertise"),
+       daylife=c("Design and run scientific experiments","Analyze experimental data and draw conclusions","Write research papers and reports","Present work at internal and external meetings","Collaborate with engineers on implementation","Stay current on literature in your domain")),
+  list(key="research_engineer",   label="Research Engineer",          cat="Research",           icon="🔩", demand="Moderate",
+       skills=c("Python","PyTorch or TensorFlow","C++ or CUDA","Git","Distributed Systems","Linux","HPC","Research Methods"),
+       daylife=c("Implement research ideas into working systems","Optimize code for performance and scale","Build tools and infrastructure for researchers","Reproduce and validate research results","Collaborate closely with research scientists","Contribute to internal research publications"))
+)
 
-Cover each major entry-level tech role with a description, required skills, day-in-the-life summary, salary range, and demand data
+# Category display config
+cat_config <- list(
+  "Engineering"          = list(color="#6C63FF", bg="#ede9fe", text="#5b21b6"),
+  "Data"                 = list(color="#EC4899", bg="#fce7f3", text="#9d174d"),
+  "AI / ML"              = list(color="#8B5CF6", bg="#ede9fe", text="#5b21b6"),
+  "DevOps / Platform"    = list(color="#10B981", bg="#d1fae5", text="#065f46"),
+  "Cloud"                = list(color="#0EA5E9", bg="#dbeafe", text="#1e40af"),
+  "Business Intelligence"= list(color="#F59E0B", bg="#fef3c7", text="#92400e"),
+  "Research"             = list(color="#6B7280", bg="#f3f4f6", text="#374151")
+)
 
-## Role Comparison Table
+# Salary calc
+get_sal <- function(pat, lvl, df) {
+  sub <- df[grepl(pat, tolower(df$job_title), ignore.case=TRUE) & df$experience_level == lvl, ]
+  if (nrow(sub) < 2) return(NA)
+  round(median(sub$salary_in_usd, na.rm=TRUE))
+}
+fmt_sal <- function(v) if (is.na(v) || is.null(v)) "N/A" else paste0("$", formatC(v, format="d", big.mark=","))
 
-Side by side table comparing all roles across key attributes
+# Job names for salary lookup
+title_patterns <- list(
+  software_engineer  = "^software engineer$|software development engineer",
+  software_developer = "^software developer$",
+  backend_engineer   = "backend engineer|backend developer|backend software",
+  fullstack_engineer = "full stack engineer|full stack developer|fullstack engineer|fullstack developer",
+  data_scientist     = "^data scientist$|^data scientist ",
+  data_analyst       = "^data analyst$|^data analyst |^lead data analyst$",
+  data_engineer      = "^data engineer$|^data engineer |^lead data engineer$",
+  ml_engineer        = "machine learning engineer|^ml engineer$",
+  ai_engineer        = "^ai engineer$|artificial intelligence engineer",
+  ai_researcher      = "ai research scientist|ai researcher|^research scientist$",
+  devops_engineer    = "^devops engineer$|^devops lead$",
+  platform_engineer  = "^platform engineer$|^platform data engineer$",
+  cloud_engineer     = "^cloud engineer$|^cloud data engineer$",
+  cloud_architect    = "^cloud architect$|^cloud data architect$",
+  bi_analyst         = "business intelligence analyst|^bi analyst$|^bi data analyst$",
+  bi_engineer        = "^bi engineer$|^bi data engineer$|^bi developer$",
+  research_scientist = "^research scientist$|^applied research scientist$",
+  research_engineer  = "^research engineer$|^ai research engineer$"
+)
 
-## Skills Overlap Heatmap
+# Compute salaries
+if (!is.null(jobs) && nrow(jobs) > 0) {
+  us_ft <- jobs[jobs$employment_type == "FT" & jobs$company_location == "US", ]
+  if (nrow(us_ft) == 0) us_ft <- jobs
 
-Visual showing which skills appear across multiple roles
+  role_salaries <- lapply(names(title_patterns), function(rk) {
+    pat <- title_patterns[[rk]]
+    en <- get_sal(pat, "EN", us_ft)
+    mi <- get_sal(pat, "MI", us_ft)
+    se <- get_sal(pat, "SE", us_ft)
+    
+    # use all levels if specific level has too few rows
+    all_sub <- us_ft[grepl(pat, tolower(us_ft$job_title), ignore.case=TRUE), ]
+    avg_all <- if (nrow(all_sub) >= 2) round(median(all_sub$salary_in_usd, na.rm=TRUE)) else NA
+    list(role=rk, entry=en, mid=mi, senior=se, avg=avg_all)
+  })
+  names(role_salaries) <- names(title_patterns)
+} 
+
+# Build role cards
+build_card <- function(role, sal) {
+  key    <- role$key
+  cc     <- cat_config[[role$cat]]
+  s      <- if (!is.null(sal)) sal else list(entry=NA, mid=NA, senior=NA, avg=NA)
+  en_fmt <- fmt_sal(s$entry);  mi_fmt <- fmt_sal(s$mid);  se_fmt <- fmt_sal(s$senior)
+  avg_fmt <- fmt_sal(s$avg)
+  range_str <- if (!is.na(s$entry) && !is.na(s$senior)) paste0(en_fmt, "–", se_fmt) else if (!is.na(s$avg)) avg_fmt else "Salary data varies"
+  demand_cls <- if (role$demand == "Very High") "demand-very-high" else if (role$demand == "High") "demand-high" else "demand-moderate"
+  cat_slug <- gsub("[^a-z]", "-", tolower(role$cat))
+  skills_html <- paste(sapply(role$skills, function(sk) paste0('<span class="skill-tag">', sk, '</span>')), collapse="")
+  daylife_html <- paste(sapply(role$daylife, function(d) paste0('<li>', d, '</li>')), collapse="
+          ")
+  pid <- key
+
+paste0(
+  "\n  <!-- ", role$label, " -->",
+  "\n  <div class=\"role-card\" data-category=\"", cat_slug, "\">",
+  "\n    <div class=\"role-card-header\" onclick=\"toggleRole(this)\">",
+  "\n      <div class=\"role-icon\" style=\"background:", cc$bg, "\">", role$icon, "</div>",
+  "\n      <div class=\"role-card-meta\">",
+  "\n        <div class=\"role-name\">", role$label, "</div>",
+  "\n        <span class=\"role-category-badge\" style=\"background:", cc$bg, ";color:", cc$text, "\">", role$cat, "</span>",
+  "\n      </div>",
+  "\n      <div class=\"role-card-right\">",
+  "\n        <span class=\"demand-badge ", demand_cls, "\">", role$demand, " Demand</span>",
+  "\n        <span class=\"role-salary-range\" id=\"range-", pid, "\">", range_str, "</span>",
+  "\n        <span class=\"role-toggle-arrow\">&#9660;</span>",
+  "\n      </div>",
+  "\n    </div>",
+  "\n    <div class=\"role-card-body\">",
+  "\n      <div class=\"role-subtabs\">",
+  "\n        <button class=\"role-subtab active\" onclick=\"showSubtab(this, &quot;", pid, "-ov&quot;)\">Overview</button>",
+  "\n        <button class=\"role-subtab\" onclick=\"showSubtab(this, &quot;", pid, "-sk&quot;)\">Skills</button>",
+  "\n        <button class=\"role-subtab\" onclick=\"showSubtab(this, &quot;", pid, "-sa&quot;)\">Salary</button>",
+  "\n        <button class=\"role-subtab\" onclick=\"showSubtab(this, &quot;", pid, "-dl&quot;)\">Day-in-Life</button>",
+  "\n      </div>",
+  "\n      <div id=\"", pid, "-ov\" class=\"role-tab-content active\">",
+  "\n        <div class=\"role-stats-row\">",
+  "\n          <div class=\"role-stat-box\"><div class=\"role-stat-label\">Entry Salary</div><div class=\"role-stat-value\">", en_fmt, "</div></div>",
+  "\n          <div class=\"role-stat-box\"><div class=\"role-stat-label\">Senior Salary</div><div class=\"role-stat-value\">", se_fmt, "</div></div>",
+  "\n          <div class=\"role-stat-box\"><div class=\"role-stat-label\">Avg (All Levels)</div><div class=\"role-stat-value teal\">", avg_fmt, "</div></div>",
+  "\n        </div>",
+  "\n      </div>",
+  "\n      <div id=\"", pid, "-sk\" class=\"role-tab-content\">",
+  "\n        <p style=\"font-size:0.9rem;color:var(--text-muted);margin-bottom:0.8rem;\">Core skills employers look for:</p>",
+  "\n        <div class=\"skills-list\">", skills_html, "</div>",
+  "\n      </div>",
+  "\n      <div id=\"", pid, "-sa\" class=\"role-tab-content\">",
+  "\n        <div class=\"role-stats-row\">",
+  "\n          <div class=\"role-stat-box\"><div class=\"role-stat-label\">Entry Level (EN)</div><div class=\"role-stat-value\">", en_fmt, "</div></div>",
+  "\n          <div class=\"role-stat-box\"><div class=\"role-stat-label\">Mid Level (MI)</div><div class=\"role-stat-value\">", mi_fmt, "</div></div>",
+  "\n          <div class=\"role-stat-box\"><div class=\"role-stat-label\">Senior Level (SE)</div><div class=\"role-stat-value\">", se_fmt, "</div></div>",
+  "\n        </div>",
+  "\n        <p style=\"font-size:0.78rem;color:var(--text-muted);margin-top:0.8rem;\">Source: ai-jobs.net salary data (US, full-time roles)</p>",
+  "\n      </div>",
+  "\n      <div id=\"", pid, "-dl\" class=\"role-tab-content\">",
+  "\n        <ul class=\"day-life-list\">\n          ", daylife_html, "\n        </ul>",
+  "\n      </div>",
+  "\n    </div>",
+  "\n  </div>"
+)
+}
+
+cards_html <- paste(sapply(roles_meta, function(role) {
+  sal <- role_salaries[[role$key]]
+  build_card(role, sal)
+}), collapse="
+")
+
+# Export for use in Rmd
+role_cards_html <- cards_html
+
+# Comparison table rows
+build_table_row <- function(role, sal) {
+  cc <- cat_config[[role$cat]]
+  s  <- if (!is.null(sal)) sal else list(entry=NA, mid=NA, senior=NA, avg=NA)
+  remote <- if (role$cat %in% c("Engineering","AI / ML","DevOps / Platform","Cloud","Research")) '<span class="remote-yes">&#10003; Yes</span>' else '<span class="remote-partial">~ Partial</span>'
+  demand_cls <- if (role$demand == "Very High") "demand-very-high" else "demand-high"
+  sprintf('<tr><td class="role-name-cell">%s</td><td><span class="role-category-badge" style="background:%s;color:%s;">%s</span></td><td>%s</td><td>%s</td><td>%s</td><td><span class="demand-badge %s">%s</span></td><td>%s</td></tr>',
+    role$label, cc$bg, cc$text, role$cat,
+    fmt_sal(s$entry), fmt_sal(s$senior), fmt_sal(s$avg),
+    demand_cls, role$demand, remote)
+}
+table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role, role_salaries[[role$key]])), collapse="
+")
+```
+
+```{=html}
+<style>
+/* ── CHAPTER NAV BUTTONS ── */
+.tcp-anchor {
+  display: block;
+  height: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.chapter-nav1 {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3.0rem;
+  padding: 0.35rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-sm);
+}
+.chapter-nav-btn {
+  background: none;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.18s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.chapter-nav-btn:hover {
+  color: var(--navy);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.chapter-nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.18);
+}
+
+/* ── SECTION PANELS ── */
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+
+/* ── SECTION INTRO ── */
+.section-intro {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.filter-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-right: 0.4rem;
+}
+.filter-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.filter-btn:hover { border-color: var(--teal); color: var(--teal); }
+.filter-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+/* ── ROLE CARD ── */
+.role-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.role-card:hover { box-shadow: var(--shadow-md); }
+.role-card.hidden { display: none; }
+
+.role-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  user-select: none;
+}
+.role-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.role-card-meta { flex: 1; }
+.role-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 0.2rem;
+}
+.role-category-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 50px;
+}
+.role-card-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: auto;
+}
+.demand-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.7rem;
+  border-radius: 50px;
+}
+.demand-high { background: #dbeafe; color: #1d4ed8; }
+.demand-very-high { background: #d1fae5; color: #065f46; }
+.role-salary-range {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+.role-toggle-arrow {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+.role-card.open .role-toggle-arrow { transform: rotate(180deg); }
+
+/* ── ROLE CARD BODY ── */
+.role-card-body {
+  display: none;
+  border-top: 1.5px solid var(--border);
+}
+.role-card.open .role-card-body { display: block; }
+
+.role-subtabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 1.4rem;
+  background: var(--surface);
+}
+.role-subtab {
+  background: none;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.role-subtab.active { color: var(--teal); border-bottom-color: var(--teal); }
+.role-subtab:hover { color: var(--navy); }
+
+.role-tab-content { display: none; padding: 1.4rem; }
+.role-tab-content.active { display: block; }
+
+.role-overview-text {
+  font-size: 0.96rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin-bottom: 1.2rem;
+}
+.role-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+.role-stat-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1rem;
+}
+.role-stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+.role-stat-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+.role-stat-value.teal { color: var(--teal); }
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.skill-tag {
+  background: var(--teal-light);
+  color: #065f46;
+  border: 1px solid rgba(0,194,168,0.25);
+  border-radius: 50px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.day-life-list {
+  list-style: none;
+  padding: 0; margin: 0;
+}
+.day-life-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.93rem;
+  color: var(--text-body);
+}
+.day-life-list li:last-child { border-bottom: none; }
+.day-life-list li::before {
+  content: "◆";
+  color: var(--teal);
+  font-size: 0.5rem;
+  margin-top: 0.45rem;
+  flex-shrink: 0;
+}
+
+/* ── COMPARISON TABLE ── */
+.comp-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border);
+}
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--white);
+}
+.comp-table thead tr {
+  background: var(--navy);
+  color: #fff;
+}
+.comp-table th {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+.comp-table td {
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-body);
+  vertical-align: middle;
+}
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.comp-table tbody tr:hover { background: var(--surface); }
+.comp-table .role-name-cell {
+  font-weight: 700;
+  color: var(--navy);
+}
+.remote-yes { color: var(--teal); font-weight: 700; }
+.remote-partial { color: var(--orange); font-weight: 700; }
+
+/* Sticky first column in comparison table */
+.comp-table td:first-child,
+.comp-table th:first-child {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 2 !important;
+  background: var(--white) !important;
+}
+
+.comp-table th:first-child {
+  background: var(--navy) !important;
+  z-index: 3 !important;
+}
+
+/* Subtle shadow */
+.comp-table td:first-child::after,
+.comp-table th:first-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(to right, rgba(13,27,42,0.08), transparent);
+  pointer-events: none;
+}
+
+/* ── COMP SORTABLE ── */
+.comp-th-sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.comp-th-sortable:hover { background: #1B2E45; }
+.sort-icon { opacity: 0.5; font-size: 0.75rem; margin-left: 0.3rem; }
+.comp-th-sortable.sort-asc .sort-icon::after  { content: " ↑"; opacity: 1; }
+.comp-th-sortable.sort-desc .sort-icon::after { content: " ↓"; opacity: 1; }
+
+/* ── HEATMAP ── */
+.heatmap-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border);
+}
+.heatmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: var(--white);
+}
+.heatmap-table thead tr { background: var(--navy); color: #fff; }
+.heatmap-table th {
+  padding: 0.85rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  white-space: nowrap;
+}
+.heatmap-table th:first-child { text-align: left; }
+.heatmap-table td {
+  padding: 0.75rem 0.9rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border-bottom: 1px solid var(--border);
+}
+.heatmap-table td:first-child {
+  text-align: left;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--surface);
+}
+.heatmap-table tbody tr:last-child td { border-bottom: none; }
+.hm-sticky-col {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 2 !important;
+  background: var(--surface) !important;
+  font-weight: 700 !important;
+  color: var(--navy) !important;
+  text-align: left !important;
+  min-width: 160px;
+  box-shadow: 2px 0 6px rgba(13,27,42,0.07);
+}
+thead .hm-sticky-col {
+  background: var(--navy) !important;
+  color: #fff !important;
+  z-index: 3 !important;
+}
+.heatmap-table td:first-child::after,
+.heatmap-table th:first-child::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(to right, rgba(13,27,42,0.08), transparent);
+  pointer-events: none;
+}
+</style>
+
+
+<!-- Chapter Navigation -->
+<div class="chapter-nav1 tcp-nav">
+  <button class="chapter-nav-btn active" onclick="showPanel('overview', this)">Overview</button>
+  <button class="chapter-nav-btn" onclick="showPanel('role-breakdowns', this)">Role Breakdowns</button>
+  <button class="chapter-nav-btn" onclick="showPanel('comparison-table', this)">Comparison Table</button>
+  <button class="chapter-nav-btn" onclick="showPanel('skills-heatmap', this)">Skills Heatmap</button>
+</div>
+
+
+<!-- SECTION 0: OVERVIEW -->
+<div id="overview" class="section-panel active">
+  <h2 id="overview" style="margin-top:0;">Chapter Overview</h2>
+
+  <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem 2.4rem;margin-bottom:1.8rem;box-shadow:var(--shadow-md);">
+  <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">Chapter Description</div>
+  <div style="font-size:1rem;color:var(--text-body);line-height:1.7;max-width:640px;">This chapter breaks down every major tech role so you can find the one that actually fits your skills, interests, and goals before you spend months and countless hours applying to the wrong jobs.</div>
+</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.8rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What You Will Learn</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#10003;&nbsp; What each major tech role actually does day to day</li>
+        <li>&#10003;&nbsp; What skills each role requires and how they overlap</li>
+        <li>&#10003;&nbsp; Realistic salary ranges from real job market data</li>
+        <li>&#10003;&nbsp; How roles compare across salary, demand, and remote availability</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What Is Inside</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#9656;&nbsp; <strong>Role Breakdowns</strong> — Expandable cards containing details for every role</li>
+        <li>&#9656;&nbsp; <strong>Comparison Table</strong> — Side by side salary and demand data comparisons</li>
+        <li>&#9656;&nbsp; <strong>Skills Heatmap</strong> — A matrix showing which skills matter most per role</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:var(--teal-light);border-left:4px solid var(--teal);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1.1rem 1.4rem;font-size:0.93rem;color:var(--text-body);line-height:1.75;">
+    <strong>How to use this chapter:</strong> Start with Role Breakdowns to explore roles that interest you. Then use the Comparison Table to sort and compare roles by salary or demand. Finally check the Skills Heatmap to see how your current skills align with different roles.
+  </div>
+</div>
+
+
+<!-- SECTION 1: ROLE BREAKDOWNS -->
+<a id="role-breakdowns-anchor" class="tcp-anchor"></a>
+<div id="role-breakdowns" class="section-panel">
+  <h2 id="role-breakdowns-anchor" style="margin-top:0;">Role Breakdowns</h2>
+  <p class="section-intro">Click any role to expand the full breakdown. Filter by category below.</p>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter by:</span>
+    <button class="filter-btn active" onclick="filterRoles('all', this)">All</button>
+    <button class="filter-btn" onclick="filterRoles('engineering', this)">Engineering</button>
+    <button class="filter-btn" onclick="filterRoles('data', this)">Data</button>
+    <button class="filter-btn" onclick="filterRoles('ai---ml', this)">AI / ML</button>
+    <button class="filter-btn" onclick="filterRoles('devops---platform', this)">DevOps / Platform</button>
+    <button class="filter-btn" onclick="filterRoles('cloud', this)">Cloud</button>
+    <button class="filter-btn" onclick="filterRoles('business-intelligence', this)">Business Intelligence</button>
+    <button class="filter-btn" onclick="filterRoles('research', this)">Research</button>
+  </div>
+
+`r role_cards_html`
+
+</div>
+
+
+<!-- SECTION 2: COMPARISON TABLE -->
+<a id="comparison-table-anchor" class="tcp-anchor"></a>
+<div id="comparison-table" class="section-panel">
+  <h2 id="comparison-table-anchor" style="margin-top:0;">Role Comparison Table</h2>
+  <p class="section-intro">Side-by-side look across all roles. Salary data sourced from ai-jobs.net 2025.
+  <br>*Avg salary reflects median base pay.</p>
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr id="comp-thead-row">
+          <th onclick="sortCompTable(0, false)" class="comp-th-sortable">Role <span class="sort-icon">⇅</span></th>
+          <th onclick="sortCompTable(1, false)" class="comp-th-sortable">Category <span class="sort-icon">⇅</span></th>
+          <th onclick="sortCompTable(2, true)"  class="comp-th-sortable">Entry Salary <span class="sort-icon">⇅</span></th>
+          <th onclick="sortCompTable(3, true)"  class="comp-th-sortable">Senior Salary <span class="sort-icon">⇅</span></th>
+          <th onclick="sortCompTable(4, true)"  class="comp-th-sortable">Avg Salary <span class="sort-icon">⇅</span></th>
+          <th onclick="sortCompTable(5, false)" class="comp-th-sortable">Demand <span class="sort-icon">⇅</span></th>
+          <th onclick="sortCompTable(6, false)" class="comp-th-sortable">Remote <span class="sort-icon">⇅</span></th>
+        </tr>
+      </thead>
+      <tbody>
+`r table_rows_html`
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- SECTION 3: SKILLS HEATMAP -->
+<a id="skills-heatmap-anchor" class="tcp-anchor"></a>
+<div id="skills-heatmap" class="section-panel">
+  <h2 id="skills-heatmap-anchor" style="margin-top:0;">Skills Overlap Heatmap</h2>
+  <p class="section-intro">Skill relevance (%) by role category. Darker teal = more relevant to that track.</p>
+  <div class="heatmap-wrap">
+    <table class="heatmap-table" id="heatmapTable">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Python</th><th>SQL</th><th>JS/TS/Node</th><th>AWS/Cloud</th>
+          <th>Docker</th><th>Kubernetes</th><th>ML/AI</th><th>Git</th>
+          <th>Linux</th><th>CI/CD</th><th>Terraform</th><th>Tableau/BI</th>
+          <th>Statistics</th><th>System Design</th><th>Security</th>
+        </tr>
+      </thead>
+      <tbody id="heatmapBody"></tbody>
+    </table>
+  </div>
+</div>
+
+
+<script>
+/* ── SECTION SWITCHING ── */
+function showPanel(id, btn) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.chapter-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (id === 'skills-heatmap') buildHeatmap();
+  // Scroll to top of content area
+  window.scrollTo({ top: document.querySelector('.tcp-nav').getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+}
+
+/* ── TOC SIDEBAR LINK INTERCEPTION ── */
+const anchorMap = {
+  // IDs we put on the h2 elements
+  'overview':                 'overview',
+  'role-breakdowns-anchor':   'role-breakdowns',
+  'comparison-table-anchor':  'comparison-table',
+  'skills-heatmap-anchor':    'skills-heatmap',
+  // bs4_book auto-slugs from h2 text
+  'chapter-overview':         'overview',
+  'role-breakdowns':          'role-breakdowns',
+  'role-comparison-table':    'comparison-table',
+  'skills-overlap-heatmap':   'skills-heatmap',
+  // extra variants bs4_book might generate
+  'role-breakdown':           'role-breakdowns',
+  'comparison-table':         'comparison-table',
+  'skills-heatmap':           'skills-heatmap',
+};
+
+function activatePanelById(targetId) {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.chapter-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.chapter-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+  if (targetId === 'skills-heatmap') buildHeatmap();
+  // Scroll to nav tabs
+  const nav = document.querySelector('.tcp-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function interceptTOCLinks() {
+  // Intercept all TOC links in both sidebars
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const href = link.getAttribute('href') || '';
+    const hash = href.replace(/^.*#/, '');
+    if (anchorMap[hash]) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        activatePanelById(anchorMap[hash]);
+      });
+    }
+  });
+}
+
+// Run on load and after a short delay to catch TOC
+document.addEventListener('DOMContentLoaded', function() {
+  interceptTOCLinks();
+  setTimeout(interceptTOCLinks, 400);
+  setTimeout(interceptTOCLinks, 1200);
+  setTimeout(interceptTOCLinks, 2500);
+  const hash = window.location.hash.replace('#','');
+  if (anchorMap[hash]) activatePanelById(anchorMap[hash]);
+});
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#','');
+  if (anchorMap[hash]) activatePanelById(anchorMap[hash]);
+});
+
+/* ── ROLE CARD TOGGLE ── */
+function toggleRole(header) {
+  const card = header.closest('.role-card');
+  card.classList.toggle('open');
+}
+
+/* ── SUBTABS ── */
+function showSubtab(btn, targetId) {
+  const body = btn.closest('.role-card-body');
+  body.querySelectorAll('.role-subtab').forEach(t => t.classList.remove('active'));
+  body.querySelectorAll('.role-tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+/* ── FILTER ROLES ── */
+function filterRoles(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.role-card').forEach(card => {
+    if (cat === 'all' || card.dataset.category === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+/* ── HEATMAP ── */
+function buildHeatmap() {
+  const skills = ['AWS','C++','CI/CD','Docker','Excel','Git','HPC','Kubernetes','Linux','PyTorch','Python','REST APIs','Research Methods','SQL','Spark','Statistics','Tableau','TensorFlow','Terraform','dbt'];
+  const data = [
+    { cat: "Engineering",           vals: [25,25,50,50, 0,100, 0,  0,  0,  0, 75,75,  0, 75,  0,  0,  0,  0,  0,  0] },
+    { cat: "Data",                  vals: [33, 0, 0,33,33,100, 0,  0,  0,  0,100, 0,  0,100, 33, 67, 67,  0,  0, 33] },
+    { cat: "AI / ML",               vals: [33, 0, 0,67, 0,100,33,  0,  0, 67,100,33, 33, 33,  0, 67,  0, 33,  0,  0] },
+    { cat: "DevOps / Platform",     vals: [100,0,100,100,0,100, 0,100, 50,  0,100, 0,  0,  0,  0,  0,  0,  0,100,  0] },
+    { cat: "Cloud",                 vals: [100,0,  0,100, 0,  0, 0,100, 50,  0, 50, 0,  0,  0,  0,  0,  0,  0,100,  0] },
+    { cat: "Business Intelligence", vals: [ 0, 0,  0,  0,50, 50, 0,  0,  0,  0,100, 0,  0,100, 50,  0,100,  0,  0, 50] },
+    { cat: "Research",              vals: [ 0,50,  0,  0, 0,100,50,  0, 50,100,100, 0,100,  0,  0, 50,  0, 50,  0,  0] },
+  ];
+
+  const wrap = document.getElementById('heatmapBody').closest('.heatmap-wrap');
+  const table = wrap.querySelector('.heatmap-table');
+  const thead = table.querySelector('thead tr');
+  thead.innerHTML = '<th class="hm-sticky-col">Category</th>' + skills.map(s => `<th>${s}</th>`).join('');
+  const tbody = table.querySelector('tbody');
+  if (tbody.children.length > 0) return;
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="hm-sticky-col">${row.cat}</td>` + row.vals.map(v => {
+      const bg = v === 0 ? '#f8fafc' : `rgba(0,194,168,${(v/100)*0.85+0.05})`;
+      const color = v > 60 ? '#fff' : '#0D1B2A';
+      return `<td style="background:${bg};color:${color};">${v > 0 ? v + '%' : '&ndash;'}</td>`;
+    }).join('');
+    tbody.appendChild(tr);
+  });
+}
+
+/* ── SORTABLE COMPARISON TABLE ── */
+window._compSortDir = {};
+function sortCompTable(colIdx, isNumeric) {
+  const tbody = document.querySelector('#comparison-table .comp-table tbody');
+  const rows  = Array.from(tbody.querySelectorAll('tr'));
+  const key   = colIdx;
+  const prev  = window._compSortDir[key] || 'none';
+  const dir   = prev === 'asc' ? 'desc' : 'asc';
+  window._compSortDir[key] = dir;
+
+  document.querySelectorAll('.comp-th-sortable').forEach((th, i) => {
+    th.classList.remove('sort-asc','sort-desc');
+    if (i === colIdx) th.classList.add(dir === 'asc' ? 'sort-asc' : 'sort-desc');
+  });
+
+  const parseSal = str => {
+    const m = str.replace(/[$,]/g,'').match(/\d+/);
+    return m ? parseInt(m[0]) : 0;
+  };
+  const demandOrder = {'Very High':2,'High':1,'Moderate':0};
+
+  rows.sort((a, b) => {
+    const aCell = a.cells[colIdx]?.textContent.trim() || '';
+    const bCell = b.cells[colIdx]?.textContent.trim() || '';
+    let cmp = 0;
+    if (isNumeric) {
+      cmp = parseSal(aCell) - parseSal(bCell);
+    } else if (colIdx === 5) {
+      cmp = (demandOrder[aCell.replace(' Demand','')] || 0) - (demandOrder[bCell.replace(' Demand','')] || 0);
+    } else {
+      cmp = aCell.localeCompare(bCell);
+    }
+    return dir === 'asc' ? cmp : -cmp;
+  });
+  rows.forEach(r => tbody.appendChild(r));
+}
+
+</script>
+```
+
