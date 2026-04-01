@@ -1,7 +1,8 @@
 --- 
 title: "The Grad Guide"
-author: "Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur Gahra"
-date: "2026-03-12"
+author: "Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur
+  Gahra"
+date: "2026-04-01"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography:
@@ -65,7 +66,7 @@ It contains a total of eight chapters, built by people who've been exactly where
 ::: {.callout-highlight}
 **Built for you if:**
 
-✔ You're a college senior or recent graduate
+✔ You're a college sophomore, junior, senior, or recent graduate
 
 ✔ You want a tech job but don't know where to start
 
