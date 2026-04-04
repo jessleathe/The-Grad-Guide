@@ -1,133 +1,685 @@
 # How to Network
 
-Networking is one of the most valuable parts of searching for a job, especially for new graduates and students entering competitive fields like technology and computer science. Although resumes and applications are important to establishing a strong position, many opportunities come through relationships and connections rather than online applications alone. 
+```{=html}
+<style>
+/* -- CHAPTER NAV TABS -- */
+.htn-chapter-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 0.35rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-sm);
+}
+.htn-nav-btn {
+  background: none;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.18s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.htn-nav-btn:hover {
+  color: var(--navy);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.htn-nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.18);
+}
 
-Building a strong network allows students to gain advice and insight from experienced professionals, learn more about roles and openings, and access opportunities that may not be publicly advertised. Through effort and time, networking helps create a support system that can guide students in their career progression and open doors to new possibilities.
+/* -- PANELS -- */
+.htn-panel { display: none; }
+.htn-panel.active { display: block; }
 
-## Why Networking Works
+.htn-section-intro {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
 
-Networking works because the job search process is not only about qualifications, but also about trust, visibility, and relationships. In many cases, employers are more likely to consider and hire applicants who are recommended, referred, or already connected to someone within their organization.
+/* -- TIP BOX -- */
+.htn-tip-box {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+.htn-tip-box p { margin: 0; }
+.htn-tip-box strong { color: var(--navy); }
 
-Through the years, research and career studies have shown that many opportunities are filled through networking as opposed to traditional job applications, especially online ones. This is often referred to as the "hidden job market", where roles are shared internally through current employees or through connections before being posted publicly for new incoming applicants. 
+/* -- REASON CARDS -- */
+.htn-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.htn-reason-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.htn-reason-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.htn-reason-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+.htn-reason-title {
+  font-size: 0.97rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.htn-reason-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
 
-For students and recent graduates, networking is especially important as the job search process is extremely competitive. Applying with a degree may not make candidates stand out as much, as many applicants have similar backgrounds, so the key is finding ways to differentiate yourself and create opportunities to stand out. Building relationships helps you get that foot in the door and gives you access to insights that cannot be found on company websites or job descriptions alone. 
+/* -- PLATFORM CARDS -- */
+.htn-platform-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.htn-platform-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.htn-platform-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.htn-platform-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+.htn-platform-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.htn-platform-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.htn-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-body);
+  line-height: 1.9;
+}
+.htn-bullet-list li::before {
+  content: "◆ ";
+  color: var(--teal);
+  font-size: 0.5rem;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
 
-Networking is also beneficial for long-term career growth, not just the immediate job search. The connections you build can continue to guide and support you throughout your entire career. 
+/* -- IN-PERSON CARDS -- */
+.htn-inperson-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.htn-inperson-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.htn-inperson-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.htn-inperson-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.htn-inperson-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.htn-inperson-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
 
-## Online Networking
+/* -- EMAIL TEMPLATE -- */
+.ifu-email-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.ifu-email-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.9rem 1.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ifu-email-body {
+  padding: 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+}
+.ifu-email-highlight { color: var(--teal); font-weight: 700; }
 
-One of the best and most accessible ways to build connections is through online networking. Platforms like GitHub and LinkedIn allow students to engage with professionals, showcase their work and effort, and stay in-tune with trends in the industry.
+/* -- CHECKLIST -- */
+.htn-checklist-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.htn-checklist-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.htn-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.95rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.htn-checklist-item:last-of-type { border-bottom: none; }
+.htn-checklist-item:hover { background: var(--surface); }
+.htn-checklist-item.checked { background: #f0fdf4; }
+.htn-checklist-item.checked .htn-checklist-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.htn-checklist-checkbox {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-size: 0.75rem;
+  color: #fff;
+}
+.htn-checklist-item.checked .htn-checklist-checkbox {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+.htn-checklist-text {
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  transition: color 0.15s;
+}
+.htn-checklist-footer {
+  padding: 0.9rem 1.4rem;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.htn-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.htn-progress-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 50px;
+  transition: width 0.3s ease;
+}
+.htn-progress-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.htn-checklist-reset {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.htn-checklist-reset:hover { border-color: var(--teal); color: var(--teal); }
+</style>
 
-### LinkedIn
-LinkedIn is an extremely important modern day tool for professional networking. This app helps users to build executive presence and connect with people across industries. Additionally, it gives people with little industry work a space to showcase their talent and previous work.
+<!-- Chapter Navigation -->
+<div class="htn-chapter-nav htn-nav">
+  <button class="htn-nav-btn active" onclick="htnShowPanel('htn-overview', this)">Overview</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-why', this)">Why</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-online', this)">Online Networking</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-inperson', this)">In-Person Networking</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-checklist', this)">Checklist</button>
+</div>
 
-A strong LinkedIn profile should include:
+<!-- PANEL 0: OVERVIEW -->
+<div id="htn-overview" class="htn-panel active">
+  <h2 style="margin-top:0;">Chapter Overview</h2>
 
-- A professional photo
-- A clear headline that reflects your current status and career goals
-- Updated education and experience
-- Projects, skills, and certifications
-- A short summary describing your interests
+  <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem 2.4rem;margin-bottom:1.8rem;box-shadow:var(--shadow-md);">
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">Chapter Overview</div>
+    <div style="font-size:1rem;color:var(--text-body);line-height:1.7;max-width:640px;">This chapter shows you how to build meaningful connections that lead to opportunities, and how to network in a way that feels natural and authentic.</div>
+  </div>
 
-To use LinkedIn to its full potential:
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.8rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What You Will Learn</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#10003;&nbsp; Why networking works and why most students underestimate it</li>
+        <li>&#10003;&nbsp; How to build your presence on LinkedIn and GitHub</li>
+        <li>&#10003;&nbsp; How to make the most of conferences, career fairs, and informational interviews</li>
+        <li>&#10003;&nbsp; A checklist to keep your networking efforts consistent</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What Is Inside</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#9656;&nbsp; <strong>Why</strong> — The case for why networking is important</li>
+        <li>&#9656;&nbsp; <strong>Online Networking</strong> — LinkedIn and GitHub strategies</li>
+        <li>&#9656;&nbsp; <strong>In-Person Networking</strong> — Conferences, career fairs, and informational interviews</li>
+        <li>&#9656;&nbsp; <strong>Checklist</strong> — Stay consistent with your networking efforts</li>
+      </ul>
+    </div>
+  </div>
 
-- Find and connect with alumni, recruiters, and professionals in your desired field
-- Be active and engage with posts by liking or commenting
-- Follow companies and events you are interested in
-- Share updates about your progress, projects, or achievements
+  <div class="htn-tip-box">
+    <p><strong>How to use this chapter:</strong> Start with Why to understand the value of networking, then move to Online or In-Person depending on where you are starting. Use the Checklist to build a consistent habit and to make sure you are on track.</p>
+  </div>
+</div>
 
-When sending connection requests, it can differentiate you to personalize your introduction message.
+<!-- PANEL 1: WHY -->
+<div id="htn-why" class="htn-panel">
+  <h2 style="margin-top:0;">Why Networking Works</h2>
+  <p class="htn-section-intro">Networking works because the job search process is not only about qualifications, but also about trust, visibility, and relationships. In many cases, employers are more likely to consider and hire applicants who are recommended, referred, or connected to someone within their organization.</p>
 
-Example:
+  <div class="htn-reason-grid">
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🚪</div>
+      <div class="htn-reason-title">Access the Hidden Job Market</div>
+      <div class="htn-reason-desc">Many roles are shared internally or through current employees or connections before being posted publicly. Networking gets you access to opportunities that never appear on job boards.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🤝</div>
+      <div class="htn-reason-title">Build Trust Before You Apply</div>
+      <div class="htn-reason-desc">Employers are more likely to consider applicants who come recommended by someone they already trust. A connection can turn a cold application into a warm referral.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🎓</div>
+      <div class="htn-reason-title">Especially Important as a New Grad</div>
+      <div class="htn-reason-desc">Many applicants have similar degrees and backgrounds. Networking helps you differentiate yourself and stand out in a competitive pool where credentials alone are not enough.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">💡</div>
+      <div class="htn-reason-title">Gain Insider Insight</div>
+      <div class="htn-reason-desc">Connections give you access to information you cannot find on company websites, including what the culture is really like, what skills actually matter, and what the interview process looks like.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">📈</div>
+      <div class="htn-reason-title">Supports Long-Term Career Growth</div>
+      <div class="htn-reason-desc">Networking is not just for landing your first job. The connections you build now can guide and support you throughout your entire career, not just the immediate job search.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🌐</div>
+      <div class="htn-reason-title">Creates a Support System</div>
+      <div class="htn-reason-desc">A strong network gives you people to turn to for advice, feedback, and encouragement. It becomes a professional support system that grows more valuable over time.</div>
+    </div>
+  </div>
 
-Hi [Name], I came across your profile and saw your experience in [field]. I am currently a student interested in this area and would love to connect and learn more from your experience.
+  <div class="htn-tip-box">
+    <p><strong>Start early.</strong> You do not need a job offer pending to start networking. The best time to build relationships is before you need them, when there is no pressure and conversations can be genuinely curious rather than transactional.</p>
+  </div>
+</div>
 
-Being consistent with engagement on LinkedIn helps increase your visibility with professionals and showcase your drive in the job-hunt. 
+<!-- PANEL 2: ONLINE NETWORKING -->
+<div id="htn-online" class="htn-panel">
+  <h2 style="margin-top:0;">Online Networking</h2>
+  <p class="htn-section-intro">One of the best and most accessible ways to build connections is through online networking. Platforms like LinkedIn and GitHub allow students to engage with professionals, showcase their work and effort, and stay in-tune with trends in the industry.</p>
 
-### GitHub and Open Source
+  <div class="htn-platform-grid">
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">💼</div>
+      <div class="htn-platform-name">LinkedIn</div>
+      <div class="htn-platform-desc">LinkedIn is an essential networking tool for students. It helps build executive presence, connect across industries, and showcase your talent and experience. </div>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">Your Profile Should Include:</p>
+      <ul class="htn-bullet-list">
+        <li>A professional photo</li>
+        <li>A clear headline that reflects your current status and career goals</li>
+        <li>Updated education and experience</li>
+        <li>Projects, skills, and certifications</li>
+        <li>A short summary describing your interests</li>
+      </ul>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin:1rem 0 0.4rem;">How to Use It Effectively:</p>
+      <ul class="htn-bullet-list">
+        <li>Find and connect with alumni, recruiters, and professionals in your desired field</li>
+        <li>Be active and engage with posts by liking and commenting</li>
+        <li>Follow companies and events you are interested in</li>
+        <li>Share updates about your progress, projects, and achievements</li>
+      </ul>
+    </div>
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">💻</div>
+      <div class="htn-platform-name">GitHub and Open Source</div>
+      <div class="htn-platform-desc">For technical roles, GitHub serves as both a portfolio and a networking tool. It lets you demonstrate your skills while connecting with other developers around real work.</div>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">A Strong GitHub Presence Shows:</p>
+      <ul class="htn-bullet-list">
+        <li>Technical ability through your projects</li>
+        <li>Work ethic and consistency through commits</li>
+        <li>Communication through documentation areas</li>
+        <li>Collaboration and team-spirit through open-source contributions</li>
+      </ul>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin:1rem 0 0.4rem;">Students can use GitHub to:</p>
+      <ul class="htn-bullet-list">
+        <li>Upload personal and academic projects</li>
+        <li>Improve issues or documentation in existing repositories</li>
+        <li>Participate in discussions or issues</li>
+        <li>Contribute to open-source projects</li>
+      </ul>
+    </div>
+  </div>
 
-For roles in technical fields, GitHub serves as both a portfolio and a networking tool. This platform allows students and people on the job search to demonstrate their skills while also interacting with other developers. 
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">Connection Request Example</h3>
+  <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0.5rem;">Personalize your LinkedIn connection requests. This small effort makes a noticeable difference.</p>
 
-A strong presence on GitHub can show:
+  <div class="ifu-email-wrap">
+  <div class="ifu-email-header">💼 LinkedIn Connection Request Example</div>
+  <div class="ifu-email-body"> Hi <span class="ifu-email-highlight">[Name]</span>, I came across your profile and saw your experience in <span class="ifu-email-highlight">[field]</span>. I am currently a student interested in this area and would love to connect and learn more from your experience.</div>
+</div>
 
-- Technical ability through projects
-- Work ethic and consistency through commits
-- Communication through documentation areas
-- Collaboration and team-spirit through open-source contributions
+  <div class="htn-tip-box">
+    <p><strong>Consistency matters.</strong> Being consistent with engagement on LinkedIn helps increase your visibility with professionals and showcase your drive in the job-hunt.</p>
+  </div>
+</div>
 
-Students can use GitHub to:
+<!-- PANEL 3: IN-PERSON NETWORKING -->
+<div id="htn-inperson" class="htn-panel">
+  <h2 style="margin-top:0;">In-Person Networking</h2>
+  <p class="htn-section-intro">While online networking is more easily accessible and convenient, in-person exchanges can create stronger and much more memorable connections. Interacting with people face-to-face allows for more human conversations and helps build trust more quickly. </p>
 
-- Upload personal or academic projects
-- Improve issues or documentation in existing repositories
-- Participate in discussions or issues
-- Contribute to open-source projects
+  <div class="htn-inperson-grid">
+    <div class="htn-inperson-card">
+      <div class="htn-inperson-icon">🎤</div>
+      <div class="htn-inperson-title">Conferences and Meetups</div>
+      <div class="htn-inperson-desc">Attending meetups and conferences can provide opportunities to learn from experienced professionals and connect with others in your field.</div>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">Tips for Attending:</p>
+      <ul class="htn-bullet-list">
+        <li>Prepare a short introduction about yourself</li>
+        <li>Get insight and ask questions about others' experiences</li>
+        <li>Connect on LinkedIn after meeting someone</li>
+        <li>Follow up within a few days</li>
+      </ul>
+    </div>
+    <div class="htn-inperson-card">
+      <div class="htn-inperson-icon">🏢</div>
+      <div class="htn-inperson-title">Career Fairs</div>
+      <div class="htn-inperson-desc">Career fairs are a great way for students to get themselves out there. These events allow students to directly interact with recruiters and company representatives.</div>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">How to Prepare:</p>
+      <ul class="htn-bullet-list">
+        <li>Research companies attending in advance</li>
+        <li>Identify your target companies and employers</li>
+        <li>Bring printed copies of your resume</li>
+        <li>Practice a 30-second introduction</li>
+      </ul>
+    </div>
+    <div class="htn-inperson-card">
+      <div class="htn-inperson-icon">☕</div>
+      <div class="htn-inperson-title">Informational Interviews</div>
+      <div class="htn-inperson-desc">An informational interview is a less-formal conversation with a professional where the goal is to learn and ask questions, not ask for a job.</div>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">What You Can Learn:</p>
+      <ul class="htn-bullet-list">
+        <li>What a role actually involves day to day</li>
+        <li>How others entered the field</li>
+        <li>Which skills matter most to develop</li>
+        <li>Advice tailored to your specific career path</li>
+      </ul>
+    </div>
+  </div>
+  
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">Why These Opportunities Are Beneficial</h3>
+   <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0.5rem;">1. Exposure to trends and tools in the industry</p>
+   <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0.5rem;">2. Opportunities to meet and talk with professionals in your field of interest</p>
+   <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0.5rem;">3. Practice communicating in a professional and executive setting</p>
 
-## In-Person Networking
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">Your Introduction</h3>
+  <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0.5rem;">A simple, confident introduction is all you need to start a conversation at any event. Keep it to four key elements:</p>
 
-While online networking is more easily accessible and convenient, in-person exchanges can create stronger and much more memorable connections. Interacting with people face-to-face allows for more human conversations and helps build trust more quickly. 
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin:1rem 0 1.4rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center;box-shadow:var(--shadow-sm);">
+      <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--teal);line-height:1;">1</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-top:0.3rem;">Your Name</div>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center;box-shadow:var(--shadow-sm);">
+      <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--teal);line-height:1;">2</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-top:0.3rem;">Your Major or Background</div>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center;box-shadow:var(--shadow-sm);">
+      <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--teal);line-height:1;">3</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-top:0.3rem;">Your Career Interests</div>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center;box-shadow:var(--shadow-sm);">
+      <div style="font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--teal);line-height:1;">4</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-top:0.3rem;">The Role You Are Seeking</div>
+    </div>
+  </div>
 
-### Conferences and Meetups
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">Informational Interview Request Example</h3>
+  <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0.5rem;">Use this as a starting point when reaching out to someone for an informational interview.</p>
 
-Attending meetups and conferences can provide opportunities to learn from experienced professionals and connect with others in your field. 
+  <div class="ifu-email-wrap">
+  <div class="ifu-email-header">☕ Informational Interview Request Example</div>
+  <div class="ifu-email-body">Hi <span class="ifu-email-highlight">[Name]</span>, I came across your profile and saw your experience in <span class="ifu-email-highlight">[field]</span>. I am currently a student interested in this area and would love to connect and learn more from your experience. If you are available, I would love to have a brief conversation to gain more insight.</div>
+</div>
 
-The many ways it is beneficial include:
+  <div class="htn-tip-box">
+    <p><strong>Always follow up.</strong> After any in-person conversation, connect on LinkedIn and send a short message within a few days referencing something specific from your exchange. Head to the Interview Follow-Up chapter for more insights.</p>
+  </div>
+</div>
 
-- Exposure to trends and tools in the industry
-- Opportunities to meet and talk with professionals in your field of interest
-- Practice communicating in a professional and executive setting
+<!-- PANEL 4: CHECKLIST -->
+<div id="htn-checklist" class="htn-panel">
+  <h2 style="margin-top:0;">Network Checklist</h2>
+  <p class="htn-section-intro">Use this checklist to stay consistent with your networking efforts. Check off each item as you complete it.</p>
 
-Tips for attending events:
+  <div class="htn-checklist-wrap" id="htnChecklist">
+    <div class="htn-checklist-header">Online</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Send 5 personalized LinkedIn connection requests to alumni, recruiters, or professionals in your target field.</div>
+    </div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Engage with at least 3 posts on LinkedIn by leaving a thoughtful comment.</div>
+    </div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Contribute to at least 1 open-source discussion or issue on GitHub.</div>
+    </div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Share an update about a project, achievement, or learning on LinkedIn.</div>
+    </div>
 
-- Prepare a short introduction about yourself
-- Get insight and ask questions about others' experiences
-- Use LinkedIn to connect after meeting someone
-- Follow up within a few days
+    <div class="htn-checklist-header">In-Person</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Attend 1 event this month, such as a conference, meetup, or career fair.</div>
+    </div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Schedule 1 informational interview with a professional in a role or industry you are exploring.</div>
+    </div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Follow up with everyone you interacted with at an event within 48 hours.</div>
+    </div>
 
-Any event, large, small, or even virtual, can be valuable for building connections and getting your foot in the door.
+    <div class="htn-checklist-header">Ongoing</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Review and update your LinkedIn profile so it reflects your most recent experience and projects.</div>
+    </div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Push at least 1 project or meaningful commit to your GitHub profile this week.</div>
+    </div>
 
-### Career Fairs
+    <div class="htn-checklist-footer">
+      <div class="htn-progress-bar">
+        <div class="htn-progress-fill" id="htnChecklistFill" style="width:0%"></div>
+      </div>
+      <div class="htn-progress-label" id="htnChecklistLabel">0 of 9 complete</div>
+      <button class="htn-checklist-reset" onclick="htnResetChecklist()">Reset</button>
+    </div>
+  </div>
+</div>
 
-Career fairs are a great way for students to get themselves out there. These events allow students to directly interact with recruiters and company representatives. 
 
-To prepare for these fairs:
+<script>
+/* -- PANEL SWITCHING -- */
+function htnShowPanel(id, btn) {
+  document.querySelectorAll('.htn-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.htn-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.htn-nav').getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+}
 
-- Research companies attending
-- Identify target companies and employers
-- Bring copies of your resume
-- Practice a short introduction/pitch
+/* -- TOC SIDEBAR LINK INTERCEPTION -- */
+const htnAnchorMap = {
+  'htn-overview':   'htn-overview',
+  'htn-why':        'htn-why',
+  'htn-online':     'htn-online',
+  'htn-inperson':   'htn-inperson',
+  'htn-checklist':  'htn-checklist',
+};
 
-A simple introduction can include:
-- Your name
-- Your major or background
-- Your career interests
-- The type of role you are looking for
+function htnActivatePanel(targetId) {
+  document.querySelectorAll('.htn-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.htn-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.htn-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+  const nav = document.querySelector('.htn-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-### Informational Interviews
+function htnInterceptTOCLinks() {
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const hash = (link.getAttribute('href') || '').replace(/^.*#/, '');
+    if (htnAnchorMap[hash]) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        htnActivatePanel(htnAnchorMap[hash]);
+      });
+    }
+  });
+}
 
-An informational interview is a less-formal conversation with a professional where the goal is to learn and ask questions, not ask for a job.
+document.addEventListener('DOMContentLoaded', function() {
+  htnInterceptTOCLinks();
+  setTimeout(htnInterceptTOCLinks, 400);
+  setTimeout(htnInterceptTOCLinks, 1200);
+  setTimeout(htnInterceptTOCLinks, 2500);
+  setTimeout(htnInterceptTOCLinks, 5000);
+  const hash = window.location.hash.replace('#', '');
+  if (htnAnchorMap[hash]) htnActivatePanel(htnAnchorMap[hash]);
+});
 
-These conversations can be very beneficial for:
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#', '');
+  if (htnAnchorMap[hash]) htnActivatePanel(htnAnchorMap[hash]);
+});
 
-- Understanding what a role actually involves
-- Learning how others entered the field
-- Identifying important skills to sharpen
-- Gaining advice for your career path
+/* -- CHECKLIST -- */
+function htnToggleCheck(item) {
+  item.classList.toggle('checked');
+  item.querySelector('.htn-checklist-checkbox').innerHTML =
+    item.classList.contains('checked') ? '✓' : '';
+  htnUpdateProgress();
+}
 
-Example message:
+function htnUpdateProgress() {
+  const items   = document.querySelectorAll('#htnChecklist .htn-checklist-item');
+  const checked = document.querySelectorAll('#htnChecklist .htn-checklist-item.checked');
+  const total   = items.length;
+  const done    = checked.length;
+  const pct     = total > 0 ? (done / total * 100).toFixed(0) : 0;
+  document.getElementById('htnChecklistFill').style.width  = pct + '%';
+  document.getElementById('htnChecklistLabel').textContent = done + ' of ' + total + ' complete';
+}
 
-Hi [Name], I am a student exploring careers in [field]. I came across your profile/background and would love to learn more about your experience. If you are available, I would love to have a brief conversation to learn and gain more insight.
-
-Informational interviews serve as a low-pressure way of learning valuable insights, gaining future opportunities, and receiving helpful mentorship.
-
-## Network Checklist
-
-Use this checklist to stay consistent with your networking efforts:
-
-- [] Send 5 personalized LinkedIn connection requests
-- [] Schedule 1 informational interview
-- [] Attend 1 event (conference, meetup, career fair)
-- [] Contribute to at least 1 open-source discussion or issue
-- [] Follow up with everyone you interacted with
-
-## Final Thought
-Networking is not just about asking for the job, it is about building relationships to help you succeed over time. Strong professional connections are a great way to get support, guidance, and access to opportunities throughout your career. Starting early, staying consistent, and putting in hard-work can make networking a powerful tool for long-term success. 
+function htnResetChecklist() {
+  document.querySelectorAll('#htnChecklist .htn-checklist-item').forEach(item => {
+    item.classList.remove('checked');
+    item.querySelector('.htn-checklist-checkbox').innerHTML = '';
+  });
+  htnUpdateProgress();
+}
+</script>
+```

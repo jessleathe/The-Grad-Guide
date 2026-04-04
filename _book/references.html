@@ -6,20 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>References | The Grad Guide</title>
 <meta name="author" content="Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur Gahra">
-<meta name="description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
-set in the _output.yml file.
-The HTML output format for this example is bookdown::bs4_book,&lt;/p&gt;">
+<meta name="description" content="/* -- HERO -- */ .kg-hero {  background: linear-gradient(140deg, var(--navy) 0%, #163351 55%, #0e2640 100%);  border-radius: var(--radius);  padding: 3.5rem 3rem;  margin-bottom: 2.5rem; ...">
 <meta name="generator" content="bookdown 0.46 with bs4_book()">
 <meta property="og:title" content="References | The Grad Guide">
 <meta property="og:type" content="book">
-<meta property="og:description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
-set in the _output.yml file.
-The HTML output format for this example is bookdown::bs4_book,&lt;/p&gt;">
+<meta property="og:description" content="/* -- HERO -- */ .kg-hero {  background: linear-gradient(140deg, var(--navy) 0%, #163351 55%, #0e2640 100%);  border-radius: var(--radius);  padding: 3.5rem 3rem;  margin-bottom: 2.5rem; ...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="References | The Grad Guide">
-<meta name="twitter:description" content="&lt;p&gt;This is a minimal example of using the bookdown package to write a book.
-set in the _output.yml file.
-The HTML output format for this example is bookdown::bs4_book,&lt;/p&gt;">
+<meta name="twitter:description" content="/* -- HERO -- */ .kg-hero {  background: linear-gradient(140deg, var(--navy) 0%, #163351 55%, #0e2640 100%);  border-radius: var(--radius);  padding: 3.5rem 3rem;  margin-bottom: 2.5rem; ...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
@@ -72,6 +66,332 @@ The HTML output format for this example is bookdown::bs4_book,&lt;/p&gt;">
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="references" class="section level1 unnumbered">
 <h1>References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
 </h1>
+<style>
+/* -- HERO -- */
+.kg-hero {
+  background: linear-gradient(140deg, var(--navy) 0%, #163351 55%, #0e2640 100%);
+  border-radius: var(--radius);
+  padding: 3.5rem 3rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.kg-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -60px;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,194,168,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.kg-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -70px; left: -50px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.kg-hero-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+.kg-hero-title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+.kg-hero-title span { color: var(--teal); }
+.kg-hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.75;
+  max-width: 580px;
+  margin: 0 auto 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* -- TRUTH CARDS -- */
+.kg-truth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0 2.5rem;
+}
+.kg-truth-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.kg-truth-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.kg-truth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--teal);
+}
+.kg-truth-icon {
+  font-size: 2rem;
+  margin-bottom: 0.7rem;
+}
+.kg-truth-title {
+  font-size: 0.97rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.kg-truth-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* -- QUOTE BLOCK -- */
+.kg-quote {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-left: 5px solid var(--teal);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.8rem 2rem;
+  margin: 2rem 0;
+  box-shadow: var(--shadow-sm);
+}
+.kg-quote-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+.kg-quote-author {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* -- REMINDER CARDS -- */
+.kg-reminder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0 2.5rem;
+}
+.kg-reminder-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.kg-reminder-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.kg-reminder-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+.kg-reminder-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.kg-reminder-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* -- TIP BOX -- */
+.kg-tip-box {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+.kg-tip-box p { margin: 0; }
+.kg-tip-box strong { color: var(--navy); }
+
+/* -- CLOSING -- */
+.kg-closing {
+  background: linear-gradient(140deg, var(--navy) 0%, #163351 100%);
+  border-radius: var(--radius);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.kg-closing::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,194,168,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.kg-closing-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  position: relative;
+  z-index: 1;
+}
+.kg-closing-title span { color: var(--teal); }
+.kg-closing-text {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+</style>
+<!-- Hero --><div class="kg-hero">
+  <div class="kg-hero-eyebrow">A Note From Us to You</div>
+  <div class="kg-hero-title">The Right Opportunity<br><span>Is Coming</span>
+</div>
+  <div class="kg-hero-sub">The job search is hard. It is supposed to be. But every rejection, every silence, and every setback is part of the process — not a sign that you do not belong here.</div>
+</div>
+
+<!-- Section: What Nobody Tells You -->
+<h2 style="font-family:var(--font-display);color:var(--navy);font-size:1.5rem;margin-bottom:0.4rem;">What Nobody Tells You<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+</h2>
+<p style="font-size:0.95rem;color:var(--text-muted);margin-bottom:0;">The things that make this process feel impossible are the same things everyone else is experiencing.</p>
+
+<div class="kg-truth-grid">
+  <div class="kg-truth-card">
+    <div class="kg-truth-icon">📭</div>
+    <div class="kg-truth-title">Not Hearing Back Is Normal</div>
+    <div class="kg-truth-desc">Most applications go unanswered. That is not a reflection of your worth — it is a reflection of how broken the system is. Keep applying anyway.</div>
+  </div>
+  <div class="kg-truth-card">
+    <div class="kg-truth-icon">🎯</div>
+    <div class="kg-truth-title">Fit Matters More Than Perfect</div>
+    <div class="kg-truth-desc">You do not need to check every box in a job description. You need to be the right fit for the right team at the right time. That match exists for you.</div>
+  </div>
+  <div class="kg-truth-card">
+    <div class="kg-truth-icon">⏳</div>
+    <div class="kg-truth-title">Timing Is Out of Your Control</div>
+    <div class="kg-truth-desc">Rejections are often about budget, headcount, or internal changes — not you. The same application sent six months later could get a very different response.</div>
+  </div>
+  <div class="kg-truth-card">
+    <div class="kg-truth-icon">🔁</div>
+    <div class="kg-truth-title">Everyone Struggles at the Start</div>
+    <div class="kg-truth-desc">The people who seem to have it figured out are just further along the same path you are on. Nobody starts with a clear roadmap.</div>
+  </div>
+  <div class="kg-truth-card">
+    <div class="kg-truth-icon">💪</div>
+    <div class="kg-truth-title">Persistence Is the Differentiator</div>
+    <div class="kg-truth-desc">The candidates who land roles are not always the most qualified. They are the ones who kept showing up after the rejections that made others stop.</div>
+  </div>
+  <div class="kg-truth-card">
+    <div class="kg-truth-icon">🌱</div>
+    <div class="kg-truth-title">Every Step Builds Something</div>
+    <div class="kg-truth-desc">Every application, every interview, every networking conversation is making you sharper. None of it is wasted — even when it does not feel that way.</div>
+  </div>
+</div>
+
+<div class="kg-quote">
+  <div class="kg-quote-text">"You are not behind. You are on your own timeline, and the right opportunity does not care about anyone else's schedule."</div>
+  <div class="kg-quote-author">The Grad Guide</div>
+</div>
+
+<!-- Section: When It Gets Hard -->
+<h2 style="font-family:var(--font-display);color:var(--navy);font-size:1.5rem;margin-bottom:0.4rem;">When It Gets Hard<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+</h2>
+<p style="font-size:0.95rem;color:var(--text-muted);margin-bottom:0;">Here are some things worth remembering on the difficult days.</p>
+
+<div class="kg-reminder-grid">
+  <div class="kg-reminder-card">
+    <div class="kg-reminder-icon">🛑</div>
+    <div class="kg-reminder-title">A Rejection Is Not a Verdict</div>
+    <div class="kg-reminder-desc">One company's no is not the final word on your potential. Hiring decisions are made by people with incomplete information, under time pressure, with competing priorities. It says very little about what you are capable of.</div>
+  </div>
+  <div class="kg-reminder-card">
+    <div class="kg-reminder-icon">📊</div>
+    <div class="kg-reminder-title">It Is a Numbers Game</div>
+    <div class="kg-reminder-desc">The job search requires volume. Most people who land great roles applied broadly, followed up consistently, and kept going long after it felt like it was not working. Keep your pipeline full.</div>
+  </div>
+  <div class="kg-reminder-card">
+    <div class="kg-reminder-icon">🧭</div>
+    <div class="kg-reminder-title">Rest Is Part of the Process</div>
+    <div class="kg-reminder-desc">Burning yourself out chasing applications helps no one. Take breaks. Protect your energy. You will interview better, network better, and think more clearly when you are not running on empty.</div>
+  </div>
+  <div class="kg-reminder-card">
+    <div class="kg-reminder-icon">👥</div>
+    <div class="kg-reminder-title">You Do Not Have to Do This Alone</div>
+    <div class="kg-reminder-desc">Lean on your classmates, your mentors, your network, and the people in your life who are rooting for you. Asking for help is not a weakness — it is one of the most effective career moves you can make.</div>
+  </div>
+</div>
+
+<div class="kg-quote">
+  <div class="kg-quote-text">"The hard part of the job search is not finding the right role. It is staying in motion long enough to reach it."</div>
+  <div class="kg-quote-author">The Grad Guide</div>
+</div>
+
+<!-- Section: What You Have Already Done -->
+<h2 style="font-family:var(--font-display);color:var(--navy);font-size:1.5rem;margin-bottom:0.4rem;">Look How Far You Have Come<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
+</h2>
+<p style="font-size:0.95rem;color:var(--text-muted);margin-bottom:1rem;">If you have made it through this guide, you are already ahead. You now know things it takes most people years to figure out on their own.</p>
+
+<div class="kg-tip-box">
+  <p><strong>You know how to read a job market.</strong> You understand what roles exist, what they actually require, and how to evaluate which ones are worth your time and energy.</p>
+</div>
+<div class="kg-tip-box">
+  <p><strong>You know how to tell your story.</strong> You have a framework for every behavioral question, a bank of stories ready to go, and the ability to walk an interviewer through your experience with confidence.</p>
+</div>
+<div class="kg-tip-box">
+  <p><strong>You know how to show up professionally.</strong> From your resume to your thank you email to your LinkedIn presence, you understand what it looks like to take your career seriously.</p>
+</div>
+<div class="kg-tip-box">
+  <p><strong>You know how to build relationships.</strong> Networking is no longer something that happens to other people. You have the tools and the language to go out and build the connections that will shape your career.</p>
+</div>
+
+<!-- Closing -->
+<div class="kg-closing">
+  <div class="kg-closing-title">Go Get <span>What Is Yours</span>
+</div>
+  <div class="kg-closing-text">This is not the end of the guide. It is the beginning of everything that comes next. The work you put in from here — every application, every follow-up, every conversation — is compounding into something. Trust the process. Trust yourself. The right door will open.<br><br>We are rooting for you.</div>
+</div>
 
 </div>
   <div class="chapter-nav">
@@ -79,7 +399,12 @@ The HTML output format for this example is bookdown::bs4_book,&lt;/p&gt;">
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#references">References</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#references">References</a></li>
+<li><a class="nav-link" href="#references">What Nobody Tells You</a></li>
+<li><a class="nav-link" href="#references">When It Gets Hard</a></li>
+<li><a class="nav-link" href="#references">Look How Far You Have Come</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -95,7 +420,7 @@ The HTML output format for this example is bookdown::bs4_book,&lt;/p&gt;">
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>The Grad Guide</strong>" was written by Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur Gahra. It was last built on 2026-04-03.</p>
+    <p>"<strong>The Grad Guide</strong>" was written by Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur Gahra. It was last built on 2026-04-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
