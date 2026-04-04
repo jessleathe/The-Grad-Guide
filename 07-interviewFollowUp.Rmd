@@ -1,61 +1,514 @@
 # Interview Follow-Up
 
-## Thank You Emails After an Interview
+```{=html}
+<style>
+/* -- CHAPTER NAV TABS -- */
+.ifu-chapter-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 0.35rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-sm);
+}
+.ifu-nav-btn {
+  background: none;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.18s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.ifu-nav-btn:hover {
+  color: var(--navy);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.ifu-nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.18);
+}
 
-### Why Sending a Thank You Message Matters
+/* -- PANELS -- */
+.ifu-panel { display: none; }
+.ifu-panel.active { display: block; }
 
-Sending a thank you message after an interview is more than just a polite gesture — it is a strategic step in the hiring process.
+.ifu-section-intro {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
 
-A well-written thank you message:
+/* -- TIP BOX -- */
+.ifu-tip-box {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+.ifu-tip-box p { margin: 0; }
+.ifu-tip-box strong { color: var(--navy); }
 
-- Reinforces your interest in the role  
-- Shows professionalism and communication skills  
-- Helps the interviewer remember you  
-- Gives you a chance to clarify or expand on something discussed  
-- Demonstrates follow-through and attention to detail  
+/* -- REASON CARDS -- */
+.ifu-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.ifu-reason-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.ifu-reason-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.ifu-reason-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+.ifu-reason-title {
+  font-size: 0.97rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.ifu-reason-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
 
-In competitive roles, small signals matter. A thoughtful message can differentiate you from candidates with similar qualifications.
+/* -- EMAIL TEMPLATE -- */
+.ifu-email-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.ifu-email-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.9rem 1.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ifu-email-field {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.ifu-email-field-label {
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 60px;
+  flex-shrink: 0;
+}
+.ifu-email-field-value { color: var(--text-body); }
+.ifu-email-highlight { color: var(--teal); font-weight: 700; }
+.ifu-email-body {
+  padding: 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+}
 
----
+/* -- CHECKLIST -- */
+.ifu-checklist-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.ifu-checklist-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ifu-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.95rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ifu-checklist-item:last-of-type { border-bottom: none; }
+.ifu-checklist-item:hover { background: var(--surface); }
+.ifu-checklist-item.checked { background: #f0fdf4; }
+.ifu-checklist-item.checked .ifu-checklist-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.ifu-checklist-checkbox {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-size: 0.75rem;
+  color: #fff;
+}
+.ifu-checklist-item.checked .ifu-checklist-checkbox {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+.ifu-checklist-text {
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  transition: color 0.15s;
+}
+.ifu-checklist-footer {
+  padding: 0.9rem 1.4rem;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ifu-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.ifu-progress-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 50px;
+  transition: width 0.3s ease;
+}
+.ifu-progress-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.ifu-checklist-reset {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ifu-checklist-reset:hover { border-color: var(--teal); color: var(--teal); }
+</style>
 
-### Examples of Thank You Messages
+<!-- Chapter Navigation -->
+<div class="ifu-chapter-nav ifu-nav">
+  <button class="ifu-nav-btn active" onclick="ifuShowPanel('ifu-overview', this)">Overview</button>
+  <button class="ifu-nav-btn" onclick="ifuShowPanel('ifu-why', this)">Why</button>
+  <button class="ifu-nav-btn" onclick="ifuShowPanel('ifu-email', this)">Email</button>
+  <button class="ifu-nav-btn" onclick="ifuShowPanel('ifu-linkedin', this)">LinkedIn Message</button>
+  <button class="ifu-nav-btn" onclick="ifuShowPanel('ifu-checklist', this)">Checklist</button>
+</div>
 
-#### 1. Formal Email Example
+<!-- PANEL 0: OVERVIEW -->
+<div id="ifu-overview" class="ifu-panel active">
+  <h2 style="margin-top:0;">Chapter Overview</h2>
 
-Subject: Thank You – Software Engineer Interview
+  <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem 2.4rem;margin-bottom:1.8rem;box-shadow:var(--shadow-md);">
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">Chapter Overview</div>
+    <div style="font-size:1rem;color:var(--text-body);line-height:1.7;max-width:640px;">This chapter walks you through how to follow up after an interview in a thoughtful and professional way, helping you stand out and leave a lasting impression.</div>
+  </div>
 
-Dear [Interviewer's Name],
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.8rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What You Will Learn</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#10003;&nbsp; Why sending a thank you message is a strategic move</li>
+        <li>&#10003;&nbsp; How to write a formal thank you email after an interview</li>
+        <li>&#10003;&nbsp; How to write a LinkedIn message after an interview</li>
+        <li>&#10003;&nbsp; A checklist to make sure your message hits every mark</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What Is Inside</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#9656;&nbsp; <strong>Why</strong> — The reasons why following-up matters</li>
+        <li>&#9656;&nbsp; <strong>Email</strong> — Formal thank you email template</li>
+        <li>&#9656;&nbsp; <strong>LinkedIn Message</strong> — Shorter post-interview message template</li>
+        <li>&#9656;&nbsp; <strong>Checklist</strong> — Interactive post-interview message checklist</li>
+      </ul>
+    </div>
+  </div>
 
-Thank you for taking the time to speak with me today about the Software Engineer position. I enjoyed learning more about your team’s work on scalable backend systems and the collaborative culture at the company.
+  <div class="ifu-tip-box">
+    <p><strong>How to use this chapter:</strong> Start with Why to understand the value of following up, then use the Email or LinkedIn Message template that fits your situation (DON'T SEND BOTH. PICK ONE!) Run through the Checklist before you hit send.</p>
+  </div>
+</div>
 
-Our discussion about optimizing distributed systems particularly excited me, and I would love the opportunity to contribute to those initiatives.
+<!-- PANEL 1: WHY -->
+<div id="ifu-why" class="ifu-panel">
+  <h2 style="margin-top:0;">Why Sending a Thank You Message Matters</h2>
+  <p class="ifu-section-intro">Sending a thank you message after an interview is more than just a polite gesture. It is a strategic step in the hiring process that most candidates skip.</p>
 
-Please let me know if there is anything further I can provide. I look forward to hearing from you.
+  <div class="ifu-reason-grid">
+    <div class="ifu-reason-card">
+      <div class="ifu-reason-icon">🎯</div>
+      <div class="ifu-reason-title">Reinforces Your Interest</div>
+      <div class="ifu-reason-desc">It signals that you are genuinely excited about the role and not just going through the motions of job searching.</div>
+    </div>
+    <div class="ifu-reason-card">
+      <div class="ifu-reason-icon">💼</div>
+      <div class="ifu-reason-title">Shows Professionalism</div>
+      <div class="ifu-reason-desc">Clear, timely communication is one of the most valued skills in any workplace. A thank you message demonstrates exactly that.</div>
+    </div>
+    <div class="ifu-reason-card">
+      <div class="ifu-reason-icon">🧠</div>
+      <div class="ifu-reason-title">Keeps You Top of Mind</div>
+      <div class="ifu-reason-desc">Interviewers meet many candidates. A well-crafted message helps them remember who you are when it is time to decide.</div>
+    </div>
+    <div class="ifu-reason-card">
+      <div class="ifu-reason-icon">💬</div>
+      <div class="ifu-reason-title">Lets You Add Context</div>
+      <div class="ifu-reason-desc">Did you forget to mention something important? A follow-up message gives you a second chance to clarify or expand on your answers.</div>
+    </div>
+    <div class="ifu-reason-card">
+      <div class="ifu-reason-icon">✅</div>
+      <div class="ifu-reason-title">Demonstrates Follow-Through</div>
+      <div class="ifu-reason-desc">Following up shows attention to detail and initiative, which are two qualities that matter in every tech role.</div>
+    </div>
+    <div class="ifu-reason-card">
+      <div class="ifu-reason-icon">⚖️</div>
+      <div class="ifu-reason-title">Differentiates You</div>
+      <div class="ifu-reason-desc">In competitive roles, small signals matter. Most candidates do not follow up. A thoughtful message can tip the scales in your favor.</div>
+    </div>
+  </div>
+</div>
 
-Best regards,  
-[Your Name]
+<!-- PANEL 2: EMAIL -->
+<div id="ifu-email" class="ifu-panel">
+  <h2 style="margin-top:0;">Formal Thank You Email</h2>
+  <p class="ifu-section-intro">Use this template for your primary follow-up after any interview. Send it within 24 hours and personalize the highlighted sections with details from your conversation.</p>
 
----
+  <div class="ifu-email-wrap">
+    <div class="ifu-email-header">📧 Formal Thank You Email Template</div>
+    <div class="ifu-email-field">
+      <div class="ifu-email-field-label">Subject</div>
+      <div class="ifu-email-field-value">Thank You — <span class="ifu-email-highlight">[Role Title]</span> Interview</div>
+    </div>
+    <div class="ifu-email-body">Dear <span class="ifu-email-highlight">[Interviewer's Name]</span>,
 
-#### 2. LinkedIn Message Example
+Thank you for taking the time to speak with me today about the <span class="ifu-email-highlight">[Role Title]</span> position. I enjoyed learning more about your team's work on <span class="ifu-email-highlight">[something specific discussed]</span> and the culture at <span class="ifu-email-highlight">[Company]</span>.
 
-Hi [Name],
+Our discussion about <span class="ifu-email-highlight">[specific topic from the interview]</span> particularly stood out to me, and I would welcome the opportunity to contribute to those initiatives.
 
-Thank you again for speaking with me today about the Software Engineer role. I really enjoyed our conversation about your team’s approach to building high-impact products.
+Please do not hesitate to reach out if there is anything further I can provide. I look forward to hearing from you.
+
+Best regards,
+<span class="ifu-email-highlight">[Your Name]</span></div>
+  </div>
+
+  <div class="ifu-tip-box">
+    <p><strong>Personalization is everything.</strong> The highlighted sections are placeholders and you need to replace every one of them with something real from your conversation. A generic message is almost worse than no message at all.</p>
+  </div>
+  <div class="ifu-tip-box">
+    <p><strong>Send individual emails.</strong> If you spoke with multiple people, send each of them a separate, personalized email. Do not send a group message or copy the same text word for word to each person.</p>
+  </div>
+</div>
+
+<!-- PANEL 3: LINKEDIN MESSAGE -->
+<div id="ifu-linkedin" class="ifu-panel">
+  <h2 style="margin-top:0;">LinkedIn Message</h2>
+  <p class="ifu-section-intro">Use this for a shorter, more casual follow-up via LinkedIn. This works well as an alternative to a formal email or if you do not have the interviewer's email address.</p>
+
+  <div class="ifu-email-wrap">
+    <div class="ifu-email-header">💼 LinkedIn Message Template</div>
+    <div class="ifu-email-body">Hi <span class="ifu-email-highlight">[Name]</span>,
+
+Thank you again for speaking with me today about the <span class="ifu-email-highlight">[Role Title]</span> role. I really enjoyed our conversation about <span class="ifu-email-highlight">[something specific]</span> and your team's approach to <span class="ifu-email-highlight">[topic]</span>.
 
 I appreciate your time and look forward to staying in touch!
 
-Best,  
-[Your Name]
+Best,
+<span class="ifu-email-highlight">[Your Name]</span></div>
+  </div>
 
----
+  <div class="ifu-tip-box">
+    <p><strong>Keep it short.</strong> LinkedIn messages should be brief and warm. Save the detailed follow-up for email. Two to three sentences is the right length here.</p>
+  </div>
+  <div class="ifu-tip-box">
+    <p><strong>Connect while you are at it.</strong> If you are not already connected with the interviewer on LinkedIn, send a connection request alongside your message. It keeps you visible long after the hiring decision is made.</p>
+  </div>
+</div>
 
-### Thank You Message Checklist
+<!-- PANEL 4: CHECKLIST -->
+<div id="ifu-checklist" class="ifu-panel">
+  <h2 style="margin-top:0;">Thank You Message Checklist</h2>
+  <p class="ifu-section-intro">Before you hit send, make sure your message checks every box below.</p>
 
-- [ ] Sent within 24 hours  
-- [ ] Addressed the interviewer by name  
-- [ ] Mentioned something specific from the conversation  
-- [ ] Reaffirmed interest in the role  
-- [ ] Maintained a professional tone  
-- [ ] Checked for spelling and grammar errors  
-- [ ] Included a clear closing and your name  
+  <div class="ifu-checklist-wrap" id="ifuChecklist">
+    <div class="ifu-checklist-header">Before You Send</div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Sent within 24 hours of the interview.</div>
+    </div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Addressed the interviewer by name.</div>
+    </div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Mentioned something specific from the conversation.</div>
+    </div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Reaffirmed your interest in the role.</div>
+    </div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Maintained a professional tone throughout.</div>
+    </div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Checked for spelling and grammar errors.</div>
+    </div>
+    <div class="ifu-checklist-item" onclick="ifuToggleCheck(this)">
+      <div class="ifu-checklist-checkbox"></div>
+      <div class="ifu-checklist-text">Included a clear closing and your full name.</div>
+    </div>
+
+    <div class="ifu-checklist-footer">
+      <div class="ifu-progress-bar">
+        <div class="ifu-progress-fill" id="ifuChecklistFill" style="width:0%"></div>
+      </div>
+      <div class="ifu-progress-label" id="ifuChecklistLabel">0 of 7 complete</div>
+      <button class="ifu-checklist-reset" onclick="ifuResetChecklist()">Reset</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* -- PANEL SWITCHING -- */
+function ifuShowPanel(id, btn) {
+  document.querySelectorAll('.ifu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ifu-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.ifu-nav').getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+}
+
+/* -- TOC SIDEBAR LINK INTERCEPTION -- */
+const ifuAnchorMap = {
+  'ifu-overview':  'ifu-overview',
+  'ifu-why':       'ifu-why',
+  'ifu-email':     'ifu-email',
+  'ifu-linkedin':  'ifu-linkedin',
+  'ifu-checklist': 'ifu-checklist',
+};
+
+function ifuActivatePanel(targetId) {
+  document.querySelectorAll('.ifu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ifu-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.ifu-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+  const nav = document.querySelector('.ifu-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function ifuInterceptTOCLinks() {
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const hash = (link.getAttribute('href') || '').replace(/^.*#/, '');
+    if (ifuAnchorMap[hash]) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        ifuActivatePanel(ifuAnchorMap[hash]);
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  ifuInterceptTOCLinks();
+  setTimeout(ifuInterceptTOCLinks, 400);
+  setTimeout(ifuInterceptTOCLinks, 1200);
+  setTimeout(ifuInterceptTOCLinks, 2500);
+  setTimeout(ifuInterceptTOCLinks, 5000);
+  const hash = window.location.hash.replace('#', '');
+  if (ifuAnchorMap[hash]) ifuActivatePanel(ifuAnchorMap[hash]);
+});
+
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#', '');
+  if (ifuAnchorMap[hash]) ifuActivatePanel(ifuAnchorMap[hash]);
+});
+
+/* -- CHECKLIST -- */
+function ifuToggleCheck(item) {
+  item.classList.toggle('checked');
+  item.querySelector('.ifu-checklist-checkbox').innerHTML =
+    item.classList.contains('checked') ? '✓' : '';
+  ifuUpdateProgress();
+}
+
+function ifuUpdateProgress() {
+  const items   = document.querySelectorAll('#ifuChecklist .ifu-checklist-item');
+  const checked = document.querySelectorAll('#ifuChecklist .ifu-checklist-item.checked');
+  const total   = items.length;
+  const done    = checked.length;
+  const pct     = total > 0 ? (done / total * 100).toFixed(0) : 0;
+  document.getElementById('ifuChecklistFill').style.width  = pct + '%';
+  document.getElementById('ifuChecklistLabel').textContent = done + ' of ' + total + ' complete';
+}
+
+function ifuResetChecklist() {
+  document.querySelectorAll('#ifuChecklist .ifu-checklist-item').forEach(item => {
+    item.classList.remove('checked');
+    item.querySelector('.ifu-checklist-checkbox').innerHTML = '';
+  });
+  ifuUpdateProgress();
+}
+</script>
+```
