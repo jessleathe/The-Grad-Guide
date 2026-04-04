@@ -1,21 +1,766 @@
 # Acing Interviews
+```{=html}
+<style>
+/* -- CHAPTER NAV TABS -- */
+.ai-chapter-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 0.35rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-sm);
+}
+.ai-nav-btn {
+  background: none;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.18s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.ai-nav-btn:hover {
+  color: var(--navy);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.ai-nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.18);
+}
 
-After title
+/* -- PANELS -- */
+.ai-panel { display: none; }
+.ai-panel.active { display: block; }
 
-## Common Interview Stages Matrix
+.ai-section-intro {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
 
-Table breaking down each stage: recruitre screen, technical phone screen, and etc.
+/* -- STAR FRAMEWORK -- */
+.star-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0 2rem;
+}
+.star-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.star-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.star-s::before { background: var(--c2); }
+.star-t::before { background: var(--c3); }
+.star-a::before { background: var(--c4); }
+.star-r::before { background: var(--c1); }
+.star-letter {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.star-s .star-letter { color: var(--c2); }
+.star-t .star-letter { color: var(--c3); }
+.star-a .star-letter { color: var(--c4); }
+.star-r .star-letter { color: var(--c1); }
+.star-word {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.star-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
 
-## Technical Interview Prep
+/* -- QUESTION CARDS -- */
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.2rem 0;
+}
+.question-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1rem 1.3rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.question-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(3px);
+}
+.question-card strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.97rem;
+  margin-bottom: 0.25rem;
+}
+.question-tip {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+  font-style: italic;
+}
 
-Cover key data structure and algorithm topics and how to practice (ex. LeetCode)
+/* -- TIP BOX -- */
+.ai-tip-box {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+.ai-tip-box p { margin: 0; }
+.ai-tip-box strong { color: var(--navy); }
 
-## Behavioral Interview Prep
+/* -- DATA STRUCTURES -- */
+.ds-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.ds-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.ds-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.ds-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.ds-name {
+  font-size: 0.97rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+.ds-difficulty {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 50px;
+}
+.diff-easy   { background: #d1fae5; color: #065f46; }
+.diff-medium { background: #fef3c7; color: #92400e; }
+.diff-hard   { background: #fce7f3; color: #9d174d; }
+.ds-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+.ds-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.ds-tag {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
 
-Teach the STAR framework, cover common questions, and explain how to prepare stories and know your resume
+/* -- PRACTICE RESOURCES -- */
+.practice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.practice-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.practice-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.practice-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+.practice-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+.practice-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 0.8rem;
+}
+.practice-link {
+  display: inline-block;
+  background: var(--navy);
+  color: #fff !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 1.1rem;
+  border-radius: 50px;
+  text-decoration: none !important;
+  transition: background 0.18s;
+}
+.practice-link:hover { background: var(--teal); color: var(--navy) !important; }
 
-## Interview Day Checklist
+/* -- CHECKLIST -- */
+.checklist-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.checklist-section-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.95rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.checklist-item:last-of-type { border-bottom: none; }
+.checklist-item:hover { background: var(--surface); }
+.checklist-item.checked { background: #f0fdf4; }
+.checklist-item.checked .checklist-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.checklist-checkbox {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-size: 0.75rem;
+  color: #fff;
+}
+.checklist-item.checked .checklist-checkbox {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+.checklist-text {
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  transition: color 0.15s;
+}
+.checklist-footer {
+  padding: 0.9rem 1.4rem;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.checklist-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.checklist-progress-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 50px;
+  transition: width 0.3s ease;
+}
+.checklist-progress-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.checklist-reset {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.checklist-reset:hover { border-color: var(--teal); color: var(--teal); }
+</style>
 
-End the chapter with a checklist to make sure you are prepared for your interview
+<!-- Chapter Navigation -->
+<div class="ai-chapter-nav ai-nav">
+  <button class="ai-nav-btn active"  onclick="aiShowPanel('ai-overview', this)">Overview</button>
+  <button class="ai-nav-btn" onclick="aiShowPanel('ai-behavioral', this)">Behavioral</button>
+  <button class="ai-nav-btn" onclick="aiShowPanel('ai-technical', this)">Technical</button>
+  <button class="ai-nav-btn" onclick="aiShowPanel('ai-checklist', this)">Checklist</button>
+</div>
 
 
+<!-- PANEL 0: OVERVIEW -->
+<div id="ai-overview" class="ai-panel active">
+  <h2 style="margin-top:0;">Chapter Overview</h2>
+
+  <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem 2.4rem;margin-bottom:1.8rem;box-shadow:var(--shadow-md);">
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">Chapter Overview</div>
+    <div style="font-size:1rem;color:var(--text-body);line-height:1.7;max-width:640px;">This chapter gives you everything you need to walk into your interviews prepared, perform with confidence, and follow up like a professional.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.8rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What You Will Learn</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#10003;&nbsp; How to structure behavioral answers using the STAR framework</li>
+        <li>&#10003;&nbsp; How to approach technical interviews and practice effectively</li>
+        <li>&#10003;&nbsp; A complete pre-interview checklist so nothing gets missed</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What Is Inside</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#9656;&nbsp; <strong>Behavioral</strong> — STAR framework and common questions</li>
+        <li>&#9656;&nbsp; <strong>Technical</strong> — Data structures, algorithms, and practice sites</li>
+        <li>&#9656;&nbsp; <strong>Checklist</strong> — Interactive pre-interview prep list</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ai-tip-box">
+    <p><strong>How to use this chapter:</strong> Navigate to the section that matches where you are in your interview process and where you need guidance.</p>
+  </div>
+</div>
+
+<!-- PANEL 1: BEHAVIORAL -->
+<div id="ai-behavioral" class="ai-panel">
+  <h2 style="margin-top:0;">Behavioral Interviews</h2>
+  <p class="ai-section-intro">Behavioral questions test how you have handled real situations. Every answer should follow the STAR framework:</p>
+
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin-bottom:0.4rem;">The STAR Framework</h3>
+  <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0;">Use this structure for every behavioral answer. Aim for 90 to 120 seconds per response.</p>
+
+  <div class="star-grid">
+    <div class="star-card star-s">
+      <div class="star-letter">S</div>
+      <div class="star-word">Situation</div>
+      <div class="star-desc">Set the scene. Give just enough context for the interviewer to understand what was happening and why it mattered.</div>
+    </div>
+    <div class="star-card star-t">
+      <div class="star-letter">T</div>
+      <div class="star-word">Task</div>
+      <div class="star-desc">Explain your specific responsibility. What were you personally accountable for in that situation?</div>
+    </div>
+    <div class="star-card star-a">
+      <div class="star-letter">A</div>
+      <div class="star-word">Action</div>
+      <div class="star-desc">Describe exactly what you did. Use "I" not "we." This is the most important part of your answer.</div>
+    </div>
+    <div class="star-card star-r">
+      <div class="star-letter">R</div>
+      <div class="star-word">Result</div>
+      <div class="star-desc">Share the outcome. Quantify it when possible. What changed because of what you did?</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">Common Questions to Prepare</h3>
+  <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0;">Have a STAR story ready for each of these before every interview.</p>
+
+  <div class="question-list">
+    <div class="question-card">
+      <strong>Tell me about a time you faced a challenge at work or school.</strong>
+      <div class="question-tip">Focus on what you did, not the problem itself. End with a concrete result.</div>
+    </div>
+    <div class="question-card">
+      <strong>Describe a situation where you had to work with a difficult teammate.</strong>
+      <div class="question-tip">Show maturity. Avoid blaming. Emphasize communication and resolution.</div>
+    </div>
+    <div class="question-card">
+      <strong>Tell me about a time you failed and what you learned from it.</strong>
+      <div class="question-tip">Own the failure fully. The learning and growth after it is what they are evaluating.</div>
+    </div>
+    <div class="question-card">
+      <strong>Give an example of when you had to manage multiple priorities.</strong>
+      <div class="question-tip">Demonstrate organization and decision making under pressure.</div>
+    </div>
+    <div class="question-card">
+      <strong>Tell me about a project you are most proud of.</strong>
+      <div class="question-tip">Pick something with measurable impact. Connect it to the role you are applying for.</div>
+    </div>
+    <div class="question-card">
+      <strong>Describe a time you took initiative without being asked.</strong>
+      <div class="question-tip">Shows ownership and proactiveness, two traits every tech employer values.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">How to Prepare</h3>
+  <div class="ai-tip-box">
+    <p><strong>Build a story bank.</strong> Write out 6-8 STAR stories from your experience before any interview. Most behavioral questions can be answered with the same stories told from different angles.<br><em>Have a story prepared for each of these theme:</em> <br>Collaboration, Communication, Flexibility and Adapatability, Interpersonal Ability, Initiative, Leadership, Problem Solving, and Organizing and Planning.
+    </p>
+  </div>
+  <div class="ai-tip-box">
+    <p><strong>Know your resume.</strong> Every bullet point on your resume is fair game. If it is on there, be ready to go deep on it. Interviewers will ask for specifics you did not include.</p>
+  </div>
+  <div class="ai-tip-box">
+    <p><strong>Practice out loud.</strong> Reading your stories silently is not enough. Say them out loud, record yourself, or practice with a friend.</p>
+  </div>
+</div>
+
+<!-- PANEL 2: TECHNICAL -->
+<div id="ai-technical" class="ai-panel">
+  <h2 style="margin-top:0;">Technical Interviews</h2>
+  <p class="ai-section-intro">Technical interviews test your problem solving process as much as your answer. Think aloud, ask clarifying questions, and walk the interviewer through your reasoning.</p>
+
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin-bottom:0.4rem;">Core Topics to Master</h3>
+  <p style="font-size:0.93rem;color:var(--text-muted);margin-bottom:0;">Know these well. Every topic below has appeared in entry-level interviews at major tech companies.</p>
+
+  <div class="ds-grid">
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Arrays and Strings</div>
+        <span class="ds-difficulty diff-easy">Easy</span>
+      </div>
+      <div class="ds-desc">The most common interview topic. Know two-pointer, sliding window, and prefix sum patterns well.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Two Pointers</span><span class="ds-tag">Sliding Window</span><span class="ds-tag">Prefix Sum</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Hash Maps and Sets</div>
+        <span class="ds-difficulty diff-easy">Easy</span>
+      </div>
+      <div class="ds-desc">Used to optimize brute force solutions from O(n²) to O(n). Appear in almost every interview.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Frequency Count</span><span class="ds-tag">Lookup Tables</span><span class="ds-tag">Deduplication</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Linked Lists</div>
+        <span class="ds-difficulty diff-easy">Easy</span>
+      </div>
+      <div class="ds-desc">Know how to traverse, reverse, and detect cycles. Fast and slow pointer pattern is essential.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Fast/Slow Pointer</span><span class="ds-tag">Reversal</span><span class="ds-tag">Cycle Detection</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Stacks and Queues</div>
+        <span class="ds-difficulty diff-easy">Easy</span>
+      </div>
+      <div class="ds-desc">Stacks for matching and parsing, queues for BFS. Monotonic stacks appear more than you expect.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Monotonic Stack</span><span class="ds-tag">BFS Queue</span><span class="ds-tag">Bracket Matching</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Trees and Binary Search</div>
+        <span class="ds-difficulty diff-medium">Medium</span>
+      </div>
+      <div class="ds-desc">DFS and BFS traversals on trees. Binary search on sorted arrays and answer spaces.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">DFS</span><span class="ds-tag">BFS</span><span class="ds-tag">Binary Search</span><span class="ds-tag">BST</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Graphs</div>
+        <span class="ds-difficulty diff-medium">Medium</span>
+      </div>
+      <div class="ds-desc">Adjacency lists, BFS for shortest path, DFS for connected components. Union Find is a bonus.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">BFS</span><span class="ds-tag">DFS</span><span class="ds-tag">Union Find</span><span class="ds-tag">Topological Sort</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Heaps and Priority Queues</div>
+        <span class="ds-difficulty diff-medium">Medium</span>
+      </div>
+      <div class="ds-desc">Used for top-K problems and scheduling. Min heap and max heap patterns come up frequently.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Top K Elements</span><span class="ds-tag">Min Heap</span><span class="ds-tag">Merge K Lists</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Sorting and Searching</div>
+        <span class="ds-difficulty diff-medium">Medium</span>
+      </div>
+      <div class="ds-desc">Know time complexities of major sort algorithms. Merge sort and quick sort internals are fair game.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Merge Sort</span><span class="ds-tag">Quick Sort</span><span class="ds-tag">Counting Sort</span>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="ds-card-header">
+        <div class="ds-name">Dynamic Programming</div>
+        <span class="ds-difficulty diff-hard">Hard</span>
+      </div>
+      <div class="ds-desc">Break problems into overlapping subproblems. Start with recursion plus memoization, then optimize to tabulation.</div>
+      <div class="ds-examples">
+        <span class="ds-tag">Memoization</span><span class="ds-tag">Tabulation</span><span class="ds-tag">Knapsack</span><span class="ds-tag">LCS</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin:2rem 0 0.4rem;">How to Practice</h3>
+  <div class="ai-tip-box">
+    <p><strong>Talk aloud while you solve.</strong> Interviewers are evaluating your thinking process, not just your answer. Narrate what you are considering and why you are making each decision.</p>
+  </div>
+  <div class="ai-tip-box">
+    <p><strong>Practice with friends.</strong> Take turns interviewing each other. Being watched adds pressure that solo practice cannot replicate. Give each other honest feedback on clarity and approach.</p>
+  </div>
+  <div class="ai-tip-box" style="margin-bottom:1.8rem;">
+    <p><strong>Use online platforms.</strong> Use coding platforms to practice consistently, identify weak areas, and get comfortable solving problems under time constraints. Here are some below:</p>
+  </div>
+
+  <div class="practice-grid">
+    <div class="practice-card">
+      <div class="practice-icon">💻</div>
+      <div class="practice-name">LeetCode</div>
+      <div class="practice-desc">The industry standard for coding interview prep. Start with the Blind 75 list and work up by difficulty.</div>
+      <a href="https://leetcode.com" target="_blank" class="practice-link">Go to LeetCode</a>
+    </div>
+    <div class="practice-card">
+      <div class="practice-icon">🧠</div>
+      <div class="practice-name">NeetCode</div>
+      <div class="practice-desc">Free video explanations for every major LeetCode problem organized by pattern.</div>
+      <a href="https://neetcode.io" target="_blank" class="practice-link">Go to NeetCode</a>
+    </div>
+    <div class="practice-card">
+      <div class="practice-icon">📘</div>
+      <div class="practice-name">interviewing.io</div>
+      <div class="practice-desc">Anonymous mock interviews with engineers from top companies. Among the most realistic practice available.</div>
+      <a href="https://interviewing.io" target="_blank" class="practice-link">Go to interviewing.io</a>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 3: CHECKLIST -->
+<div id="ai-checklist" class="ai-panel">
+  <h2 style="margin-top:0;">Pre-Interview Checklist</h2>
+  <p class="ai-section-intro">Go through this the night before and the morning of every interview. Check off each item as you complete it.</p>
+
+  <div class="checklist-wrap" id="aiChecklist">
+
+    <div class="checklist-section-header">Technology</div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Test your camera, microphone, and internet connection in the platform being used (Zoom, Teams, Google Meet).</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Close unnecessary tabs and apps to avoid notifications or slowdowns during the interview.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Have a backup plan ready if your connection drops, such as a phone number to call in on.</div>
+    </div>
+
+    <div class="checklist-section-header">Your Environment</div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Have a glass of water and a notepad nearby.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Dress one level above the company's daily dress code. When in doubt, go business casual.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Make sure your background is clean and well lit. Natural light facing you is ideal.</div>
+    </div>
+
+    <div class="checklist-section-header">Materials</div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Keep your resume open on your screen for quick reference during the conversation.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Prepare 3 to 5 thoughtful questions to ask the interviewer. Avoid asking about salary in early rounds.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Review your STAR stories and the job description one more time the night before.</div>
+    </div>
+
+    <div class="checklist-section-header">Mindset</div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Get at least 8 hours of sleep the night before.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Log in 5 minutes early.</div>
+    </div>
+    <div class="checklist-item" onclick="aiToggleCheck(this)">
+      <div class="checklist-checkbox"></div>
+      <div class="checklist-text">Remember that you are also interviewing them. Come in curious.</div>
+    </div>
+
+    <div class="checklist-footer">
+      <div class="checklist-progress-bar">
+        <div class="checklist-progress-fill" id="aiChecklistFill" style="width:0%"></div>
+      </div>
+      <div class="checklist-progress-label" id="aiChecklistLabel">0 of 12 complete</div>
+      <button class="checklist-reset" onclick="aiResetChecklist()">Reset</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* -- PANEL SWITCHING -- */
+function aiShowPanel(id, btn) {
+  document.querySelectorAll('.ai-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ai-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  const nav = document.querySelector('.ai-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* -- TOC SIDEBAR LINK INTERCEPTION -- */
+const aiAnchorMap = {
+  'ai-overview':    'ai-overview',
+  'ai-behavioral':  'ai-behavioral',
+  'ai-technical':   'ai-technical',
+  'ai-checklist':   'ai-checklist',
+};
+
+function aiActivatePanel(targetId) {
+  document.querySelectorAll('.ai-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ai-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.ai-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+  const nav = document.querySelector('.ai-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function aiInterceptTOCLinks() {
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const hash = (link.getAttribute('href') || '').replace(/^.*#/, '');
+    if (aiAnchorMap[hash]) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        aiActivatePanel(aiAnchorMap[hash]);
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  aiInterceptTOCLinks();
+  setTimeout(aiInterceptTOCLinks, 400);
+  setTimeout(aiInterceptTOCLinks, 1200);
+  setTimeout(aiInterceptTOCLinks, 2500);
+  const hash = window.location.hash.replace('#', '');
+  if (aiAnchorMap[hash]) aiActivatePanel(aiAnchorMap[hash]);
+});
+
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#', '');
+  if (aiAnchorMap[hash]) aiActivatePanel(aiAnchorMap[hash]);
+});
+
+/* -- CHECKLIST -- */
+function aiToggleCheck(item) {
+  item.classList.toggle('checked');
+  item.querySelector('.checklist-checkbox').innerHTML =
+    item.classList.contains('checked') ? '✓' : '';
+  aiUpdateProgress();
+}
+
+function aiUpdateProgress() {
+  const items   = document.querySelectorAll('#aiChecklist .checklist-item');
+  const checked = document.querySelectorAll('#aiChecklist .checklist-item.checked');
+  const total   = items.length;
+  const done    = checked.length;
+  const pct     = total > 0 ? (done / total * 100).toFixed(0) : 0;
+  document.getElementById('aiChecklistFill').style.width  = pct + '%';
+  document.getElementById('aiChecklistLabel').textContent = done + ' of ' + total + ' complete';
+}
+
+function aiResetChecklist() {
+  document.querySelectorAll('#aiChecklist .checklist-item').forEach(item => {
+    item.classList.remove('checked');
+    item.querySelector('.checklist-checkbox').innerHTML = '';
+  });
+  aiUpdateProgress();
+}
+</script>
+```
