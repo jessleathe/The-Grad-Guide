@@ -213,7 +213,7 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
 
 ```{=html}
 <style>
-/* ── CHAPTER NAV BUTTONS ── */
+/* -- CHAPTER NAV BUTTONS -- */
 .tcp-anchor {
   display: block;
   height: 0;
@@ -260,18 +260,18 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
   box-shadow: 0 2px 8px rgba(13,27,42,0.18);
 }
 
-/* ── SECTION PANELS ── */
+/* -- SECTION PANELS -- */
 .section-panel { display: none; }
 .section-panel.active { display: block; }
 
-/* ── SECTION INTRO ── */
+/* -- SECTION INTRO -- */
 .section-intro {
   font-size: 0.95rem;
   color: var(--text-muted);
   margin-bottom: 1.8rem;
 }
 
-/* ── FILTER BAR ── */
+/* -- FILTER BAR -- */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -310,7 +310,7 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
   color: #fff;
 }
 
-/* ── ROLE CARD ── */
+/* -- ROLE CARD -- */
 .role-card {
   background: var(--white);
   border: 1.5px solid var(--border);
@@ -381,7 +381,7 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
 }
 .role-card.open .role-toggle-arrow { transform: rotate(180deg); }
 
-/* ── ROLE CARD BODY ── */
+/* -- ROLE CARD BODY -- */
 .role-card-body {
   display: none;
   border-top: 1.5px solid var(--border);
@@ -481,7 +481,7 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
   flex-shrink: 0;
 }
 
-/* ── COMPARISON TABLE ── */
+/* -- COMPARISON TABLE -- */
 .comp-table-wrap {
   overflow-x: auto;
   border-radius: var(--radius);
@@ -549,7 +549,7 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
   pointer-events: none;
 }
 
-/* ── COMP SORTABLE ── */
+/* -- COMP SORTABLE -- */
 .comp-th-sortable {
   cursor: pointer;
   user-select: none;
@@ -560,7 +560,7 @@ table_rows_html <- paste(sapply(roles_meta, function(role) build_table_row(role,
 .comp-th-sortable.sort-asc .sort-icon::after  { content: " ↑"; opacity: 1; }
 .comp-th-sortable.sort-desc .sort-icon::after { content: " ↓"; opacity: 1; }
 
-/* ── HEATMAP ── */
+/* -- HEATMAP -- */
 .heatmap-wrap {
   overflow-x: auto;
   border-radius: var(--radius);
@@ -745,7 +745,7 @@ thead .hm-sticky-col {
 
 
 <script>
-/* ── SECTION SWITCHING ── */
+/* -- SECTION SWITCHING -- */
 function showPanel(id, btn) {
   document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.chapter-nav-btn').forEach(b => b.classList.remove('active'));
@@ -756,19 +756,16 @@ function showPanel(id, btn) {
   window.scrollTo({ top: document.querySelector('.tcp-nav').getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
 }
 
-/* ── TOC SIDEBAR LINK INTERCEPTION ── */
+/* -- TOC SIDEBAR LINK INTERCEPTION -- */
 const anchorMap = {
-  // IDs we put on the h2 elements
   'overview':                 'overview',
   'role-breakdowns-anchor':   'role-breakdowns',
   'comparison-table-anchor':  'comparison-table',
   'skills-heatmap-anchor':    'skills-heatmap',
-  // bs4_book auto-slugs from h2 text
   'chapter-overview':         'overview',
   'role-breakdowns':          'role-breakdowns',
   'role-comparison-table':    'comparison-table',
   'skills-overlap-heatmap':   'skills-heatmap',
-  // extra variants bs4_book might generate
   'role-breakdown':           'role-breakdowns',
   'comparison-table':         'comparison-table',
   'skills-heatmap':           'skills-heatmap',
@@ -815,13 +812,13 @@ window.addEventListener('hashchange', function() {
   if (anchorMap[hash]) activatePanelById(anchorMap[hash]);
 });
 
-/* ── ROLE CARD TOGGLE ── */
+/* -- ROLE CARD TOGGLE -- */
 function toggleRole(header) {
   const card = header.closest('.role-card');
   card.classList.toggle('open');
 }
 
-/* ── SUBTABS ── */
+/* -- SUBTABS -- */
 function showSubtab(btn, targetId) {
   const body = btn.closest('.role-card-body');
   body.querySelectorAll('.role-subtab').forEach(t => t.classList.remove('active'));
@@ -830,7 +827,7 @@ function showSubtab(btn, targetId) {
   document.getElementById(targetId).classList.add('active');
 }
 
-/* ── FILTER ROLES ── */
+/* -- FILTER ROLES -- */
 function filterRoles(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -843,7 +840,7 @@ function filterRoles(cat, btn) {
   });
 }
 
-/* ── HEATMAP ── */
+/* -- HEATMAP -- */
 function buildHeatmap() {
   const skills = ['AWS','C++','CI/CD','Docker','Excel','Git','HPC','Kubernetes','Linux','PyTorch','Python','REST APIs','Research Methods','SQL','Spark','Statistics','Tableau','TensorFlow','Terraform','dbt'];
   const data = [
@@ -873,7 +870,7 @@ function buildHeatmap() {
   });
 }
 
-/* ── SORTABLE COMPARISON TABLE ── */
+/* -- SORTABLE COMPARISON TABLE -- */
 window._compSortDir = {};
 function sortCompTable(colIdx, isNumeric) {
   const tbody = document.querySelector('#comparison-table .comp-table tbody');

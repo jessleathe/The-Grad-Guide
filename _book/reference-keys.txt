@@ -18,10 +18,6 @@ informational-interviews
 network-checklist
 final-thought
 acing-interviews
-common-interview-stages-matrix
-technical-interview-prep
-behavioral-interview-prep
-interview-day-checklist
 interview-follow-up
 thank-you-emails-after-an-interview
 why-sending-a-thank-you-message-matters
