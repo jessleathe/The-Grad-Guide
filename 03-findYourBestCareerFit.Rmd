@@ -1,9 +1,10 @@
 # Find Your Best Career Fit
+
 ```{r setup, include=FALSE}
 library(httr)
+library(jsonlite)
 
-# load 'jobs' dataset
-url <- "https://raw.githubusercontent.com/foorilla/ai-jobs-net-salaries/main/salaries.csv"
+url  <- "https://raw.githubusercontent.com/foorilla/ai-jobs-net-salaries/main/salaries.csv"
 jobs <- read.csv(url)
 
 # add column for skills (did not exist prior)
@@ -28,238 +29,402 @@ colnames(jobs_summary) <- c("job_title", "location", "skills", "avg_salary")
 # Convert to JSON in order to use JavaScript
 jobs_json <- jsonlite::toJSON(jobs_summary)
 ```
-```{r embed-survey, echo=FALSE}
-htmltools::HTML(paste0('
+```{=html}
 <style>
-  @import url(\'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap\');
+/* -- CHAPTER NAV TABS -- */
+.fyb-chapter-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 0.35rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-sm);
+}
+.fyb-nav-btn {
+  background: none;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.18s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.fyb-nav-btn:hover {
+  color: var(--navy);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.fyb-nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.18);
+}
 
-  .survey-container {
-    font-family: \'Poppins\', sans-serif;
-    max-width: 700px;
-    margin: auto;
-    background: linear-gradient(135deg, #f5f7fa, #e8f4fd);
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  }
+/* -- PANELS -- */
+.fyb-panel { display: none; }
+.fyb-panel.active { display: block; }
 
-  .survey-container p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 24px;
-  }
+.fyb-section-intro {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
 
-  .question {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border-left: 5px solid #6c63ff;
-  }
+/* -- TIP BOX -- */
+.fyb-tip-box {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+.fyb-tip-box p { margin: 0; }
+.fyb-tip-box strong { color: var(--navy); }
 
-  .question h4 {
-    margin-bottom: 12px;
-    color: #2d2d2d;
-    font-weight: 600;
-    font-size: 15px;
-  }
+/* -- SURVEY -- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-  .checkbox-group label, .radio-group label {
-    display: block;
-    margin: 6px 0;
-    cursor: pointer;
-    color: #444;
-    font-size: 14px;
-    transition: color 0.2s;
-  }
+.survey-container {
+  font-family: 'Poppins', sans-serif;
+  max-width: 700px;
+  margin: auto;
+  background: linear-gradient(135deg, #f5f7fa, #e8f4fd);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
 
-  .checkbox-group label:hover, .radio-group label:hover {
-    color: #6c63ff;
-  }
+.survey-container p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 24px;
+}
 
-  input[type="range"] {
-    width: 100%;
-    accent-color: #6c63ff;
-  }
+.question {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-left: 5px solid #6c63ff;
+}
 
-  #salary-label {
-    font-weight: 700;
-    color: #6c63ff;
-  }
+.question h4 {
+  margin-bottom: 12px;
+  color: #2d2d2d;
+  font-weight: 600;
+  font-size: 15px;
+}
 
-  .submit-btn {
-    background: linear-gradient(135deg, #6c63ff, #3b82f6);
-    color: white;
-    padding: 14px 32px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    font-family: \'Poppins\', sans-serif;
-    font-weight: 600;
-    margin-top: 10px;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
+.checkbox-group label, .radio-group label {
+  display: block;
+  margin: 6px 0;
+  cursor: pointer;
+  color: #444;
+  font-size: 14px;
+  transition: color 0.2s;
+}
 
-  .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
-  }
+.checkbox-group label:hover, .radio-group label:hover { 
+  color: #6c63ff; 
+}
 
-  .results {
-    margin-top: 30px;
-  }
+input[type="range"] {
+  width: 100%;
+  accent-color: #6c63ff;
+}
 
-  .results h3 {
-    color: #2d2d2d;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
+#salary-label {
+  font-weight: 700;
+  color: #6c63ff;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  }
+.submit-btn {
+  background: linear-gradient(135deg, #6c63ff, #3b82f6);
+  color: white;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(108,99,255,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-  th {
-    background: linear-gradient(135deg, #6c63ff, #3b82f6);
-    color: white;
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 14px;
-  }
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108,99,255,0.5);
+}
 
-  td {
-    padding: 12px 16px;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    color: #444;
-  }
+.results { 
+  margin-top: 30px; 
+}
 
-  tr:nth-child(even) { background-color: #f8f6ff; }
-  tr:hover { background-color: #f0eeff; transition: background 0.2s; }
+.results h3 {
+  color: #2d2d2d;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+th {
+  background: linear-gradient(135deg, #6c63ff, #3b82f6);
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #444;
+}
+
+tr:nth-child(even) { background-color: #f8f6ff; }
+tr:hover { background-color: #f0eeff; transition: background 0.2s; }
 </style>
 
-<div class="survey-container">
-  <p>Answer the questions below and we will recommend the best tech careers for you!</p>
-
-  <div class="question">
-    <h4>1. What skills do you have? (Select all that apply)</h4>
-    <div class="checkbox-group">
-      <label><input type="checkbox" class="skill" value="Python"> Python</label>
-      <label><input type="checkbox" class="skill" value="R"> R</label>
-      <label><input type="checkbox" class="skill" value="SQL"> SQL</label>
-      <label><input type="checkbox" class="skill" value="Java"> Java</label>
-      <label><input type="checkbox" class="skill" value="JavaScript"> JavaScript</label>
-      <label><input type="checkbox" class="skill" value="Machine Learning"> Machine Learning</label>
-      <label><input type="checkbox" class="skill" value="TensorFlow"> TensorFlow</label>
-      <label><input type="checkbox" class="skill" value="PyTorch"> PyTorch</label>
-      <label><input type="checkbox" class="skill" value="Spark"> Spark</label>
-      <label><input type="checkbox" class="skill" value="ETL"> ETL</label>
-      <label><input type="checkbox" class="skill" value="dbt"> dbt</label>
-      <label><input type="checkbox" class="skill" value="Tableau"> Tableau</label>
-      <label><input type="checkbox" class="skill" value="Excel"> Excel</label>
-      <label><input type="checkbox" class="skill" value="AWS"> AWS</label>
-      <label><input type="checkbox" class="skill" value="Azure"> Azure</label>
-      <label><input type="checkbox" class="skill" value="GCP"> GCP</label>
-      <label><input type="checkbox" class="skill" value="Terraform"> Terraform</label>
-      <label><input type="checkbox" class="skill" value="Git"> Git</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <h4>2. What are you most interested in?</h4>
-    <div class="checkbox-group">
-      <label><input type="checkbox" class="interest" value="Working with data"> Working with data</label>
-      <label><input type="checkbox" class="interest" value="Building software"> Building software</label>
-      <label><input type="checkbox" class="interest" value="AI/Machine Learning"> AI/Machine Learning</label>
-      <label><input type="checkbox" class="interest" value="Cloud infrastructure"> Cloud infrastructure</label>
-      <label><input type="checkbox" class="interest" value="Business insights"> Business insights</label>
-      <label><input type="checkbox" class="interest" value="Research"> Research</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <h4>3. What are your strengths?</h4>
-    <div class="checkbox-group">
-      <label><input type="checkbox" class="strength" value="Problem solving"> Problem solving</label>
-      <label><input type="checkbox" class="strength" value="Data analysis"> Data analysis</label>
-      <label><input type="checkbox" class="strength" value="Building systems"> Building systems</label>
-      <label><input type="checkbox" class="strength" value="Visualization"> Visualization</label>
-      <label><input type="checkbox" class="strength" value="Research"> Research</label>
-      <label><input type="checkbox" class="strength" value="Automation"> Automation</label>
-      <label><input type="checkbox" class="strength" value="Communication"> Communication</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <h4>4. Minimum acceptable salary (USD): <span id="salary-label">$60,000</span></h4>
-    <input type="range" id="min-salary" min="30000" max="200000" value="60000" step="5000"
-      oninput="document.getElementById(\'salary-label\').innerText = \'$\' + parseInt(this.value).toLocaleString()">
-  </div>
-
-  <div class="question">
-    <h4>5. Work style preference:</h4>
-    <div class="radio-group">
-      <label><input type="radio" name="flexibility" value="remote"> Fully remote</label>
-      <label><input type="radio" name="flexibility" value="hybrid"> Hybrid</label>
-      <label><input type="radio" name="flexibility" value="onsite"> On-site</label>
-    </div>
-  </div>
-
-  <div class="question">
-    <h4>6. Career preference:</h4>
-    <div class="radio-group">
-      <label><input type="radio" name="stability" value="stable"> Stable / established field</label>
-      <label><input type="radio" name="stability" value="emerging"> Emerging / fast-growing field</label>
-    </div>
-  </div>
-
-  <button class="submit-btn" onclick="getRecommendations()">Find My Best Career Match</button>
-
-  <div class="results" id="results"></div>
+<!-- Chapter Navigation -->
+<div class="fyb-chapter-nav fyb-nav">
+  <button class="fyb-nav-btn active" onclick="fybShowPanel('fyb-overview', this)">Overview</button>
+  <button class="fyb-nav-btn" onclick="fybShowPanel('fyb-survey', this)">Career Fit Survey</button>
 </div>
 
-<script>
-var jobsData = ', jobs_json, ';
+<!-- PANEL 0: OVERVIEW -->
+<div id="fyb-overview" class="fyb-panel active">
+  <h2 style="margin-top:0;">Chapter Overview</h2>
 
+  <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem 2.4rem;margin-bottom:1.8rem;box-shadow:var(--shadow-md);">
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">Chapter Overview</div>
+    <div style="font-size:1rem;color:var(--text-body);line-height:1.7;max-width:640px;">This chapter helps you figure out which careers align with your skills, interests, and goals, using real data to back up the recommendations.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.8rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What You Will Learn</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#10003;&nbsp; Which tech roles match your current skills, strengths, and interest</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What Is Inside</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#9656;&nbsp; <strong>Career Fit Survey</strong> — Answer questions and get your matched roles</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fyb-tip-box">
+    <p><strong>How to use this chapter:</strong> Head to the Career Fit Survey, answer the questions honestly, and use your results to focus your job search on roles that genuinely fit who you are and what you like.</p>
+  </div>
+</div>
+
+<!-- PANEL 1: CAREER FIT SURVEY -->
+<div id="fyb-survey" class="fyb-panel">
+  <h2 style="margin-top:0;">Career Fit Survey</h2>
+  <p class="fyb-section-intro">Answer the questions below and we will recommend the best tech careers for you!</p>
+
+  <div class="survey-container">
+    <div class="question">
+      <h4>1. What skills do you have? (Select all that apply)</h4>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="skill" value="Python"> Python</label>
+        <label><input type="checkbox" class="skill" value="R"> R</label>
+        <label><input type="checkbox" class="skill" value="SQL"> SQL</label>
+        <label><input type="checkbox" class="skill" value="Java"> Java</label>
+        <label><input type="checkbox" class="skill" value="JavaScript"> JavaScript</label>
+        <label><input type="checkbox" class="skill" value="Machine Learning"> Machine Learning</label>
+        <label><input type="checkbox" class="skill" value="TensorFlow"> TensorFlow</label>
+        <label><input type="checkbox" class="skill" value="PyTorch"> PyTorch</label>
+        <label><input type="checkbox" class="skill" value="Spark"> Spark</label>
+        <label><input type="checkbox" class="skill" value="ETL"> ETL</label>
+        <label><input type="checkbox" class="skill" value="dbt"> dbt</label>
+        <label><input type="checkbox" class="skill" value="Tableau"> Tableau</label>
+        <label><input type="checkbox" class="skill" value="Excel"> Excel</label>
+        <label><input type="checkbox" class="skill" value="AWS"> AWS</label>
+        <label><input type="checkbox" class="skill" value="Azure"> Azure</label>
+        <label><input type="checkbox" class="skill" value="GCP"> GCP</label>
+        <label><input type="checkbox" class="skill" value="Terraform"> Terraform</label>
+        <label><input type="checkbox" class="skill" value="Git"> Git</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h4>2. What are you most interested in?</h4>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="interest" value="Working with data"> Working with data</label>
+        <label><input type="checkbox" class="interest" value="Building software"> Building software</label>
+        <label><input type="checkbox" class="interest" value="AI/Machine Learning"> AI and Machine Learning</label>
+        <label><input type="checkbox" class="interest" value="Cloud infrastructure"> Cloud infrastructure</label>
+        <label><input type="checkbox" class="interest" value="Business insights"> Business insights</label>
+        <label><input type="checkbox" class="interest" value="Research"> Research</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h4>3. What are your strengths?</h4>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="strength" value="Problem solving"> Problem solving</label>
+        <label><input type="checkbox" class="strength" value="Data analysis"> Data analysis</label>
+        <label><input type="checkbox" class="strength" value="Building systems"> Building systems</label>
+        <label><input type="checkbox" class="strength" value="Visualization"> Visualization</label>
+        <label><input type="checkbox" class="strength" value="Research"> Research</label>
+        <label><input type="checkbox" class="strength" value="Automation"> Automation</label>
+        <label><input type="checkbox" class="strength" value="Communication"> Communication</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h4>4. Minimum acceptable salary (USD): <span id="salary-label">$60,000</span></h4>
+      <input type="range" id="min-salary" min="30000" max="200000" value="60000" step="5000"
+        oninput="document.getElementById('salary-label').innerText = '$' + parseInt(this.value).toLocaleString()">
+    </div>
+
+    <div class="question">
+      <h4>5. Work style preference:</h4>
+      <div class="radio-group">
+        <label><input type="radio" name="flexibility" value="remote"> Fully remote</label>
+        <label><input type="radio" name="flexibility" value="hybrid"> Hybrid</label>
+        <label><input type="radio" name="flexibility" value="onsite"> On-site</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h4>6. Career preference:</h4>
+      <div class="radio-group">
+        <label><input type="radio" name="stability" value="stable"> Stable and established field</label>
+        <label><input type="radio" name="stability" value="emerging"> Emerging and fast-growing field</label>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="getRecommendations()">Find My Best Career Match</button>
+
+    <div class="results" id="results"></div>
+  </div>
+</div>
+
+
+<script>
+/* -- PANEL SWITCHING -- */
+function fybShowPanel(id, btn) {
+  document.querySelectorAll('.fyb-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.fyb-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.fyb-nav').getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+}
+
+/* -- TOC SIDEBAR LINK INTERCEPTION -- */
+const fybAnchorMap = {
+  'fyb-overview': 'fyb-overview',
+  'fyb-survey':   'fyb-survey',
+};
+
+function fybActivatePanel(targetId) {
+  document.querySelectorAll('.fyb-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.fyb-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.fyb-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+  const nav = document.querySelector('.fyb-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function fybInterceptTOCLinks() {
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const hash = (link.getAttribute('href') || '').replace(/^.*#/, '');
+    if (fybAnchorMap[hash]) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        fybActivatePanel(fybAnchorMap[hash]);
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  fybInterceptTOCLinks();
+  setTimeout(fybInterceptTOCLinks, 400);
+  setTimeout(fybInterceptTOCLinks, 1200);
+  setTimeout(fybInterceptTOCLinks, 2500);
+  setTimeout(fybInterceptTOCLinks, 5000);
+  const hash = window.location.hash.replace('#', '');
+  if (fybAnchorMap[hash]) fybActivatePanel(fybAnchorMap[hash]);
+});
+
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#', '');
+  if (fybAnchorMap[hash]) fybActivatePanel(fybAnchorMap[hash]);
+});
+
+/* -- SURVEY LOGIC -- */
+var jobsData = [];
+</script>
+```
+```{r fyb-data-bridge, echo=FALSE, results='asis'}
+cat(paste0('<script>jobsData = ', jobs_json, ';</script>'))
+```
+```{=html}
+<script>
 function getRecommendations() {
-  var skills = Array.from(document.querySelectorAll(".skill:checked")).map(e => e.value);
-  var interests = Array.from(document.querySelectorAll(".interest:checked")).map(e => e.value);
-  var strengths = Array.from(document.querySelectorAll(".strength:checked")).map(e => e.value);
-  var minSalary = parseInt(document.getElementById("min-salary").value);
-  var stability = document.querySelector("input[name=stability]:checked");
-  stability = stability ? stability.value : "stable";
+  var skills    = Array.from(document.querySelectorAll('.skill:checked')).map(e => e.value);
+  var interests = Array.from(document.querySelectorAll('.interest:checked')).map(e => e.value);
+  var minSalary = parseInt(document.getElementById('min-salary').value);
+  var stability = document.querySelector('input[name=stability]:checked');
+  stability = stability ? stability.value : 'stable';
 
   var interestMap = {
-    "Working with data": ["Data Analyst", "Data Scientist", "Data Engineer"],
-    "Building software": ["Software Engineer"],
-    "AI/Machine Learning": ["Machine Learning Engineer", "Data Scientist", "Research Scientist"],
-    "Cloud infrastructure": ["Cloud Engineer", "Data Engineer"],
-    "Business insights": ["Data Analyst", "Analytics Engineer"],
-    "Research": ["Research Scientist", "Data Scientist"]
+    'Working with data':    ['Data Analyst', 'Data Scientist', 'Data Engineer'],
+    'Building software':    ['Software Engineer'],
+    'AI/Machine Learning':  ['Machine Learning Engineer', 'Data Scientist', 'Research Scientist'],
+    'Cloud infrastructure': ['Cloud Engineer', 'Data Engineer'],
+    'Business insights':    ['Data Analyst', 'Analytics Engineer'],
+    'Research':             ['Research Scientist', 'Data Scientist']
   };
 
   var stabilityMap = {
-    "stable": ["Software Engineer", "Data Analyst", "Data Engineer"],
-    "emerging": ["Machine Learning Engineer", "Research Scientist", "Analytics Engineer", "Cloud Engineer"]
+    'stable':   ['Software Engineer', 'Data Analyst', 'Data Engineer'],
+    'emerging': ['Machine Learning Engineer', 'Research Scientist', 'Analytics Engineer', 'Cloud Engineer']
   };
 
-  var matchedInterest = [].concat(...interests.map(i => interestMap[i] || []));
+  var matchedInterest  = [].concat(...interests.map(i => interestMap[i] || []));
   var matchedStability = stabilityMap[stability] || [];
 
   var scored = jobsData
     .filter(j => j.avg_salary >= minSalary)
     .map(j => {
-      var roleSkills = j.skills.split(", ");
-      var skillScore = skills.filter(s => roleSkills.includes(s)).length;
+      var roleSkills    = j.skills.split(', ');
+      var skillScore    = skills.filter(s => roleSkills.includes(s)).length;
       var interestScore = matchedInterest.includes(j.job_title) ? 2 : 0;
       var stabilityScore = matchedStability.includes(j.job_title) ? 1 : 0;
       return Object.assign({}, j, { score: skillScore + interestScore + stabilityScore });
@@ -267,24 +432,23 @@ function getRecommendations() {
     .sort((a, b) => b.score - a.score || b.avg_salary - a.avg_salary);
 
   var seen = {};
-  var top = scored.filter(j => {
+  var top  = scored.filter(j => {
     if (seen[j.job_title]) return false;
     seen[j.job_title] = true;
     return true;
   }).slice(0, 5);
 
   if (top.length === 0) {
-    document.getElementById("results").innerHTML = "<p>No matches found. Try adjusting your salary or preferences.</p>";
+    document.getElementById('results').innerHTML = '<p>No matches found. Try lowering your minimum salary or selecting more skills and interests.</p>';
     return;
   }
 
-  var html = "<h3>Your Top Career Matches</h3><table><tr><th>Role</th><th>Avg Salary</th><th>Key Skills</th><th>Match Score</th></tr>";
+  var html = '<h3>Your Top Career Matches</h3><table><tr><th>Role</th><th>Avg Salary</th><th>Key Skills</th><th>Match Score</th></tr>';
   top.forEach(j => {
-    html += "<tr><td>" + j.job_title + "</td><td>$" + j.avg_salary.toLocaleString() + "</td><td>" + j.skills + "</td><td>" + j.score + "</td></tr>";
+    html += '<tr><td>' + j.job_title + '</td><td>$' + j.avg_salary.toLocaleString() + '</td><td>' + j.skills + '</td><td>' + j.score + '</td></tr>';
   });
-  html += "</table>";
-  document.getElementById("results").innerHTML = html;
+  html += '</table>';
+  document.getElementById('results').innerHTML = html;
 }
 </script>
-'))
 ```

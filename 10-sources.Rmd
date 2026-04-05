@@ -1,0 +1,48 @@
+# Sources {-}
+
+```{=html}
+<style>
+.ref-sources {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.3rem 1.4rem;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+.ref-sources h4 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 0.8rem 0;
+}
+.ref-sources ol {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+.ref-sources li {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin: 0.6rem 0;
+  line-height: 1.7;
+}
+.ref-sources a { color: var(--teal); text-decoration: none; }
+.ref-sources a:hover { text-decoration: underline; }
+</style>
+
+<div class="ref-sources">
+  <ol>
+    <li>Flatiron School. (2024). <em>GitHub and Git: Best Practices for Job Seekers.</em> <a href="https://flatironschool.com/blog/github-profile-and-git-practices-for-job-seekers/" target="_blank">flatironschool.com</a></li>
+    <li>Hakia. (2025). <em>Building a Portfolio That Gets Hired.</em> <a href="https://www.hakia.com/skills/building-portfolio/" target="_blank">hakia.com</a></li>
+    <li>Harvard Business Review. (2025). <em>Use the STAR Interview Method to Land Your Next Job.</em> <a href="https://hbr.org/2025/02/use-the-star-interview-method-to-land-your-next-job" target="_blank">hbr.org</a></li>
+    <li>Jobscan. (2025). <em>The Top 500 ATS Resume Keywords of 2025.</em> <a href="https://www.jobscan.co/blog/top-resume-keywords-boost-resume/" target="_blank">jobscan.co</a></li>
+    <li>MIT Career Advising and Professional Development. (2023). <em>Using the STAR Method for Your Next Behavioral Interview.</em> <a href="https://capd.mit.edu/resources/the-star-method-for-behavioral-interviews/" target="_blank">capd.mit.edu</a></li>
+    <li>ResumeAdapter. (2025). <em>Software Engineer Resume Keywords.</em> <a href="https://www.resumeadapter.com/blog/software-engineer-resume-keywords" target="_blank">resumeadapter.com</a></li>
+    <li>Tech Interview Handbook. (2025). <em>Data Structures and Algorithms Study Cheatsheets for Coding Interviews.</em> <a href="https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/" target="_blank">techinterviewhandbook.org</a></li>
+    <li>The Interview Guys. (2025). <em>Resume Keywords by Industry.</em> <a href="https://blog.theinterviewguys.com/resume-keywords-by-industry/" target="_blank">theinterviewguys.com</a></li>
+    <li>TieTalent. (2025). <em>How to Build a Tech Portfolio That Gets You Hired in 2025.</em> <a href="https://tietalent.com/en/blog/220/beyond-the-ats-how-to-build-a-tech-portfolio" target="_blank">tietalent.com</a></li>
+    <li>Toptal. (2025). <em>Tech Resume in 2025: ATS Trends, Formats and Keywords.</em> <a href="https://www.toptal.com/techresume/career-advice/the-perfect-tech-resume-in-2025-key-trends-ats-keywords-and-formatting-tips" target="_blank">toptal.com</a></li>
+  </ol>
+</div>
+```
