@@ -2,7 +2,7 @@
 title: "The Grad Guide"
 author: "Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur
   Gahra"
-date: "2026-04-04"
+date: "2026-04-05"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography:
