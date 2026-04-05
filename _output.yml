@@ -1,5 +1,4 @@
 bookdown::bs4_book:
-  css: style.css
   theme:
     primary: "#0A2540"
     base_font:
@@ -8,3 +7,4 @@ bookdown::bs4_book:
       google: "Playfair Display"
     code_font:
       google: "Fira Code"
+  css: ["style.css"]
