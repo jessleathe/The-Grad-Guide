@@ -1,20 +1,543 @@
-# Strategic Job Search
+```{=html}
+<style>
+/* -- CHAPTER NAV TABS -- */
+.htn-chapter-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3rem;
+  padding: 0.35rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-sm);
+}
+.htn-nav-btn {
+  background: none;
+  border: none;
+  padding: 0.55rem 1.3rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.18s;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.htn-nav-btn:hover {
+  color: var(--navy);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.htn-nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.18);
+}
 
-After title
+/* -- PANELS -- */
+.htn-panel { display: none; }
+.htn-panel.active { display: block; }
+
+.htn-section-intro {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.8rem;
+}
+
+/* -- TIP BOX -- */
+.htn-tip-box {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 1.1rem 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+.htn-tip-box p { margin: 0; }
+.htn-tip-box strong { color: var(--navy); }
+
+/* -- REASON CARDS -- */
+.htn-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.htn-reason-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.htn-reason-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.htn-reason-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+.htn-reason-title {
+  font-size: 0.97rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.htn-reason-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* -- PLATFORM CARDS -- */
+.htn-platform-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.htn-platform-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.htn-platform-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.htn-platform-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+.htn-platform-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.htn-platform-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.htn-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-body);
+  line-height: 1.9;
+}
+.htn-bullet-list li::before {
+  content: "◆ ";
+  color: var(--teal);
+  font-size: 0.5rem;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+/* -- IN-PERSON CARDS -- */
+.htn-inperson-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.htn-inperson-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.htn-inperson-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.htn-inperson-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.htn-inperson-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.htn-inperson-desc {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+/* -- EMAIL TEMPLATE -- */
+.ifu-email-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.ifu-email-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.9rem 1.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ifu-email-body {
+  padding: 1.4rem;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+}
+.ifu-email-highlight { color: var(--teal); font-weight: 700; }
+
+/* -- CHECKLIST -- */
+.htn-checklist-wrap {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin: 1.4rem 0;
+}
+.htn-checklist-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.htn-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.95rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.htn-checklist-item:last-of-type { border-bottom: none; }
+.htn-checklist-item:hover { background: var(--surface); }
+.htn-checklist-item.checked { background: #f0fdf4; }
+.htn-checklist-item.checked .htn-checklist-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.htn-checklist-checkbox {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-size: 0.75rem;
+  color: #fff;
+}
+.htn-checklist-item.checked .htn-checklist-checkbox {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+.htn-checklist-text {
+  font-size: 0.93rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  transition: color 0.15s;
+}
+.htn-checklist-footer {
+  padding: 0.9rem 1.4rem;
+  background: var(--surface);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.htn-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 50px;
+  overflow: hidden;
+}
+.htn-progress-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 50px;
+  transition: width 0.3s ease;
+}
+.htn-progress-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.htn-checklist-reset {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.htn-checklist-reset:hover { border-color: var(--teal); color: var(--teal); }
+</style>
+
+<!-- Chapter Navigation -->
+<div class="htn-chapter-nav htn-nav">
+  <button class="htn-nav-btn active" onclick="htnShowPanel('htn-overview', this)">Overview</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-why', this)">Why Strategy</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-online', this)">Finding Jobs</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-inperson', this)">Applying Strategically</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-checklist', this)">Checklist</button>
+</div>
+
+<!-- PANEL 0: OVERVIEW -->
+<div id="htn-overview" class="htn-panel active">
+  <h2 style="margin-top:0;">Chapter Overview</h2>
+
+  <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem 2.4rem;margin-bottom:1.8rem;box-shadow:var(--shadow-md);">
+    <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;">Chapter Overview</div>
+    <div style="font-size:1rem;color:var(--text-body);line-height:1.7;max-width:640px;">This chapter shows you how to approach the job search process strategically instead of randomly applying. Here, you will learn how to search for openings that fit you best, find opportunities efficiently, focus your efforts, and build a system that increases your chances of getting hired. </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.8rem;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What You Will Learn</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#10003;&nbsp; Why applying to more jobs is not always better</li>
+        <li>&#10003;&nbsp; Where to actually find strong job opportunities</li>
+        <li>&#10003;&nbsp; How to apply in a focused and efficient way</li>
+        <li>&#10003;&nbsp; How to build a weekly system to stay consistent</li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow-sm);">
+      <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);margin-bottom:0.7rem;">What Is Inside</div>
+      <ul style="list-style:none;padding:0;margin:0;font-size:0.93rem;color:var(--text-body);line-height:2;">
+        <li>&#9656;&nbsp; <strong>Why Strategy</strong> — Why most job searches fail</li>
+        <li>&#9656;&nbsp; <strong>Finding Jobs</strong> — Where to look for opportunities</li>
+        <li>&#9656;&nbsp; <strong>Applying Strategically</strong> — How to focus your efforts</li>
+        <li>&#9656;&nbsp; <strong>Checklist</strong> — Stay consistent and on track</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="htn-tip-box">
+    <p><strong>How to use this chapter:</strong> Start with Why Strategy to understand what makes searching for a job effective. The move into Finding Jobs and Applying Strategically. Use the checklist each week to stay consistent and prepared.</p>
+  </div>
+</div>
+
+<!-- PANEL 1: WHY -->
+<div id="htn-why" class="htn-panel">
+  <h2 style="margin-top:0;">Why Strategy Matters</h2>
+  <p class="htn-section-intro">Many students approach the job search by applying to as many jobs as possible. While this may feel productive and productive, it is often inefficient and leads to low response rates. Using a strategic approach focuses your time and energy on the right opportunities. </p>
+
+  <div class="htn-reason-grid">
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🎯</div>
+      <div class="htn-reason-title">Quality Over Quantity</div>
+      <div class="htn-reason-desc"Targeted applications that align with your goals and skills are more likely to get responses than submitting hundreds of generic applications.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">⏳</div>
+      <div class="htn-reason-title">Save Time and Energy</div>
+      <div class="htn-reason-desc">Applying a structured approach helps you avoid burnout by focusing solely on roles that are realistic and relevant for your background. </div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">📈</div>
+      <div class="htn-reason-title">Increase Response Rates</div>
+      <div class="htn-reason-desc">Employers are more likely to respond when your application clearly matches the role, making each submission that much more effective</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🧠</div>
+      <div class="htn-reason-title">Make Better Decisions</div>
+      <div class="htn-reason-desc">Taking a strategic approach allows you to choose opportunities that align with your long-term goals instead of applying mindlessly and blindly.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">🤩</div>
+      <div class="htn-reason-title">Stand Out in a Competitive </div>
+      <div class="htn-reason-desc">Many applicants have similar qualifications and experiences. A focused approach helps differentiate you through preparation and alignment.</div>
+    </div>
+    <div class="htn-reason-card">
+      <div class="htn-reason-icon">📊</div>
+      <div class="htn-reason-title">Use Data to Guide You</div>
+      <div class="htn-reason-desc">Understanding which roles and industries are growing helps you make smarter decisions about where and when to apply.</div>
+    </div>
+  </div>
+
+  <div class="htn-tip-box">
+    <p><strong>Be Intentional.</strong> A smaller number of well-prepared applications is often more effective than applying to hundreds of roles without a clear strategy.</p>
+  </div>
+</div>
 
 
-## Where to Find Tech Jobs
 
-List and explain the best platforms and methods for finding openings
+<!-- PANEL 2: FINDING JOBS -->
+<div id="htn-online" class="htn-panel">
+  <h2 style="margin-top:0;">Finding Jobs</h2>
+  <p class="htn-section-intro">Finding the right opportunities is just as important as the application process. Instead of just relying on one source, use multiple outlets to increase your chances of discovering strong roles.</p>
 
-## Job Market Demand Forecaster
+  <div class="htn-platform-grid">
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">💼</div>
+      <div class="htn-platform-name">LinkedIn</div>
+      <div class="htn-platform-desc">LinkedIn is one of the effective platforms for finding jobs and connecting with recruiters. </div>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">Utilize LinkedIn for:</p>
+      <ul class="htn-bullet-list">
+        <li>Using job alerts to stay updated</li>
+        <li>Following companies you are interested in</li>
+        <li>Posting and promoting your projects, skills, and certifications</li>
+        <li>Applying early when new jobs are posted</li>
+      </ul>
+    </div>
+    
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">📄</div>
+      <div class="htn-platform-name">Indeed & Job Boards</div>
+      <div class="htn-platform-desc">Job boards allow you to explore a variety of opportunities across industries. Indeed offers a centralized platform that makes it easier and more efficient to explore opportunities in depth. </div>
+      <ul class="htn-bullet-list">
+        <li>Use filters to narrow your search</li>
+        <li>Search for entry-level roles specifically</li>
+        <li>Save jobs to review later</li>
+      </ul>
+    </div>
+    
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">🏢</div>
+      <div class="htn-platform-name">Company Websites</div>
+      <div class="htn-platform-desc">Applying directly through company websites can sometimes give you an advantage.</div>
+      <ul class="htn-bullet-list">
+        <li>Check career pages regularly</li>
+        <li>Research company roles and values</li>
+        <li>Apply directly when possible</li>
+      </ul>
+    </div>
+    
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">🔒</div>
+      <div class="htn-platform-name">Referrals & Connections</div>
+      <div class="htn-platform-desc">Connections can lead to opportunities that are not publicly posted. Having a connection can expand your access to a wider range of openings. </div>
+      <ul class="htn-bullet-list">
+        <li>Ask connections about open roles</li>
+        <li>Leverage alumni networks</li>
+        <li>Follow up on referrals</li>
+      </ul>
+    </div>
 
-Interactive tool showing which roles and markets are growing
+  <div class="htn-tip-box">
+    <p><strong>Do not rely on just one platform..</strong> The best opportunities often come from using multiple sources coupled together.</p>
+  </div>
+</div>
 
-## Geographic Opportunity Map
 
-Visual map of where tech jobs are concentrated by region.
 
-## Job Search Checklist
 
-Actional steps including target companies, saved searches, and etc.
+
+<script>
+/* -- PANEL SWITCHING -- */
+function htnShowPanel(id, btn) {
+  document.querySelectorAll('.htn-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.htn-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.htn-nav').getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+}
+
+/* -- TOC SIDEBAR LINK INTERCEPTION -- */
+const htnAnchorMap = {
+  'htn-overview':   'htn-overview',
+  'htn-why':        'htn-why',
+  'htn-online':     'htn-online',
+  'htn-inperson':   'htn-inperson',
+  'htn-checklist':  'htn-checklist',
+};
+
+function htnActivatePanel(targetId) {
+  document.querySelectorAll('.htn-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.htn-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+  const btn = document.querySelector(`.htn-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+  const nav = document.querySelector('.htn-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function htnInterceptTOCLinks() {
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const hash = (link.getAttribute('href') || '').replace(/^.*#/, '');
+    if (htnAnchorMap[hash]) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        htnActivatePanel(htnAnchorMap[hash]);
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  htnInterceptTOCLinks();
+  setTimeout(htnInterceptTOCLinks, 400);
+  setTimeout(htnInterceptTOCLinks, 1200);
+  setTimeout(htnInterceptTOCLinks, 2500);
+  setTimeout(htnInterceptTOCLinks, 5000);
+  const hash = window.location.hash.replace('#', '');
+  if (htnAnchorMap[hash]) htnActivatePanel(htnAnchorMap[hash]);
+});
+
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash.replace('#', '');
+  if (htnAnchorMap[hash]) htnActivatePanel(htnAnchorMap[hash]);
+});
+
+/* -- CHECKLIST -- */
+function htnToggleCheck(item) {
+  item.classList.toggle('checked');
+  item.querySelector('.htn-checklist-checkbox').innerHTML =
+    item.classList.contains('checked') ? '✓' : '';
+  htnUpdateProgress();
+}
+
+function htnUpdateProgress() {
+  const items   = document.querySelectorAll('#htnChecklist .htn-checklist-item');
+  const checked = document.querySelectorAll('#htnChecklist .htn-checklist-item.checked');
+  const total   = items.length;
+  const done    = checked.length;
+  const pct     = total > 0 ? (done / total * 100).toFixed(0) : 0;
+  document.getElementById('htnChecklistFill').style.width  = pct + '%';
+  document.getElementById('htnChecklistLabel').textContent = done + ' of ' + total + ' complete';
+}
+
+function htnResetChecklist() {
+  document.querySelectorAll('#htnChecklist .htn-checklist-item').forEach(item => {
+    item.classList.remove('checked');
+    item.querySelector('.htn-checklist-checkbox').innerHTML = '';
+  });
+  htnUpdateProgress();
+}
+</script>
+```
