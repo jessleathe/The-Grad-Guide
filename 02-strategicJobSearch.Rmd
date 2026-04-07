@@ -347,20 +347,20 @@
   </div>
   
   <div class="htn-tip-box">
-    <p><strong>How to use this chapter:</strong> Start with Why Strategy to understand what makes searching for a job effective. The move into Finding Jobs and Applying Strategically. Use the checklist each week to stay consistent and prepared.</p>
+    <p><strong>How to use this chapter:</strong> Start with Why Strategy to understand what makes searching for a job effective. Then move into Finding Jobs and Applying Strategically. Use the checklist each week to stay consistent and prepared.</p>
   </div>
 </div>
 
 <!-- PANEL 1: WHY -->
 <div id="htn-why" class="htn-panel">
   <h2 style="margin-top:0;">Why Strategy Matters</h2>
-  <p class="htn-section-intro">Many students approach the job search by applying to as many jobs as possible. While this may feel productive and productive, it is often inefficient and leads to low response rates. Using a strategic approach focuses your time and energy on the right opportunities. </p>
+  <p class="htn-section-intro">Many students approach the job search by applying to as many jobs as possible. While this may feel productive and resourceful, it is often inefficient and leads to low response rates. Using a strategic approach focuses your time and energy on the right opportunities. </p>
 
   <div class="htn-reason-grid">
     <div class="htn-reason-card">
       <div class="htn-reason-icon">🎯</div>
       <div class="htn-reason-title">Quality Over Quantity</div>
-      <div class="htn-reason-desc"Targeted applications that align with your goals and skills are more likely to get responses than submitting hundreds of generic applications.</div>
+      <div class="htn-reason-desc">Targeted applications that align with your goals and skills are more likely to get responses than submitting hundreds of generic applications.</div>
     </div>
     <div class="htn-reason-card">
       <div class="htn-reason-icon">⏳</div>
@@ -370,7 +370,7 @@
     <div class="htn-reason-card">
       <div class="htn-reason-icon">📈</div>
       <div class="htn-reason-title">Increase Response Rates</div>
-      <div class="htn-reason-desc">Employers are more likely to respond when your application clearly matches the role, making each submission that much more effective</div>
+      <div class="htn-reason-desc">Employers are more likely to respond when your application clearly matches the role, making each submission that much more effective.</div>
     </div>
     <div class="htn-reason-card">
       <div class="htn-reason-icon">🧠</div>
@@ -379,7 +379,7 @@
     </div>
     <div class="htn-reason-card">
       <div class="htn-reason-icon">🤩</div>
-      <div class="htn-reason-title">Stand Out in a Competitive </div>
+      <div class="htn-reason-title">Stand Out in a Competitive Market</div>
       <div class="htn-reason-desc">Many applicants have similar qualifications and experiences. A focused approach helps differentiate you through preparation and alignment.</div>
     </div>
     <div class="htn-reason-card">
@@ -405,7 +405,7 @@
     <div class="htn-platform-card">
       <div class="htn-platform-icon">💼</div>
       <div class="htn-platform-name">LinkedIn</div>
-      <div class="htn-platform-desc">LinkedIn is one of the effective platforms for finding jobs and connecting with recruiters. </div>
+      <div class="htn-platform-desc">LinkedIn is one of the most effective platforms for finding jobs and connecting with recruiters. </div>
       <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--teal);margin-bottom:0.4rem;">Utilize LinkedIn for:</p>
       <ul class="htn-bullet-list">
         <li>Using job alerts to stay updated</li>
@@ -447,15 +447,99 @@
         <li>Follow up on referrals</li>
       </ul>
     </div>
+  </div>
 
   <div class="htn-tip-box">
-    <p><strong>Do not rely on just one platform..</strong> The best opportunities often come from using multiple sources coupled together.</p>
+    <p><strong>Do not rely on just one platform.</strong> The best opportunities often come from using multiple sources coupled together.</p>
   </div>
 </div>
 
 
 
+<!-- PANEL 3: APPLYING -->
+<div id="htn-inperson" class="htn-panel">
+  <h2 style="margin-top:0;">Applying Strategically</h2>
 
+  <p class="htn-section-intro">
+    Once you find opportunities, the next step is applying in a focused and consistent way. Instead of rushing through applications, create a system that helps you stay organized and intentional.
+  </p>
+  
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin-top:1.5rem;">Weekly Job Search Plan</h3>
+  
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1rem 0 1.6rem;">
+  <div class="htn-inperson-card">
+    <div class="htn-inperson-icon">📌</div>
+    <div class="htn-inperson-title">Find Opportunities</div>
+    <div class="htn-inperson-desc">Identify 5-10 roles that match your skills and interests.</div>
+  </div>
+  
+  <div class="htn-inperson-card">
+    <div class="htn-inperson-icon">📝</div>
+    <div class="htn-inperson-title">Applying Thoughtfully</div>
+    <div class="htn-inperson-desc">Submit at least 3-5 strong, well-prepared applications.</div>
+  </div>
+  
+  <div class="htn-inperson-card">
+    <div class="htn-inperson-icon">💬</div>
+    <div class="htn-inperson-title">Follow Up</div>
+    <div class="htn-inperson-desc">Follow up on previous applications and connections.</div>
+  </div>
+  
+  <div class="htn-inperson-card">
+    <div class="htn-inperson-icon">📖</div>
+    <div class="htn-inperson-title">Improve Skills</div>
+    <div class="htn-inperson-desc">Spend time improving a skill relevant to your target roles.</div>
+  </div>
+</div>
+  
+  <div class="htn-tip-box">
+    <p><strong>Consistency beats intensity.</strong> An intentional, repeatable weekly routine is more effective than occasional spurts of effort.</p>
+  </div>
+</div>
+
+<!-- PANEL 4: CHECKLIST -->
+<div id="htn-checklist" class="htn-panel">
+  <h2 style="margin-top:0;">Strategic Job Checklist</h2>
+
+  <p class="htn-section-intro">
+    Use this checklist to stay consistent and track your progress throughout your job search process.
+  </p>
+  
+  <div class="htn-checklist-wrap" id="htnChecklist">
+  
+    <div class="htn-checklist-header">Planning</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Identify target roles that align most closely with your skills and goals.</div>
+    </div>
+    
+    <div class="htn-checklist-header">Applying</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Apply to 3-5 roles with strong, focused applications.</div>
+    </div>
+    
+    <div class="htn-checklist-header">Tracking</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Review and track the status of your applications.</div>
+    </div>
+    
+    <div class="htn-checklist-header">Ongoing</div>
+    <div class="htn-checklist-item" onclick="htnToggleCheck(this)">
+      <div class="htn-checklist-checkbox"></div>
+      <div class="htn-checklist-text">Set aside time each week to continue your job search routine.</div>
+    </div>
+    
+    <div class="htn-checklist-footer">
+      <div class="htn-progress-bar">
+        <div class="htn-progress-fill" id="htnChecklistFill" style="width:0%"></div>
+      </div>
+      <div class="htn-progress-label" id="htnChecklistLabel">0 of 4 complete</div>
+      <button class="htn-checklist-reset" onclick="htnResetChecklist()">Reset</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* -- PANEL SWITCHING -- */
