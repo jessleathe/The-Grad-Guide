@@ -1,3 +1,5 @@
+# Strategic Job Search
+
 ```{=html}
 <style>
 /* -- CHAPTER NAV TABS -- */
