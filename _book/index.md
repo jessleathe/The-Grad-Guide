@@ -1,7 +1,13 @@
 --- 
 title: "The Grad Guide"
+<<<<<<< Updated upstream
 author: "Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur Gahra"
 date: "2026-03-12"
+=======
+author: "Jessica Leathe, Paulina Gonzalez-Brito, Victoria Villasana, and Armeet Kaur
+  Gahra"
+date: "2026-04-07"
+>>>>>>> Stashed changes
 site: bookdown::bookdown_site
 documentclass: book
 bibliography:
