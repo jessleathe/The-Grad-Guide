@@ -1,15 +1,8 @@
 tech-career-paths
 strategic-job-search
-where-to-find-tech-jobs
-job-market-demand-forecaster
-geographic-opportunity-map
-job-search-checklist
 find-your-best-career-fit
 resume-for-tech
 how-to-network
 acing-interviews
 interview-follow-up
 career-readiness-assessment
-readiness-survey
-score-calculator
-results-and-action-gaps
