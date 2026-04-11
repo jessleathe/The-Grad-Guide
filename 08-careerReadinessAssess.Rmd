@@ -12,14 +12,78 @@
 /* checklist */
 .cr-checklist-wrap{background:var(--white); border:1.5px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-sm); overflow:hidden; margin:1.4rem 0;}
 .cr-checklist-header{background:var(--navy); color:#fff; padding:.7rem 1.4rem; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em}
-.cr-checklist-item{display:flex; gap:1rem; padding:.95rem 1.4rem; border-bottom:1px solid var(--border); cursor:pointer; transition:all 0.15s;}
+
+.cr-checklist-item{
+  display:flex;
+  align-items:flex-start;
+  gap:1rem;
+  padding:.95rem 1.4rem;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+  transition:all 0.15s;
+}
+
 .cr-checklist-item.checked{background:#f0fdf4}
 .cr-checklist-item:hover{background:#f9f9f9}
-.cr-checklist-checkbox{width:20px; height:20px; border:2px solid var(--border); border-radius:5px; transition:all 0.15s;}
-.cr-checklist-item.checked .cr-checklist-checkbox{background:var(--teal)}
-.cr-progress-bar{height:10px; background:var(--border); border-radius:50px; overflow:hidden; margin-top:0.5rem;}
-.cr-progress-fill{height:100%; background:var(--teal); width:0%}
-.cr-checklist-footer{padding:.9rem 1.4rem; background:var(--surface); display:flex; gap:1rem; align-items:center; flex-direction:column;}
+.cr-checklist-checkbox{
+  width:20px;
+  height:20px;
+  border:2px solid var(--border);
+  border-radius:5px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0.75rem;
+  color:#fff;
+  transition:all 0.15s;
+}
+
+.cr-checklist-item.checked .cr-checklist-checkbox{background:var(--teal) ; border-color:var(--teal);}
+
+.cr-checklist-text{
+  font-size:0.93rem;
+  color:var(--text-body);
+  line-height:1.5;
+  transition:all 0.15s;
+}
+
+.cr-checklist-item.checked .cr-checklist-text{
+  color:var(--text-muted);
+  text-decoration:line-through;
+}
+
+.cr-progress-bar{ flex:1;height:8px; background:var(--border); border-radius:50px; overflow:hidden; }
+
+.cr-progress-fill{ height:100%; background:var(--teal);
+width:0%; border-radius:50px; transition:width 0.3s ease;}
+
+.cr-checklist-label{
+  font-size:0.82rem;
+  font-weight:700;
+  color:var(--text-muted);
+  white-space:nowrap;
+}
+
+.cr-checklist-reset{
+  transform: translateY(2px);
+  margin-left:auto;
+  margin-top:10px;
+  align-self:center;
+  background:none;
+  border:1.5px solid var(--border);
+  border-radius:50px;
+  padding:0.25rem 0.8rem;
+  font-size:0.78rem;
+  font-weight:600;
+  color:var(--text-muted);
+  cursor:pointer;
+  transition:all 0.15s;
+}
+
+.cr-checklist-reset:hover{ border-color:var(--teal); color:var(--teal);}
+
+.cr-checklist-footer{ padding:.9rem 1.4rem; background:var(--surface); border-top:1.5px solid var(--border); display:flex; align-items:center;gap:1rem;}
 
 /* calculator */
 .cr-calc-row{display:flex; justify-content:space-between; align-items:center; padding:.9rem 1.4rem; border-bottom:1px solid var(--border); font-size:0.95rem; background:var(--white); border-radius:8px; margin-bottom:0.6rem; box-shadow:var(--shadow-sm);}
@@ -84,15 +148,16 @@ This chapter helps you evaluate whether you are ready to begin applying for jobs
 <h2>Career Readiness Checklist</h2>
 <div class="cr-checklist-wrap" id="crChecklist">
 <div class="cr-checklist-header">Preparation</div>
-<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div>You have at least 2–3 strong projects.</div></div>
-<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div>Your resume clearly communicates your skills and experience.</div></div>
-<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div>Your LinkedIn profile is updated and professional.</div></div>
-<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div>You can confidently explain your projects.</div></div>
-<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div>You have practiced common interview questions.</div></div>
-<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div>You have a clear idea of the roles you want.</div></div>
+<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div class="cr-checklist-text">You have at least 2–3 strong projects.</div></div>
+<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div class="cr-checklist-text">Your resume clearly communicates your skills and experience.</div></div>
+<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div class="cr-checklist-text">Your LinkedIn profile is updated and professional.</div></div>
+<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div class="cr-checklist-text">You can confidently explain your projects.</div></div>
+<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div class="cr-checklist-text">You have practiced common interview questions.</div></div>
+<div class="cr-checklist-item" onclick="crToggleCheck(this)"><div class="cr-checklist-checkbox"></div><div class="cr-checklist-text">You have a clear idea of the roles you want.</div></div>
 <div class="cr-checklist-footer">
 <div class="cr-progress-bar"><div class="cr-progress-fill" id="crChecklistFill"></div></div>
-<div id="crChecklistLabel">0 complete</div>
+<div class="cr-checklist-label" id="crChecklistLabel">0 of 6 complete</div>
+  <button class="cr-checklist-reset" onclick="crResetChecklist()">Reset</button>
 </div>
 </div>
 </div>
@@ -145,15 +210,28 @@ function crShowPanel(id,btn){
 
 function crToggleCheck(item){
   item.classList.toggle('checked')
+  item.querySelector('.cr-checklist-checkbox').innerHTML =
+    item.classList.contains('checked') ? '✓' : ''
   crUpdate()
 }
 
 function crUpdate(){
   let items=document.querySelectorAll('#crChecklist .cr-checklist-item')
-  let checked=document.querySelectorAll('#crChecklist .checked')
-  let pct=(checked.length/items.length)*100
+  let checked=document.querySelectorAll('#crChecklist .cr-checklist-item.checked')
+  let total=items.length
+  let done=checked.length
+  let pct= total>0 ? (done/total)*100 : 0
+
   document.getElementById('crChecklistFill').style.width=pct+'%'
-  document.getElementById('crChecklistLabel').innerText=checked.length+" complete"
+  document.getElementById('crChecklistLabel').innerText=done+" out of "+total+" complete"
+}
+
+function crResetChecklist(){
+  document.querySelectorAll('#crChecklist .cr-checklist-item').forEach(item=>{
+    item.classList.remove('checked')
+    item.querySelector('.cr-checklist-checkbox').innerHTML=''
+  })
+  crUpdate()
 }
 
 function crCalcScore(){
@@ -198,4 +276,53 @@ function crCalcScore(){
                         <li>Engage in networking and mentorship opportunities</li>`
   }
 }
+
+
+const crAnchorMap = {
+  'cr-overview': 'cr-overview',
+  'cr-checklist': 'cr-checklist',
+  'cr-calculator': 'cr-calculator',
+  'cr-next': 'cr-next'
+};
+
+function crActivatePanel(targetId) {
+  document.querySelectorAll('.cr-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.cr-nav-btn').forEach(b => b.classList.remove('active'));
+
+  const panel = document.getElementById(targetId);
+  if (panel) panel.classList.add('active');
+
+  const btn = document.querySelector(`.cr-nav-btn[onclick*="${targetId}"]`);
+  if (btn) btn.classList.add('active');
+
+  const nav = document.querySelector('.cr-nav');
+  if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function crInterceptTOCLinks() {
+  document.querySelectorAll('a[href*="#"]').forEach(link => {
+    const hash = (link.getAttribute('href') || '').replace(/^.*#/, '');
+    if (crAnchorMap[hash]) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        crActivatePanel(crAnchorMap[hash]);
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  crInterceptTOCLinks();
+  setTimeout(crInterceptTOCLinks, 500);
+
+  const hash = window.location.hash.replace('#', '');
+  if (crAnchorMap[hash]) crActivatePanel(crAnchorMap[hash]);
+});
+
+window.addEventListener('hashchange', function () {
+  const hash = window.location.hash.replace('#', '');
+  if (crAnchorMap[hash]) crActivatePanel(crAnchorMap[hash]);
+});
+
+
 </script>
