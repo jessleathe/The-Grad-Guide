@@ -43,6 +43,12 @@
     <li>The Interview Guys. (2025). <em>Resume Keywords by Industry.</em> <a href="https://blog.theinterviewguys.com/resume-keywords-by-industry/" target="_blank">theinterviewguys.com</a></li>
     <li>TieTalent. (2025). <em>How to Build a Tech Portfolio That Gets You Hired in 2025.</em> <a href="https://tietalent.com/en/blog/220/beyond-the-ats-how-to-build-a-tech-portfolio" target="_blank">tietalent.com</a></li>
     <li>Toptal. (2025). <em>Tech Resume in 2025: ATS Trends, Formats and Keywords.</em> <a href="https://www.toptal.com/techresume/career-advice/the-perfect-tech-resume-in-2025-key-trends-ats-keywords-and-formatting-tips" target="_blank">toptal.com</a></li>
+    <li>U.S. Bureau of Labor Statistics. (2024). <em>Occupational Employment and Wage Statistics (OEWS) - National Data. </em> <a href="https://www.bls.gov/oes/" target="_blank">bls.gov/oes</a></li>
+    <li>University of Florida. (2025). <em>Career Connections Center. </em> <a href="https://career.ufl.edu/" target="_blank">career.ufl.edu</a></li>
+    <li>University of Florida. (2025). <em>Jobs at UF. </em> <a href="https://jobs.ufl.edu/" target="_blank">jobs.ufl.edu</a></li>
+    <li>Johns Hopkins University. (n.d.). <em>Why Networking Is Important for Career Advancement.</em> <a href="https://advanced.jhu.edu/about/on-the-advance/mastering-your-future/why-networking-is-important-for-career-advancement/" target="_blank">advanced.jhu.edu</a></li>
+    <li>University of California, Berkeley. (n.d.). <em>Why You Need to Expand Your Professional Network.</em> <a href="https://voices.berkeley.edu/why-you-need-expand-your-professional-network" target="_blank">voices.berkeley.edu</a></li>
+    <li>National Institutes of Health. (2024). <em>The Importance of Professional Networking in Career Development.</em> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12444697/" target="_blank">pmc.ncbi.nlm.nih.gov</a></li>
   </ol>
 </div>
 ```
