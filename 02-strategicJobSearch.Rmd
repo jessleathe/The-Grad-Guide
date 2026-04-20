@@ -1,5 +1,112 @@
 # Strategic Job Search
 
+
+```{r strategic-opportunity-data, echo=FALSE, message=FALSE, warning=FALSE}
+library(readxl)
+library(dplyr)
+library(scales)
+library(htmltools)
+
+bls_data <- read_excel("national_M2024_dl.xlsx")
+
+safe_num <- function(x) {
+  x <- as.character(x)
+  x[x %in% c("#", "*", "**", "N/A", "NA")] <- NA
+  as.numeric(gsub(",", "", x))
+}
+
+bls_clean <- bls_data %>%
+  mutate(
+    TOT_EMP = safe_num(TOT_EMP),
+    JOBS_1000 = safe_num(JOBS_1000),
+    A_MEAN = safe_num(A_MEAN),
+    A_MEDIAN = safe_num(A_MEDIAN)
+  )
+
+opportunity_data <- tibble(
+  category = c(
+    "Software & Web Development",
+    "Data & Analytics",
+    "IT Support & Systems",
+    "Cybersecurity",
+    "Networks & Cloud",
+    "Research & Advanced Computing"
+  ),
+  occ_match = list(
+    c("Software Developers", "Software Quality Assurance Analysts and Testers", "Web Developers", "Web and Digital Interface Designers"),
+    c("Data Scientists", "Operations Research Analysts", "Database Administrators", "Database Architects", "Computer Systems Analysts"),
+    c("Computer User Support Specialists", "Computer Network Support Specialists", "Computer Support Specialists"),
+    c("Information Security Analysts"),
+    c("Computer Network Architects", "Network and Computer Systems Administrators"),
+    c("Computer and Information Research Scientists", "Computer Hardware Engineers")
+  )
+) %>%
+  rowwise() %>%
+  mutate(
+    total_employment = sum(bls_clean$TOT_EMP[bls_clean$OCC_TITLE %in% occ_match], na.rm = TRUE),
+    avg_jobs_1000    = mean(bls_clean$JOBS_1000[bls_clean$OCC_TITLE %in% occ_match], na.rm = TRUE),
+    mean_salary      = mean(bls_clean$A_MEAN[bls_clean$OCC_TITLE %in% occ_match], na.rm = TRUE),
+    median_salary    = mean(bls_clean$A_MEDIAN[bls_clean$OCC_TITLE %in% occ_match], na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+rescale01 <- function(x) {
+  rng <- range(x, na.rm = TRUE)
+  if (diff(rng) == 0) return(rep(0.5, length(x)))
+  (x - rng[1]) / diff(rng)
+}
+
+opportunity_data <- opportunity_data %>%
+  mutate(
+    opportunity_score = round(
+      100 * (
+        0.45 * rescale01(total_employment) +
+        0.20 * rescale01(avg_jobs_1000) +
+        0.20 * rescale01(mean_salary) +
+        0.15 * rescale01(median_salary)
+      ), 1
+    )
+  )
+
+cell_fill <- function(values) {
+  scaled <- rescale01(values)
+  sapply(scaled, function(v) {
+    if (is.na(v)) return('style="background:#f8fafc;color:#0D1B2A;"')
+    alpha <- 0.12 + (v * 0.73)
+    txt <- ifelse(v > 0.55, "#ffffff", "#0D1B2A")
+    sprintf('style="background:rgba(0,194,168,%.3f);color:%s;"', alpha, txt)
+  })
+}
+
+emp_style    <- cell_fill(opportunity_data$total_employment)
+jobs_style   <- cell_fill(opportunity_data$avg_jobs_1000)
+mean_style   <- cell_fill(opportunity_data$mean_salary)
+median_style <- cell_fill(opportunity_data$median_salary)
+score_style  <- cell_fill(opportunity_data$opportunity_score)
+
+opportunity_table_html <- paste0(
+  '<div class="htn-heatmap-wrap">',
+  '<table class="htn-heatmap-table">',
+  '<thead><tr>',
+  '<th>Job Family</th>',
+  '<th>Total Employment</th>',
+  '<th>Mean Salary</th>',
+  '<th>Median Salary</th>',
+  '</tr></thead><tbody>',
+  paste0(
+    '<tr>',
+    '<td>', opportunity_data$category, '</td>',
+    '<td ', emp_style, '>', comma(round(opportunity_data$total_employment)), '</td>',
+    '<td ', mean_style, '>$', comma(round(opportunity_data$mean_salary)), '</td>',
+    '<td ', median_style, '>$', comma(round(opportunity_data$median_salary)), '</td>',
+    '</tr>',
+    collapse = ''
+  ),
+  '</tbody></table></div>'
+)
+```
+
+
 ```{=html}
 <style>
 /* -- CHAPTER NAV TABS -- */
@@ -306,6 +413,91 @@
   cursor: pointer;
   transition: all 0.15s;
 }
+/*-------OPPORTUNITY HEATMAP----*/
+.htn-heatmap-wrap{
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--border);
+  margin: 1.4rem 0;
+}
+.htn-heatmap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  background: var(--white);
+}
+.htn-heatmap-table thead tr {
+  background: var(--navy);
+  color: #fff;
+}
+.htn-heatmap-table th {
+  padding: 0.85rem 0.95rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
+  white-space: nowrap;
+}
+.htn-heatmap-table th:first-child {
+  text-align: left;
+}
+.htn-heatmap-table td {
+  padding: 0.8rem 0.95rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+.htn-heatmap-table td:first-child {
+  text-align: left;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--surface);
+}
+.htn-heatmap-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.htn-heatmap-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+  line-height: 1.7;
+}
+.htn-uf-visuals{
+  display: flex;
+  gap: 1rem;
+  margin-top:1rem;
+  flex-wrap: wrap;
+}
+.htn-uf-image-card{
+  flex: 1;
+  min-width: 260px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.htn-uf-image-card img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.htn-uf-caption{
+  font-size: 0.8rem;
+  color: var(--navy);
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.htn-uf-links{
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
 .htn-checklist-reset:hover { border-color: var(--teal); color: var(--teal); }
 </style>
 
@@ -314,6 +506,7 @@
   <button class="htn-nav-btn active" onclick="htnShowPanel('htn-overview', this)">Overview</button>
   <button class="htn-nav-btn" onclick="htnShowPanel('htn-why', this)">Why Strategy</button>
   <button class="htn-nav-btn" onclick="htnShowPanel('htn-online', this)">Finding Jobs</button>
+  <button class="htn-nav-btn" onclick="htnShowPanel('htn-opportunity', this)">Opportunity Data</button>
   <button class="htn-nav-btn" onclick="htnShowPanel('htn-inperson', this)">Applying Strategically</button>
   <button class="htn-nav-btn" onclick="htnShowPanel('htn-checklist', this)">Checklist</button>
 </div>
@@ -450,12 +643,96 @@
       </ul>
     </div>
   </div>
+  
+  <h3 style="font-family:var(--font-display);color:var(--navy);font-size:1.2rem;margin-top:1.6rem;">Use Your University Resources</h3>
+  
+  <p class="htn-section-intro">
+  One of the smartest and most overlooked job search strategies is fully using the career resources available through your university. Many schools offer free advising, tools, events, and job boards that are built specifically to help students and recent graduates prepare professional materials, explore careers, and connect with advisors and employers. 
+  </p>
+  
+  <div class="htn-platform-grid">
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">🎓</div>
+      <div class="htn-platform-name">Career Centers</div>
+      <div class="htn-platform-desc">
+      University career centers often provide direct support that can make your job search more focused and effective.
+      </div>
+      <ul class="htn-bullet-list">
+      <li>Career counseling, advising, and career exploration</li>
+      <li>Resume reviews and mock interviews</li>
+      <li>Professional development workshops</li>
+      <li>Career fairs and employer networking events</li>
+    </ul>
+  </div>
+  
+    <div class="htn-platform-card">
+      <div class="htn-platform-icon">💻</div>
+      <div class="htn-platform-name">Campus Job Boards and Portals</div>
+      <div class="htn-platform-desc">
+      Many universities also provide exclusive job platforms where students can apply directly to opportunities at that establishment.
+      </div>
+      <ul class="htn-bullet-list">
+      <li>Internships and entry-level jobs</li>
+      <li>On-campus employment opportunities</li>
+      <li>Industry events and recruiting sessions</li>
+      <li>School specific employer connections</li>
+    </ul>
+  </div>
+  </div>
+  
+  <div class="htn-tip-box">
+   <p><strong>Example:</strong> At the University of Florida, students can use the Career Connections Center for career planning, drop in support, assessments like CHOMP, interview preparation, and career fairs. UF students and alumni can also use Gator CareerLink, a free portal with internships, part-time and full-time jobs, employer recruiting, and career events. Students are also able to explore university employment opportunities through UF job resources. Utilizing these campus resources early in your career can make the job search much more strategic </p>
+</div>   
+
+<div class="htn-uf-visuals">
+  <div class="htn-uf-image-card">
+    <a href="https://career.ufl.edu/" target="_blank">
+      <img src="images/UF-CCC.png" alt="UF Career Connections Center" />
+    </a>
+    <p class="htn-uf-caption">Career Connections Center</p>
+  </div>
+  
+  <div class="htn-uf-image-card">
+    <a href="https://jobs.ufl.edu/" target="_blank">
+      <img src="images/UF-JOBS.png" alt="UF Jobs Portal" />
+    </a>
+    <p class="htn-uf-caption">Jobs at UF Portal</p>
+  </div>
+  
+  </div>
+  
+  <p class="htn-uf-links">
+    Explore these resources:
+    <a href="https://career.ufl.edu/" target="_blank">Career Connections Center</a> | <a href="https://jobs.ufl.edu/" target="_blank">Jobs at UF</a>
+  </p>
 
   <div class="htn-tip-box">
     <p><strong>Do not rely on just one platform.</strong> The best opportunities often come from using multiple sources coupled together.</p>
   </div>
+  
+  
 </div>
 
+<!-- PANEL 3: Opportunity Data -->
+<div id="htn-opportunity" class="htn-panel">
+  <h2 style="margin-top:0;">Opportunity Data</h2>
+
+  <p class="htn-section-intro">
+    Searching strategically also means understanding which tech job families appear to offer the strongest opportunity overall. The table below uses national Occupational Employment and Wage Statistics data to compare employment levels and pay across major tech job families.
+  </p>
+
+  <div class="htn-tip-box">
+    <p><strong>How to read this:</strong> Cells that are colored darker indicate stronger values in that category. Higher employment can suggest more openings overall, while higher salaries can reflect stronger market value and demand. Together, these measures help highlight which job types/categories may be worth prioritizing in your search.</p>
+  </div>
+
+```{r strategic-opportunity-table, echo=FALSE, results='asis'}
+cat(opportunity_table_html)
+```
+
+  <p class="htn-heatmap-note">
+    Here is a tool for students to help visualize. This view uses national BLS Occupational Employment and Wage Statistics data rather than state-by-state data, so it is best used to compare job families overall rather than specific locations. It is a strong starting point for deciding which types of roles to prioritize before narrowing your search to specific states.
+  </p>
+</div>
 
 
 <!-- PANEL 3: APPLYING -->
@@ -558,6 +835,7 @@ const htnAnchorMap = {
   'htn-overview':   'htn-overview',
   'htn-why':        'htn-why',
   'htn-online':     'htn-online',
+  'htn-opportunity':'htn-opportunity',
   'htn-inperson':   'htn-inperson',
   'htn-checklist':  'htn-checklist',
 };
